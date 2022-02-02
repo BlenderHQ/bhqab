@@ -82,7 +82,7 @@ def version_string(ver: typing.Iterable) -> str:
 def register_helper(pref_cls):
     def register_helper_outer(reg_func):
         @functools.wraps(reg_func)
-        def wrapper(*args, **kwargs):
+        def wrapper():
             global _full_registration_done
 
             earliest_tested = earliest_tested_version()
@@ -108,7 +108,7 @@ def register_helper(pref_cls):
                     )
                 )
 
-            ret = reg_func(*args, **kwargs)
+            ret = reg_func()
             _full_registration_done = True
             return ret
 
@@ -119,10 +119,10 @@ def register_helper(pref_cls):
 def unregister_helper(pref_cls):
     def unregister_helper_outer(unreg_func):
         @functools.wraps(unreg_func)
-        def wrapper(*args, **kwargs):
+        def wrapper():
             global _full_registration_done
             if _full_registration_done:
-                ret = unreg_func(*args, **kwargs)
+                ret = unreg_func()
                 _full_registration_done = False
                 return ret
             else:
