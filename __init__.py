@@ -14,15 +14,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from functools import wraps
-from typing import Iterable
+import functools
+import typing
 
 if "bpy" in locals():
     from importlib import reload
 
     del reload
 else:
-    pass
+    _full_registration_done = False
 
 import bpy
 
@@ -70,14 +70,16 @@ def latest_tested_version() -> tuple:
     return BL_INFO["version"]
 
 
-def version_string(ver: Iterable) -> str:
+def version_string(ver: typing.Iterable) -> str:
     return '.'.join((str(_) for _ in ver))
 
 
-def register_helper(pref_cls=None):
+def register_helper(pref_cls):
     def register_helper_outer(reg_func):
-        @wraps(reg_func)
+        @functools.wraps(reg_func)
         def wrapper(*args, **kwargs):
+            global _full_registration_done
+
             earliest_tested = earliest_tested_version()
             latest_tested = latest_tested_version()
 
@@ -90,7 +92,9 @@ def register_helper(pref_cls=None):
                         addon_name(), bpy.app.version_string, version_string(earliest_tested), addon_doc_url()
                     )
                 )
+                _full_registration_done = False
                 return
+
             elif bpy.app.version > latest_tested:
                 print(
                     "{0} WARNING: Current Blender version ({1}) is greater than latest tested ({2}).\n"
@@ -99,13 +103,24 @@ def register_helper(pref_cls=None):
                     )
                 )
 
-            return reg_func(*args, **kwargs)
+            ret = reg_func(*args, **kwargs)
+            _full_registration_done = True
+            return ret
 
         return wrapper
     return register_helper_outer
 
 
-def unregister_helper():
-    def wrapper(func):
-        func()
-    return wrapper
+def unregister_helper(pref_cls):
+    def unregister_helper_outer(unreg_func):
+        @functools.wraps(unreg_func)
+        def wrapper(*args, **kwargs):
+            global _full_registration_done
+            if _full_registration_done:
+                ret = unreg_func(*args, **kwargs)
+                _full_registration_done = False
+                return ret
+            else:
+                bpy.utils.unregister_class(pref_cls)
+        return wrapper
+    return unregister_helper_outer
