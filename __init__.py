@@ -14,6 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+# ____________________________________________________________________________ #
+# The module is designed to unify some basic functions that are used in several
+# addons. See `./README.md` and `./LICENSE` files for details about possible
+# usage and licensing.
+
 import functools
 import typing
 
@@ -124,3 +129,5 @@ def unregister_helper(pref_cls):
                 bpy.utils.unregister_class(pref_cls)
         return wrapper
     return unregister_helper_outer
+
+# git submodule foreach git pull origin main
