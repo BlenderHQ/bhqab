@@ -129,3 +129,32 @@ def unregister_helper(pref_cls):
                 bpy.utils.unregister_class(pref_cls)
         return wrapper
     return unregister_helper_outer
+
+
+def preferences_draw_versioning_helper(url_help: str) -> bool:
+    def preferences_draw_versioning_helper_outer(draw_func):
+        @functools.wraps(draw_func)
+        def wrapper(context, layout):
+            def _draw_compatibility_link(lay) -> None:
+                lay.label(text="Please, read the documentation about compatibility support:")
+                props = col.operator("wm.url_open", text="Read about compatibility", icon='URL')
+                props.url = url_help
+
+            if bpy.app.version < earliest_tested_version():
+                col = layout.column(align=True)
+                col.label(
+                    text="You Blender version is less than minimal supported!",
+                    icon='ERROR'
+                )
+                _draw_compatibility_link(col)
+                return True
+
+            elif bpy.app.version > latest_tested_version():
+                col = layout.column(align=True)
+                col.label(text="Your Blender version may be not tested", icon='INFO')
+                _draw_compatibility_link(col)
+
+            return False
+
+        return wrapper
+    return preferences_draw_versioning_helper_outer
