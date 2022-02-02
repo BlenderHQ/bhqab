@@ -129,5 +129,3 @@ def unregister_helper(pref_cls):
                 bpy.utils.unregister_class(pref_cls)
         return wrapper
     return unregister_helper_outer
-
-# git submodule foreach git pull origin main
