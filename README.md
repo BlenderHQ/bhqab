@@ -5,6 +5,7 @@ The module is designed to unify some basic functions that are used in several ad
 Links:
 * [BlenderHQ](https://github.com/BlenderHQ)
 * [Git Repository](https://github.com/BlenderHQ/bhq_addon_base)
+* [Patreon](https://www.patreon.com/BlenderHQ)
 
 For licensing information see `./LICENSE` file in repository root directory (GPLv3).
 
