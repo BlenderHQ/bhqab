@@ -131,10 +131,14 @@ def unregister_helper(pref_cls):
     return unregister_helper_outer
 
 
-def preferences_draw_versioning_helper(url_help: str) -> bool:
+def preferences_draw_versioning_helper(url_help: str):
     def preferences_draw_versioning_helper_outer(draw_func):
         @functools.wraps(draw_func)
-        def wrapper(context, layout):
+        def wrapper(self, context):
+            layout = self.layout
+            layout.use_property_split = True
+            layout.use_property_decorate = False
+
             def _draw_compatibility_link(lay) -> None:
                 lay.label(text="Please, read the documentation about compatibility support:")
                 props = col.operator("wm.url_open", text="Read about compatibility", icon='URL')
@@ -147,14 +151,14 @@ def preferences_draw_versioning_helper(url_help: str) -> bool:
                     icon='ERROR'
                 )
                 _draw_compatibility_link(col)
-                return True
+                return
 
             elif bpy.app.version > latest_tested_version():
                 col = layout.column(align=True)
                 col.label(text="Your Blender version may be not tested", icon='INFO')
                 _draw_compatibility_link(col)
 
-            return False
+            return draw_func(self, context)
 
         return wrapper
     return preferences_draw_versioning_helper_outer
