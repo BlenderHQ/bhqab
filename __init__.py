@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+from functools import wraps
 from typing import Iterable
 
 if "bpy" in locals():
@@ -73,34 +74,35 @@ def version_string(ver: Iterable) -> str:
     return '.'.join((str(_) for _ in ver))
 
 
-def register_helper(pref_cls: bpy.types.AddonPreferences):
-    assert(isinstance(pref_cls, bpy.types.AddonPreferences))
+def register_helper(pref_cls=None):
+    def register_helper_outer(reg_func):
+        @wraps(reg_func)
+        def wrapper(*args, **kwargs):
+            earliest_tested = earliest_tested_version()
+            latest_tested = latest_tested_version()
 
-    def wrapper(func):
-        earliest_tested = earliest_tested_version()
-        latest_tested = latest_tested_version()
-
-        if bpy.app.version < earliest_tested:
-            bpy.utils.register_class(pref_cls)
-            print(
-                "{0} WARNING: Current Blender version ({1}) is less than older tested ({2}). "
-                "Registered only addon user preferences, which warn user about that.\n"
-                "Please, visit the addon documentation:\n{3}".format(
-                    addon_name(), bpy.app.version_string, version_string(earliest_tested), addon_doc_url()
+            if bpy.app.version < earliest_tested:
+                bpy.utils.register_class(pref_cls)
+                print(
+                    "{0} WARNING: Current Blender version ({1}) is less than older tested ({2}). "
+                    "Registered only addon user preferences, which warn user about that.\n"
+                    "Please, visit the addon documentation:\n{3}".format(
+                        addon_name(), bpy.app.version_string, version_string(earliest_tested), addon_doc_url()
+                    )
                 )
-            )
-            return
-        elif bpy.app.version > latest_tested:
-            print(
-                "{0} WARNING: Current Blender version ({1}) is greater than latest tested ({2}).\n"
-                "Please, visit the addon documentation:\n{3}".format(
-                    addon_name(), bpy.app.version_string, version_string(latest_tested), addon_doc_url()
+                return
+            elif bpy.app.version > latest_tested:
+                print(
+                    "{0} WARNING: Current Blender version ({1}) is greater than latest tested ({2}).\n"
+                    "Please, visit the addon documentation:\n{3}".format(
+                        addon_name(), bpy.app.version_string, version_string(latest_tested), addon_doc_url()
+                    )
                 )
-            )
 
-        func()
+            return reg_func(*args, **kwargs)
 
-    return wrapper
+        return wrapper
+    return register_helper_outer
 
 
 def unregister_helper():
