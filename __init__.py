@@ -57,10 +57,21 @@ if BL_INFO["blender"] < (3, 0, 0):
 
 
 def addon_name() -> str:
+    """Top-level addon package `bl_info["name"]`
+
+    Returns:
+        str: Addon display name.
+    """
     return BL_INFO["name"]
 
 
 def addon_doc_url() -> str:
+    """Top level addon package `bl_info["wiki_url"]` for Blender<3.0 and
+    `bl_info["doc_url"]` for later versions of Blender.
+
+    Returns:
+        str: Documentation url.
+    """
     if bpy.app.version < (3, 0, 0):
         return BL_INFO["wiki_url"]
     else:
@@ -68,18 +79,66 @@ def addon_doc_url() -> str:
 
 
 def earliest_tested_version() -> tuple:
+    """Earliest tested Blender version. It should be guarantee that the addon
+    would work properly on previous Blender versions. This information would
+    be retrieved from `bl_info["blender"]`. Note that this field should contains
+    only tuple of 3 integers.
+
+    Returns:
+        tuple: Addon package `bl_info["blender"]`.
+    """
     return BL_INFO["blender"]
 
 
 def latest_tested_version() -> tuple:
+    """Latest tested Blender version. It should be guarantee that the addon
+    would work properly on latest Blender versions. This information would
+    be retrieved from `bl_info["version"]`. Note that this field should contains
+    only tuple of 3 integers.
+
+    Returns:
+        tuple: Addon package `bl_info["version"]`.
+    """
     return BL_INFO["version"]
 
 
 def version_string(ver: typing.Iterable) -> str:
+    """String version separated by '.' charackter.
+
+    Args:
+        ver (typing.Iterable): Iterable which contains integer values.
+
+    Returns:
+        str: String representation of version.
+    """
     return '.'.join((str(_) for _ in ver))
 
 
-def register_helper(pref_cls):
+def register_helper(pref_cls: bpy.types.AddonPreferences):
+    """Helper decorator for addon `register` function. Handles addon Blender
+    versioning support w.r.t. earliest and latest tested Blender versions.
+
+    In case if current Blender version is less than earliest tested, decorated
+    `register` function would not be called. In this case would be registered
+    only addon user preferences class (`pref_cls`). Note that class `draw`
+    method should be decorated with
+    :func:..py:currentmodule::`preferences_draw_versioning_helper`
+    decorator to provide warning for end user.
+
+    If current Blender version is greater than latest tested, only warning
+    message would be printed into console and main `register` function would be
+    called.
+
+    Note that execution also implies that
+    :func:..py:currentmodule::`unregister_helper`
+    would unregister only user preferences class if regular registration
+    function was not called.
+
+    Args:
+        pref_cls (bpy.types.AddonPreferences): Addon user preferences class,
+        which would be the only class registered in case of current Blender
+        version is less than earliest tested.
+    """
     def register_helper_outer(reg_func):
         @functools.wraps(reg_func)
         def wrapper(*args, **kwargs):
@@ -116,7 +175,14 @@ def register_helper(pref_cls):
     return register_helper_outer
 
 
-def unregister_helper(pref_cls):
+def unregister_helper(pref_cls: bpy.types.AddonPreferences):
+    """Helper decorator for addon `unregister` function. Handles un-registration
+    process after :func:..py:currentmodule::`register_helper` registration
+    process.
+
+    Args:
+        pref_cls (bpy.types.AddonPreferences): Addon user preferences class.
+    """
     def unregister_helper_outer(unreg_func):
         @functools.wraps(unreg_func)
         def wrapper(*args, **kwargs):
@@ -132,6 +198,20 @@ def unregister_helper(pref_cls):
 
 
 def preferences_draw_versioning_helper(url_help: str):
+    """Helper decorator for addon user preferences `draw` method. Should be used
+    with :func:..py:currentmodule::`register_helper` and
+    :func:..py:currentmodule::`unregister_helper`.
+
+    If current Blender version is less than earliest tested, draw method would
+    not be called, would be displayed only information about versioning with
+    respective documentation link (`url_help`).
+
+    If current Blender version is greater than latest tested, first would be
+    displayed versioning information and only than - actual draw method content.
+
+    Args:
+        url_help (str): Addon documentation versioning information link.
+    """
     def preferences_draw_versioning_helper_outer(draw_func):
         @functools.wraps(draw_func)
         def wrapper(self, context):
