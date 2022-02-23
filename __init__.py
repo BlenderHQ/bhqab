@@ -251,3 +251,59 @@ def preferences_draw_versioning_helper(url_help: str):
 
         return wrapper
     return preferences_draw_versioning_helper_outer
+
+
+def register_extend_bpy_types(register_queue: tuple) -> None:
+    """Helper function for extend `bpy.types` registration.
+
+    Args:
+        register_queue (tuple): tuple of tuples
+        (bpy.types.[class], attr_name, prop_type, cls), where `attr_name` is
+        name of attribute which should be set (for example,
+        bpy.types.Scene.my_property), `prop_type` is type of property to be set
+        (bpy.props.PointerProperty or bpy.props.CollectionProperty), `cls` is an
+        instance of `bpy.types.PropertyGroup` to be registered and set.
+
+    Raises:
+        ValueError: Raised when one of `cls` classes could not be registered via
+        `bpy.utils.register_class(cls)`
+        AttributeError: Raised when `bpy.types.[class]` already has attribute
+        with given name.
+    """
+    for bpy_type, attr_name, prop_type, cls in register_queue:
+        try:
+            bpy.utils.register_class(cls)
+        except ValueError as err:
+            log_utilities.log(f"{log_utilities.log.WARNING}Unable to register extension to "
+                              f"bpy.types.{bpy_type} for reason:\n{log_utilities.log.FAIL}")
+            raise ValueError(err)
+        else:
+            if hasattr(bpy_type, attr_name):
+                log_utilities.log(f"{log_utilities.log.WARNING}Unable to set property of bpy.type ({bpy_type}) to "
+                                  "attribute with name \"{attr_name}\". Its already registered.")
+                raise AttributeError(f"Property \"{attr_name}\" already exists.")
+            else:
+                setattr(bpy_type, attr_name, prop_type(type=cls))
+
+        log_utilities.log(f"{log_utilities.log.CYAN}Registered extend bpy types")
+
+
+def unregister_extend_bpy_types(register_queue: tuple) -> None:
+    """Helper function for extend `bpy.types` un-registration.
+
+    Args:
+        register_queue (tuple): tuple of tuples (bpy.types.[class], attr_name, prop_type, cls)
+    """
+    for bpy_type, attr_name, _prop_type, cls in register_queue:
+        try:
+            bpy.utils.unregister_class(cls)
+        except ValueError as err:
+            log_utilities.log(f"{log_utilities.log.WARNING} Unable to unregister class {cls} for reason:\n{err}")
+        else:
+            if hasattr(bpy_type, attr_name):
+                delattr(bpy_type, attr_name)
+            else:
+                log_utilities.log(f"{log_utilities.log.WARNING}Unable to delete attribute \"{attr_name}\" "
+                                  "from class {bpy_type} because it have no such attribute")
+
+        log_utilities.log(f"{log_utilities.log.CYAN}Unregistered extend bpy types")
