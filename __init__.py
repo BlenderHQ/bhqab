@@ -165,8 +165,7 @@ def register_helper(pref_cls: bpy.types.AddonPreferences):
                     "Registered only addon user preferences, which warn user about that.\n"
                     "Please, visit the addon documentation:\n{3}".format(
                         addon_name(), bpy.app.version_string, version_string(earliest_tested), addon_doc_url()
-                    )
-                )
+                    ))
                 _full_registration_done = False
                 return
 
@@ -175,11 +174,24 @@ def register_helper(pref_cls: bpy.types.AddonPreferences):
                     "{0} WARNING: Current Blender version ({1}) is greater than latest tested ({2}).\n"
                     "Please, visit the addon documentation:\n{3}".format(
                         addon_name(), bpy.app.version_string, version_string(latest_tested), addon_doc_url()
-                    )
-                )
+                    ))
 
-            ret = reg_func(*args, **kwargs)
-            _full_registration_done = True
+            ret = None
+            is_any_err = False
+            try:
+                ret = reg_func(*args, **kwargs)
+            except ValueError:
+                is_any_err = True
+            except AttributeError:
+                is_any_err = True
+            else:
+                _full_registration_done = True
+
+            if is_any_err:
+                print(  # NOTE: print used here to provide information even if not in debug mode.
+                    log.FAIL, f"Unable to register addon: \"{addon_name()}\".\n"
+                    "Please, try again in debug mode (add 'DEBUG.txt' file to addon root directory)."
+                )
             return ret
 
         return wrapper
@@ -199,8 +211,22 @@ def unregister_helper(pref_cls: bpy.types.AddonPreferences):
         def wrapper(*args, **kwargs):
             global _full_registration_done
             if _full_registration_done:
-                ret = unreg_func(*args, **kwargs)
-                _full_registration_done = False
+                ret = None
+                is_any_err = False
+                try:
+                    ret = unreg_func(*args, **kwargs)
+                except ValueError:
+                    is_any_err = True
+                except AttributeError:
+                    is_any_err = True
+                else:
+                    _full_registration_done = False
+
+                if is_any_err:
+                    print(  # NOTE: print used here to provide information even if not in debug mode.
+                        log.FAIL, f"Unable to unregister addon: \"{addon_name()}\".\n"
+                        "Please, try again in debug mode (add 'DEBUG.txt' file to addon root directory)."
+                    )
                 return ret
             else:
                 bpy.utils.unregister_class(pref_cls)
