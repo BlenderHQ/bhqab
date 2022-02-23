@@ -1,13 +1,7 @@
 import bpy
 import blf
 
-
-DPI = 72
-POPUP_PADDING = 10
-PANEL_PADDING = 44
 WIN_PADDING = 32
-ICON_SIZE = 20
-LABEL_LENGTH = 400
 
 
 def _string_width(string: str) -> float:
