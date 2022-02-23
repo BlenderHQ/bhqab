@@ -26,6 +26,7 @@ if "bpy" in locals():
     from importlib import reload
 
     reload(ui_utilities)
+    reload(log_utilities)
 
     del reload
 else:
@@ -34,6 +35,7 @@ else:
 import bpy
 
 from . import ui_utilities
+from . import log_utilities
 
 # ____________________________________________________________________________ #
 # Register / unregister workflow.
