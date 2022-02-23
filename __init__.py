@@ -37,6 +37,8 @@ import bpy
 from . import ui_utilities
 from . import log_utilities
 
+from log_utilities import log
+
 # ____________________________________________________________________________ #
 # Register / unregister workflow.
 
@@ -158,7 +160,7 @@ def register_helper(pref_cls: bpy.types.AddonPreferences):
 
             if bpy.app.version < earliest_tested:
                 bpy.utils.register_class(pref_cls)
-                print(
+                log(log.WARNING,
                     "{0} WARNING: Current Blender version ({1}) is less than older tested ({2}). "
                     "Registered only addon user preferences, which warn user about that.\n"
                     "Please, visit the addon documentation:\n{3}".format(
@@ -169,7 +171,7 @@ def register_helper(pref_cls: bpy.types.AddonPreferences):
                 return
 
             elif bpy.app.version > latest_tested:
-                print(
+                log(log.WARNING,
                     "{0} WARNING: Current Blender version ({1}) is greater than latest tested ({2}).\n"
                     "Please, visit the addon documentation:\n{3}".format(
                         addon_name(), bpy.app.version_string, version_string(latest_tested), addon_doc_url()
@@ -274,18 +276,18 @@ def register_extend_bpy_types(register_queue: tuple) -> None:
         try:
             bpy.utils.register_class(cls)
         except ValueError as err:
-            log_utilities.log(f"{log_utilities.log.WARNING}Unable to register extension to "
-                              f"bpy.types.{bpy_type} for reason:\n{log_utilities.log.FAIL}")
+            log(f"{log.WARNING}Unable to register extension to "
+                f"bpy.types.{bpy_type} for reason:\n{log.FAIL}")
             raise ValueError(err)
         else:
             if hasattr(bpy_type, attr_name):
-                log_utilities.log(f"{log_utilities.log.WARNING}Unable to set property of bpy.type ({bpy_type}) to "
+                log_utilities.log(f"{log.WARNING}Unable to set property of bpy.type ({bpy_type}) to "
                                   "attribute with name \"{attr_name}\". Its already registered.")
                 raise AttributeError(f"Property \"{attr_name}\" already exists.")
             else:
                 setattr(bpy_type, attr_name, prop_type(type=cls))
 
-        log_utilities.log(f"{log_utilities.log.CYAN}Registered extend bpy types")
+        log(f"{log.CYAN}Registered extend bpy types")
 
 
 def unregister_extend_bpy_types(register_queue: tuple) -> None:
@@ -298,12 +300,12 @@ def unregister_extend_bpy_types(register_queue: tuple) -> None:
         try:
             bpy.utils.unregister_class(cls)
         except ValueError as err:
-            log_utilities.log(f"{log_utilities.log.WARNING} Unable to unregister class {cls} for reason:\n{err}")
+            log(f"{log.WARNING} Unable to unregister class {cls} for reason:\n{err}")
         else:
             if hasattr(bpy_type, attr_name):
                 delattr(bpy_type, attr_name)
             else:
-                log_utilities.log(f"{log_utilities.log.WARNING}Unable to delete attribute \"{attr_name}\" "
-                                  "from class {bpy_type} because it have no such attribute")
+                log(f"{log.WARNING}Unable to delete attribute \"{attr_name}\" "
+                    "from class {bpy_type} because it have no such attribute")
 
-        log_utilities.log(f"{log_utilities.log.CYAN}Unregistered extend bpy types")
+        log(f"{log.CYAN}Unregistered extend bpy types")
