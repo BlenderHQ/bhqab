@@ -25,11 +25,18 @@ import typing
 if "bpy" in locals():
     from importlib import reload
 
+    reload(ui_utilities)
+
     del reload
 else:
     _full_registration_done = False
 
 import bpy
+
+from . import ui_utilities
+
+# ____________________________________________________________________________ #
+# Register / unregister workflow.
 
 ADDON = __import__(__package__.split('.')[0])
 
