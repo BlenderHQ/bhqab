@@ -37,7 +37,7 @@ import bpy
 from . import ui_utilities
 from . import log_utilities
 
-from log_utilities import log
+from .log_utilities import log
 
 # ____________________________________________________________________________ #
 # Register / unregister workflow.
