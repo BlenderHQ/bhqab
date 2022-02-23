@@ -190,7 +190,8 @@ def register_helper(pref_cls: bpy.types.AddonPreferences):
             if is_any_err:
                 print(  # NOTE: print used here to provide information even if not in debug mode.
                     log.FAIL, f"Unable to register addon: \"{addon_name()}\".\n"
-                    "Please, try again in debug mode (add 'DEBUG.txt' file to addon root directory)."
+                    "Please, try again in debug mode (add 'DEBUG.txt' file to addon root directory).",
+                    log.END
                 )
             return ret
 
@@ -225,7 +226,8 @@ def unregister_helper(pref_cls: bpy.types.AddonPreferences):
                 if is_any_err:
                     print(  # NOTE: print used here to provide information even if not in debug mode.
                         log.FAIL, f"Unable to unregister addon: \"{addon_name()}\".\n"
-                        "Please, try again in debug mode (add 'DEBUG.txt' file to addon root directory)."
+                        "Please, try again in debug mode (add 'DEBUG.txt' file to addon root directory).",
+                        log.END
                     )
                 return ret
             else:
