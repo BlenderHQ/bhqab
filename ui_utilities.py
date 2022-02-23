@@ -37,7 +37,7 @@ def draw_wrapped_text(context: bpy.types.Context, layout: bpy.types.UILayout, te
         if not num_characters:
             continue
 
-        line_words = ((_, _string_width(_)) for _ in line.split(' '))
+        line_words = list((_, _string_width(_)) for _ in line.split(' '))
         num_line_words = len(line_words)
         line_words_last = num_line_words - 1
 
