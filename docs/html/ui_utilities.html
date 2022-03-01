@@ -27,6 +27,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
             <a href="index.html" class="icon icon-home"> BlenderHQ Addon Base
+            <img src="_static/bhq_logo_white.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -68,10 +69,19 @@
              
   <section id="module-bhq_addon_base.ui_utilities">
 <span id="user-interface-utilities-bhq-addon-base-ui-utilities"></span><h1>User Interface Utilities (bhq_addon_base.ui_utilities)<a class="headerlink" href="#module-bhq_addon_base.ui_utilities" title="Permalink to this headline"></a></h1>
+<p>The module also has functionality for formatting a block of text when
+displaying it in the Blender user interface.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="bhq_addon_base.ui_utilities.draw_wrapped_text">
 <span class="sig-prename descclassname"><span class="pre">bhq_addon_base.ui_utilities.</span></span><span class="sig-name descname"><span class="pre">draw_wrapped_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.ui_utilities.draw_wrapped_text" title="Permalink to this definition"></a></dt>
-<dd><p>Draw text block wrapped to width of contextual region width.</p>
+<dd><p>Draws a block of text in the given layout, dividing it into lines
+according to the width of the current region of the interface.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The function uses a fairly accurate but at the same time relatively slow
+way to format strings. Not recommended for use with very large blocks
+of text as this may slow down the overall user interface.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

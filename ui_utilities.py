@@ -1,3 +1,7 @@
+"""The module also has functionality for formatting a block of text when
+displaying it in the Blender user interface.
+"""
+
 import bpy
 import blf
 
@@ -12,7 +16,13 @@ def _string_width(string: str) -> float:
 
 
 def draw_wrapped_text(context: bpy.types.Context, layout: bpy.types.UILayout, text: str) -> None:
-    """Draw text block wrapped to width of contextual region width.
+    """Draws a block of text in the given layout, dividing it into lines
+    according to the width of the current region of the interface.
+
+    .. Warning::
+        The function uses a fairly accurate but at the same time relatively slow
+        way to format strings. Not recommended for use with very large blocks
+        of text as this may slow down the overall user interface.
 
     Args:
         context (bpy.types.Context): Current context.
