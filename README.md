@@ -23,8 +23,7 @@ Basic functions are also provided to simplify the output of log messages through
 ## Branches
 
 * `main` - Contains the main distributable project code.
-* `docs` - Available only to support online and offline API project documentation.
-* `dev` - Branch of project development. All changes in this branch must be merged in the main branch of the project and in the branch of documentation
+* `dev` - Branch of project development and also support of online and offline API project documentation.
 
 ## Maintenance of Addons Using the Module
 
