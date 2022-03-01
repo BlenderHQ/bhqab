@@ -2,6 +2,8 @@ BlenderHQ Addon Base API
 ================================================
 
 The design of the module is aimed at unifying the important functions used in several add-ons for the Blender 2.8+ series.
+Basic functions are also provided to simplify the output of log messages through the command line and the drawing of the user interface.
+
 
 Links:
    * `GitHub Repository <https://github.com/BlenderHQ/bhq_addon_base>`_
