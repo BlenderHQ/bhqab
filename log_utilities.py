@@ -1,4 +1,5 @@
-"""Simple debugging workaround.
+"""
+Module provide command line log messages utilities.
 
 If variable bellow ('_DEBUG') is set to True or one of files exists in the
 same directory as the addon root (in this case, it would be set to True),
@@ -14,12 +15,14 @@ _DEBUG = False
 
 import os
 
-ADDON = __import__(__package__.split('.')[0])
-BL_INFO = getattr(ADDON, "bl_info", None)
+from ._import_utils import (is_module_used_by_the_addon,
+                            addon_owner,
+                            addon_bl_info)
 
 
 def __dbg_exists(name: str) -> bool:
-    return os.path.isfile(os.path.join(os.path.dirname(ADDON.__file__), name))
+    return (is_module_used_by_the_addon()
+            and os.path.isfile(os.path.join(os.path.dirname(addon_owner().__file__), name)))
 
 
 for __n in ("DEBUG", "DEBUG.txt", "_DEBUG", "_DEBUG.txt"):
@@ -28,6 +31,8 @@ for __n in ("DEBUG", "DEBUG.txt", "_DEBUG", "_DEBUG.txt"):
 
 
 class log:
+    """asdasd
+    """
     TAB = ' ' * 2
 
     HEADER = '\033[95m'
@@ -41,9 +46,12 @@ class log:
     END = '\033[0m'
 
     def __init__(self, *args, **kwargs) -> None:
+        """asdasd
+        """
         if _DEBUG:
             args += (log.END,)
             print(*args, **kwargs)
 
 
-log(log.CYAN, "{0} {1} Debug mode".format(BL_INFO["name"], BL_INFO["version"]))
+if is_module_used_by_the_addon():
+    log(log.CYAN, "{0} {1} Debug mode".format(addon_bl_info()["name"], addon_bl_info()["version"]))
