@@ -64,7 +64,7 @@ from . import ui_utilities
 
 
 def addon_name() -> str:
-    """Top-level addon package `bl_info["name"]`
+    """Top-level addon package ``bl_info["name"]``
 
     Returns:
         str: Addon display name.
@@ -75,8 +75,8 @@ def addon_name() -> str:
 
 
 def addon_doc_url() -> str:
-    """Top level addon package `bl_info["wiki_url"]` for Blender<3.0 and
-    `bl_info["doc_url"]` for later versions of Blender.
+    """Top level addon package ``bl_info["wiki_url"]`` for Blender<3.0 and
+    ``bl_info["doc_url"]`` for later versions of Blender.
 
     Returns:
         str: Documentation url.
@@ -92,11 +92,11 @@ def addon_doc_url() -> str:
 def earliest_tested_version() -> tuple:
     """Earliest tested Blender version. It should be guarantee that the addon
     would work properly on previous Blender versions. This information would
-    be retrieved from `bl_info["blender"]`. Note that this field should contains
+    be retrieved from ``bl_info["blender"]``. Note that this field should contains
     only tuple of 3 integers.
 
     Returns:
-        tuple: Addon package `bl_info["blender"]`.
+        tuple: Addon package ``bl_info["blender"]``.
     """
     if is_module_used_by_the_addon():
         return addon_bl_info()["blender"]
@@ -106,11 +106,11 @@ def earliest_tested_version() -> tuple:
 def latest_tested_version() -> tuple:
     """Latest tested Blender version. It should be guarantee that the addon
     would work properly on latest Blender versions. This information would
-    be retrieved from `bl_info["version"]`. Note that this field should contains
+    be retrieved from ``bl_info["version"]``. Note that this field should contains
     only tuple of 3 integers.
 
     Returns:
-        tuple: Addon package `bl_info["version"]`.
+        tuple: Addon package ``bl_info["version"]``.
     """
     if is_module_used_by_the_addon():
         return addon_bl_info()["version"]
@@ -118,7 +118,7 @@ def latest_tested_version() -> tuple:
 
 
 def version_string(ver: typing.Iterable) -> str:
-    """String version separated by '.' charackter.
+    """String version separated by '.' character.
 
     Args:
         ver (typing.Iterable): Iterable which contains integer values.
@@ -132,18 +132,18 @@ def version_string(ver: typing.Iterable) -> str:
 
 
 def register_helper(pref_cls: bpy.types.AddonPreferences):
-    """Helper decorator for addon `register` function. Handles addon Blender
+    """Helper decorator for addon ``register`` function. Handles addon Blender
     versioning support w.r.t. earliest and latest tested Blender versions.
 
     In case if current Blender version is less than earliest tested, decorated
-    `register` function would not be called. In this case would be registered
-    only addon user preferences class (`pref_cls`). Note that class `draw`
+    ``register`` function would not be called. In this case would be registered
+    only addon user preferences class (``pref_cls``). Note that class ``draw``
     method should be decorated with
     :py:func:`preferences_draw_versioning_helper`
     decorator to provide warning for end user.
 
     If current Blender version is greater than latest tested, only warning
-    message would be printed into console and main `register` function would be
+    message would be printed into console and main ``register`` function would be
     called.
 
     Note that execution also implies that
@@ -224,7 +224,7 @@ def register_helper(pref_cls: bpy.types.AddonPreferences):
 
 
 def unregister_helper(pref_cls: bpy.types.AddonPreferences):
-    """Helper decorator for addon `unregister` function. Handles un-registration
+    """Helper decorator for addon ``unregister`` function. Handles un-registration
     process after :func:..py:currentmodule::`register_helper` registration
     process.
 
@@ -268,13 +268,12 @@ def unregister_helper(pref_cls: bpy.types.AddonPreferences):
 
 
 def preferences_draw_versioning_helper(url_help: str):
-    """Helper decorator for addon user preferences `draw` method. Should be used
-    with :func:..py:currentmodule::`register_helper` and
-    :func:..py:currentmodule::`unregister_helper`.
+    """Helper decorator for addon user preferences ``draw`` method. Should be used
+    with :py:func:`register_helper` and :py:func:`unregister_helper`.
 
     If current Blender version is less than earliest tested, draw method would
     not be called, would be displayed only information about versioning with
-    respective documentation link (`url_help`).
+    respective documentation link (``url_help``).
 
     If current Blender version is greater than latest tested, first would be
     displayed versioning information and only than - actual draw method content.
@@ -360,20 +359,20 @@ def submodule_registration_helper(msg_ok="", msg_err=""):
 
 
 def register_extend_bpy_types(register_queue: tuple) -> None:
-    """Helper function for extend `bpy.types` registration.
+    """Helper function for extend `bpy.types`_ registration.
 
     Args:
         register_queue (tuple): tuple of tuples
-            (bpy.types.[class], attr_name, prop_type, cls), where `attr_name` is
+            (`bpy.types`_.[class], attr_name, prop_type, cls), where ``attr_name`` is
             name of attribute which should be set (for example,
-            bpy.types.Scene.my_property), `prop_type` is type of property to be set
-            (bpy.props.PointerProperty or bpy.props.CollectionProperty), `cls` is an
-            instance of `bpy.types.PropertyGroup` to be registered and set.
+            `bpy.types.Scene`_.my_property), ``prop_type`` is type of property to be set
+            (`bpy.props.PointerProperty`_ or `bpy.props.CollectionProperty`_), ``cls`` is an
+            instance of `bpy.types.PropertyGroup`_ to be registered and set.
 
     Raises:
-        ValueError: Raised when one of `cls` classes could not be registered via
-            `bpy.utils.register_class(cls)`.
-        AttributeError: Raised when `bpy.types.[class]` already has attribute
+        ValueError: Raised when one of ``cls`` classes could not be registered via
+            `bpy.utils.register_class`_.
+        AttributeError: Raised when `bpy.types`_.[class] already has attribute
             with given name.
 
     """
@@ -402,7 +401,7 @@ def unregister_extend_bpy_types(register_queue: tuple) -> None:
     """Helper function for extend `bpy.types` un-registration.
 
     Args:
-        register_queue (tuple): tuple of tuples (bpy.types.[class], attr_name, prop_type, cls)
+        register_queue (tuple): tuple of tuples (`bpy.types`_.[class], attr_name, prop_type, cls)
     """
     if not is_module_used_by_the_addon():
         return
