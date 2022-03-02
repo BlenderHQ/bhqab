@@ -40,8 +40,8 @@ import typing
 if "bpy" in locals():
     from importlib import reload
 
-    reload(ui_utilities)
-    reload(log_utilities)
+    reload(utils_ui)
+    reload(utils_log)
 
     del reload
 else:
@@ -50,17 +50,17 @@ else:
 from ._import_utils import (is_module_used_by_the_addon,
                             addon_bl_info)
 
-from . import log_utilities
+from . import utils_log
 
 try:
     import bpy
 except ImportError as err:
-    print(f"{log_utilities.log.WARNING}Module \"{__name__}\" uses 'bpy' module Python API."
+    print(f"{utils_log.log.WARNING}Module \"{__name__}\" uses 'bpy' module Python API."
           "Please, ensure that 'bpy' is importable")
     raise ImportError(err)
 
 
-from . import ui_utilities
+from . import utils_ui
 
 
 def addon_name() -> str:
@@ -174,8 +174,8 @@ def register_helper(pref_cls: bpy.types.AddonPreferences):
                 print("{0}{_addon_name} WARNING: Current Blender version ({_b_ver_str}) is less than older tested "
                       "({_earltested}). Registered only addon user preferences, which warn user about that.\n"
                       "Please, visit the addon documentation:\n{_addon_doc_url}{1}".format(
-                          log_utilities.log.WARNING,  # Warning start.
-                          log_utilities.log.END,  # Warning end.
+                          utils_log.log.WARNING,  # Warning start.
+                          utils_log.log.END,  # Warning end.
                           _addon_name=addon_name(),
                           _b_ver_str=bpy.app.version_string,
                           _earltested=version_string(earliest_tested),
@@ -187,8 +187,8 @@ def register_helper(pref_cls: bpy.types.AddonPreferences):
             elif bpy.app.version > latest_tested:
                 print("{0}{_addon_name} WARNING: Current Blender version ({_b_ver_str}) is greater than latest tested "
                       "({_lattested}).\nPlease, visit the addon documentation:\n{_addon_doc_url}{1}".format(
-                          log_utilities.log.WARNING,  # Warning start.
-                          log_utilities.log.END,  # Warning end.
+                          utils_log.log.WARNING,  # Warning start.
+                          utils_log.log.END,  # Warning end.
                           _addon_name=addon_name(),
                           _b_ver_str=bpy.app.version_string,
                           _lattested=version_string(latest_tested),
@@ -210,13 +210,13 @@ def register_helper(pref_cls: bpy.types.AddonPreferences):
                 print(
                     "{0}Unable to register addon: \"{_addon_name}\".\n"
                     "Please, try again in debug mode (add 'DEBUG.txt' file to addon root directory).{1}".format(
-                        log_utilities.log.FAIL,  # Failure start.
-                        log_utilities.log.END,  # Failure end.
+                        utils_log.log.FAIL,  # Failure start.
+                        utils_log.log.END,  # Failure end.
                         _addon_name=addon_name(),
                     )
                 )
             else:
-                log_utilities.log(f"{log_utilities.log.CYAN}Registered addon: \"{addon_name()}\"")
+                utils_log.log(f"{utils_log.log.CYAN}Registered addon: \"{addon_name()}\"")
             return ret
 
         return wrapper
@@ -254,12 +254,12 @@ def unregister_helper(pref_cls: bpy.types.AddonPreferences):
                     print(
                         "{0}Unable to unregister addon: \"{_addon_name}\".\n"
                         "Please, try again in debug mode (add 'DEBUG.txt' file to addon root directory).{1}".format(
-                            log_utilities.log.FAIL,  # Failure start.
-                            log_utilities.log.END,  # Failure end.
+                            utils_log.log.FAIL,  # Failure start.
+                            utils_log.log.END,  # Failure end.
                             _addon_name=addon_name(),
                         ))
                 else:
-                    log_utilities.log(f"{log_utilities.log.CYAN}Unregistered addon: \"{addon_name()}\"")
+                    utils_log.log(f"{utils_log.log.CYAN}Unregistered addon: \"{addon_name()}\"")
                 return ret
             else:
                 bpy.utils.unregister_class(pref_cls)
@@ -340,19 +340,19 @@ def submodule_registration_helper(msg_ok="", msg_err=""):
                 any_err = err
             else:
                 ret = tmp_ret
-                log_utilities.log(f"{log_utilities.log.CYAN}")
+                utils_log.log(f"{utils_log.log.CYAN}")
 
             if any_err:
                 print(
                     "{0}{_msg_err}{1}:".format(
-                        log_utilities.log.WARNING,  # Warning start.
-                        log_utilities.log.END,  # Warning end.
+                        utils_log.log.WARNING,  # Warning start.
+                        utils_log.log.END,  # Warning end.
                         _msg_err=msg_err,
                     )
                 )
                 raise ValueError(err)
             else:
-                log_utilities.log(f"{log_utilities.log.CYAN}{msg_ok}")
+                utils_log.log(f"{utils_log.log.CYAN}{msg_ok}")
             return ret
         return wrapper
     return submodule_registration_helper_outer
@@ -383,18 +383,18 @@ def register_extend_bpy_types(register_queue: tuple) -> None:
         try:
             bpy.utils.register_class(cls)
         except ValueError as err:
-            log_utilities.log(f"{log_utilities.log.WARNING}Unable to register extension to "
-                              f"bpy.types.{bpy_type} for reason:\n{log_utilities.log.FAIL}")
+            utils_log.log(f"{utils_log.log.WARNING}Unable to register extension to "
+                              f"bpy.types.{bpy_type} for reason:\n{utils_log.log.FAIL}")
             raise ValueError(err)
         else:
             if hasattr(bpy_type, attr_name):
-                log_utilities.log(f"{log_utilities.log.WARNING}Unable to set property of bpy.type ({bpy_type}) to "
+                utils_log.log(f"{utils_log.log.WARNING}Unable to set property of bpy.type ({bpy_type}) to "
                                   "attribute with name \"{attr_name}\". Its already registered.")
                 raise AttributeError(f"Property \"{attr_name}\" already exists.")
             else:
                 setattr(bpy_type, attr_name, prop_type(type=cls))
 
-        log_utilities.log(f"{log_utilities.log.CYAN}Registered extend bpy types")
+        utils_log.log(f"{utils_log.log.CYAN}Registered extend bpy types")
 
 
 def unregister_extend_bpy_types(register_queue: tuple) -> None:
@@ -410,12 +410,12 @@ def unregister_extend_bpy_types(register_queue: tuple) -> None:
         try:
             bpy.utils.unregister_class(cls)
         except ValueError as err:
-            print(f"{log_utilities.log.WARNING} Unable to unregister class {cls} for reason:\n{err}")
+            print(f"{utils_log.log.WARNING} Unable to unregister class {cls} for reason:\n{err}")
         else:
             if hasattr(bpy_type, attr_name):
                 delattr(bpy_type, attr_name)
             else:
-                print(f"{log_utilities.log.WARNING}Unable to delete attribute \"{attr_name}\" "
+                print(f"{utils_log.log.WARNING}Unable to delete attribute \"{attr_name}\" "
                       "from class {bpy_type} because it have no such attribute")
 
-        log_utilities.log(f"{log_utilities.log.CYAN}Unregistered extend bpy types")
+        utils_log.log(f"{utils_log.log.CYAN}Unregistered extend bpy types")
