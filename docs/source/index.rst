@@ -51,8 +51,8 @@ To update the addon repository from the remote:
 
 .. toctree::
    registration
-   log_utilities
-   ui_utilities
+   utils_log
+   utils_ui
 
 
 

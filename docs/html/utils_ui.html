@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Log Messages (bhq_addon_base.log_utilities) &mdash; BlenderHQ Addon Base 1.0 documentation</title>
+  <title>User Interface Utilities (bhq_addon_base.utils_ui) &mdash; BlenderHQ Addon Base 1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="User Interface Utilities (bhq_addon_base.ui_utilities)" href="ui_utilities.html" />
-    <link rel="prev" title="Addon Registration (bhq_addon_base)" href="registration.html" /> 
+    <link rel="prev" title="Log Messages (bhq_addon_base.utils_log)" href="utils_log.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,8 +39,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="registration.html">Addon Registration (bhq_addon_base)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Log Messages (bhq_addon_base.log_utilities)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ui_utilities.html">User Interface Utilities (bhq_addon_base.ui_utilities)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils_log.html">Log Messages (bhq_addon_base.utils_log)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Interface Utilities (bhq_addon_base.utils_ui)</a></li>
 </ul>
 
         </div>
@@ -58,9 +57,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Log Messages (bhq_addon_base.log_utilities)</li>
+      <li>User Interface Utilities (bhq_addon_base.utils_ui)</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/log_utilities.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/utils_ui.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -68,20 +67,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-bhq_addon_base.log_utilities">
-<span id="log-messages-bhq-addon-base-log-utilities"></span><h1>Log Messages (bhq_addon_base.log_utilities)<a class="headerlink" href="#module-bhq_addon_base.log_utilities" title="Permalink to this headline"></a></h1>
-<p>Module provide command line log messages utilities.</p>
-<p>If variable <code class="docutils literal notranslate"><span class="pre">_DEBUG</span></code> is set to True or one of files exists in the
-same directory as the addon root (in this case, it would be set to True),
-debugging functionalities would be available (log messages, ect).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This workaround allows to make the addon maintenance faster because the developer should not set variable before each public commit. Obvious that possible existing file always should be in <code class="docutils literal notranslate"><span class="pre">./.gitignore</span></code>, so its would not present by default on user installations.</p>
+  <section id="module-bhq_addon_base.utils_ui">
+<span id="user-interface-utilities-bhq-addon-base-utils-ui"></span><h1>User Interface Utilities (bhq_addon_base.utils_ui)<a class="headerlink" href="#module-bhq_addon_base.utils_ui" title="Permalink to this headline"></a></h1>
+<p>The module also has functionality for formatting a block of text when
+displaying it in the Blender user interface.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.draw_wrapped_text">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.utils_ui.</span></span><span class="sig-name descname"><span class="pre">draw_wrapped_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.draw_wrapped_text" title="Permalink to this definition"></a></dt>
+<dd><p>Draws a block of text in the given layout, dividing it into lines
+according to the width of the current region of the interface.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The function uses a fairly accurate but at the same time relatively slow
+way to format strings. Not recommended for use with very large blocks
+of text as this may slow down the overall user interface.</p>
 </div>
-<dl class="py class">
-<dt class="sig sig-object py" id="bhq_addon_base.log_utilities.log">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bhq_addon_base.log_utilities.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.log_utilities.log" title="Permalink to this definition"></a></dt>
-<dd><p>asdasd</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>bpy.types.Context</em>) – Current context.</p></li>
+<li><p><strong>layout</strong> (<em>bpy.types.UILayout</em>) – Current layout.</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – Text to be wrapped and drawn.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <ul class="simple">
@@ -94,8 +103,7 @@ debugging functionalities would be available (log messages, ect).</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="registration.html" class="btn btn-neutral float-left" title="Addon Registration (bhq_addon_base)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="ui_utilities.html" class="btn btn-neutral float-right" title="User Interface Utilities (bhq_addon_base.ui_utilities)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="utils_log.html" class="btn btn-neutral float-left" title="Log Messages (bhq_addon_base.utils_log)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

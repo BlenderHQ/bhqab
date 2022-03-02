@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Log Messages (bhq_addon_base.log_utilities) &mdash; BlenderHQ Addon Base 1.0 documentation</title>
+  <title>Log Messages (bhq_addon_base.utils_log) &mdash; BlenderHQ Addon Base 1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,7 +18,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="User Interface Utilities (bhq_addon_base.ui_utilities)" href="ui_utilities.html" />
+    <link rel="next" title="User Interface Utilities (bhq_addon_base.utils_ui)" href="utils_ui.html" />
     <link rel="prev" title="Addon Registration (bhq_addon_base)" href="registration.html" /> 
 </head>
 
@@ -40,8 +40,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="registration.html">Addon Registration (bhq_addon_base)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Log Messages (bhq_addon_base.log_utilities)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ui_utilities.html">User Interface Utilities (bhq_addon_base.ui_utilities)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Log Messages (bhq_addon_base.utils_log)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils_ui.html">User Interface Utilities (bhq_addon_base.utils_ui)</a></li>
 </ul>
 
         </div>
@@ -58,9 +58,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Log Messages (bhq_addon_base.log_utilities)</li>
+      <li>Log Messages (bhq_addon_base.utils_log)</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/log_utilities.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/utils_log.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -68,14 +68,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-bhq_addon_base.log_utilities">
-<span id="log-messages-bhq-addon-base-log-utilities"></span><h1>Log Messages (bhq_addon_base.log_utilities)<a class="headerlink" href="#module-bhq_addon_base.log_utilities" title="Permalink to this headline"></a></h1>
+  <section id="module-bhq_addon_base.utils_log">
+<span id="log-messages-bhq-addon-base-utils-log"></span><h1>Log Messages (bhq_addon_base.utils_log)<a class="headerlink" href="#module-bhq_addon_base.utils_log" title="Permalink to this headline"></a></h1>
 <p>The module also provides opportunities to simplify the debugging and output of
 more detailed messages to the console. It is clear that from the user experience
 for ordinary users it may not be very necessary (usually they do not like
 consoles), this part is focused more on those who will set up addons on many
 computers, etc.</p>
-<p>There is a class <a class="reference internal" href="#bhq_addon_base.log_utilities.log" title="bhq_addon_base.log_utilities.log"><code class="xref py py-class docutils literal notranslate"><span class="pre">log</span></code></a> for outputting such debug messages. In order
+<p>There is a class <a class="reference internal" href="#bhq_addon_base.utils_log.log" title="bhq_addon_base.utils_log.log"><code class="xref py py-class docutils literal notranslate"><span class="pre">log</span></code></a> for outputting such debug messages. In order
 for it to display the message, you must either manually set the variable
 <code class="docutils literal notranslate"><span class="pre">_DEBUG</span></code> to a positive value, or put in the root folder of the addon an empty
 file called <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code>, <code class="docutils literal notranslate"><span class="pre">DEBUG.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">_DEBUG</span></code> or <code class="docutils literal notranslate"><span class="pre">_DEBUG.txt</span></code>.</p>
@@ -87,52 +87,52 @@ that possible existing file always should be in <code class="docutils literal no
 would not present by default on user installations.</p>
 </div>
 <dl class="py class">
-<dt class="sig sig-object py" id="bhq_addon_base.log_utilities.log">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bhq_addon_base.log_utilities.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.log_utilities.log" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.utils_log.log">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bhq_addon_base.utils_log.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.utils_log.log" title="Permalink to this definition"></a></dt>
 <dd><p>A class that behaves similarly to the <code class="docutils literal notranslate"><span class="pre">print</span></code> function in a python
 except that the message will only be entered if debug mode is active.
 The class contains several attributes for displaying colored text in
 messages, they can be used when formatting the line before the call
 (but in this case, the initialization of the class instance).</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.log_utilities.log.TAB">
-<span class="sig-name descname"><span class="pre">TAB</span></span><a class="headerlink" href="#bhq_addon_base.log_utilities.log.TAB" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.utils_log.log.TAB">
+<span class="sig-name descname"><span class="pre">TAB</span></span><a class="headerlink" href="#bhq_addon_base.utils_log.log.TAB" title="Permalink to this definition"></a></dt>
 <dd><p>One level of tabs in the message.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.log_utilities.log.BLUE">
-<span class="sig-name descname"><span class="pre">BLUE</span></span><a class="headerlink" href="#bhq_addon_base.log_utilities.log.BLUE" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.utils_log.log.BLUE">
+<span class="sig-name descname"><span class="pre">BLUE</span></span><a class="headerlink" href="#bhq_addon_base.utils_log.log.BLUE" title="Permalink to this definition"></a></dt>
 <dd><p>Blue message color.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.log_utilities.log.CYAN">
-<span class="sig-name descname"><span class="pre">CYAN</span></span><a class="headerlink" href="#bhq_addon_base.log_utilities.log.CYAN" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.utils_log.log.CYAN">
+<span class="sig-name descname"><span class="pre">CYAN</span></span><a class="headerlink" href="#bhq_addon_base.utils_log.log.CYAN" title="Permalink to this definition"></a></dt>
 <dd><p>Cyan message color.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.log_utilities.log.GREEN">
-<span class="sig-name descname"><span class="pre">GREEN</span></span><a class="headerlink" href="#bhq_addon_base.log_utilities.log.GREEN" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.utils_log.log.GREEN">
+<span class="sig-name descname"><span class="pre">GREEN</span></span><a class="headerlink" href="#bhq_addon_base.utils_log.log.GREEN" title="Permalink to this definition"></a></dt>
 <dd><p>Green message color.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.log_utilities.log.WARNING">
-<span class="sig-name descname"><span class="pre">WARNING</span></span><a class="headerlink" href="#bhq_addon_base.log_utilities.log.WARNING" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.utils_log.log.WARNING">
+<span class="sig-name descname"><span class="pre">WARNING</span></span><a class="headerlink" href="#bhq_addon_base.utils_log.log.WARNING" title="Permalink to this definition"></a></dt>
 <dd><p>Orange warning message color.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.log_utilities.log.FAIL">
-<span class="sig-name descname"><span class="pre">FAIL</span></span><a class="headerlink" href="#bhq_addon_base.log_utilities.log.FAIL" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.utils_log.log.FAIL">
+<span class="sig-name descname"><span class="pre">FAIL</span></span><a class="headerlink" href="#bhq_addon_base.utils_log.log.FAIL" title="Permalink to this definition"></a></dt>
 <dd><p>Red fail message color.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.log_utilities.log.END">
-<span class="sig-name descname"><span class="pre">END</span></span><a class="headerlink" href="#bhq_addon_base.log_utilities.log.END" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.utils_log.log.END">
+<span class="sig-name descname"><span class="pre">END</span></span><a class="headerlink" href="#bhq_addon_base.utils_log.log.END" title="Permalink to this definition"></a></dt>
 <dd><p>End of message color formatting.</p>
 </dd></dl>
 
@@ -149,7 +149,7 @@ messages, they can be used when formatting the line before the call
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="registration.html" class="btn btn-neutral float-left" title="Addon Registration (bhq_addon_base)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="ui_utilities.html" class="btn btn-neutral float-right" title="User Interface Utilities (bhq_addon_base.ui_utilities)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="utils_ui.html" class="btn btn-neutral float-right" title="User Interface Utilities (bhq_addon_base.utils_ui)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

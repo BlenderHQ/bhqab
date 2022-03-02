@@ -1,7 +1,7 @@
-Log Messages (bhq_addon_base.log_utilities)
+Log Messages (bhq_addon_base.utils_log)
 =======================================================
 
-.. automodule:: bhq_addon_base.log_utilities
+.. automodule:: bhq_addon_base.utils_log
     :members:
 
 * :ref:`genindex`
