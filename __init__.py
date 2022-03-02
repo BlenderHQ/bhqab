@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+# <pep8 compliant>
+
 
 # The module is designed to unify some basic functions that are used in several
 # addons. See `./README.md` and `./LICENSE` files for details about possible
@@ -384,12 +386,12 @@ def register_extend_bpy_types(register_queue: tuple) -> None:
             bpy.utils.register_class(cls)
         except ValueError as err:
             utils_log.log(f"{utils_log.log.WARNING}Unable to register extension to "
-                              f"bpy.types.{bpy_type} for reason:\n{utils_log.log.FAIL}")
+                          f"bpy.types.{bpy_type} for reason:\n{utils_log.log.FAIL}")
             raise ValueError(err)
         else:
             if hasattr(bpy_type, attr_name):
                 utils_log.log(f"{utils_log.log.WARNING}Unable to set property of bpy.type ({bpy_type}) to "
-                                  "attribute with name \"{attr_name}\". Its already registered.")
+                              "attribute with name \"{attr_name}\". Its already registered.")
                 raise AttributeError(f"Property \"{attr_name}\" already exists.")
             else:
                 setattr(bpy_type, attr_name, prop_type(type=cls))

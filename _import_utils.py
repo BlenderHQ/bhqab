@@ -1,7 +1,10 @@
+# <pep8 compliant>
+
 _is_bpy_exists = False
 try:
     import bpy
     import blf
+    from bl_ui import space_statusbar  # Just to validate it exists
 except ImportError:
     pass  # Skip import error for (at least) documentation purposes.
 else:
