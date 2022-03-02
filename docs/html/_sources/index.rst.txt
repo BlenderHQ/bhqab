@@ -50,10 +50,9 @@ To update the addon repository from the remote:
 
 
 .. toctree::
-   registration
-   utils_log
-   utils_ui
-
+   pages/registration
+   pages/utils_log
+   pages/utils_ui
 
 
 Indices and tables

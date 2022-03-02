@@ -1,3 +1,5 @@
+# <pep8 compliant>
+
 """
 The module also provides opportunities to simplify the debugging and output of
 more detailed messages to the console. It is clear that from the user experience
