@@ -227,11 +227,11 @@ def register_helper(pref_cls: bpy.types.AddonPreferences):
 
 def unregister_helper(pref_cls: bpy.types.AddonPreferences):
     """Helper decorator for addon ``unregister`` function. Handles un-registration
-    process after :func:..py:currentmodule::`register_helper` registration
+    process after :py:func:`register_helper` registration
     process.
 
     Args:
-        pref_cls (bpy.types.AddonPreferences): Addon user preferences class.
+        pref_cls (`bpy.types.AddonPreferences`_): Addon user preferences class.
     """
     if not is_module_used_by_the_addon():
         return

@@ -258,7 +258,7 @@ class progress:
     def complete(cls, item: ProgressPropertyItem):
         """Removes progressbar from UI. If removed progressbar was the last one,
         would be called
-        :func:..py:currentmodule::`progress.release_all` class method.
+        :py:func:`progress.release_all` class method.
 
         Args:
             item (ProgressPropertyItem): Progress item to be removed.
