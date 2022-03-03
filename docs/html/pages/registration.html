@@ -18,7 +18,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Log Messages (bhq_addon_base.utils_log)" href="utils_log.html" />
+    <link rel="next" title="Log (bhq_addon_base.utils_log)" href="utils_log.html" />
     <link rel="prev" title="BlenderHQ Addon Base API" href="../index.html" /> 
 </head>
 
@@ -40,8 +40,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Addon Registration (bhq_addon_base)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utils_log.html">Log Messages (bhq_addon_base.utils_log)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utils_ui.html">User Interface Utilities (bhq_addon_base.utils_ui)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils_log.html">Log (bhq_addon_base.utils_log)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils_ui.html">UI Utils (bhq_addon_base.utils_ui)</a></li>
 </ul>
 
         </div>
@@ -70,6 +70,25 @@
              
   <section id="addon-registration-bhq-addon-base">
 <h1>Addon Registration (bhq_addon_base)<a class="headerlink" href="#addon-registration-bhq-addon-base" title="Permalink to this headline"></a></h1>
+<p>The module was created primarily to simplify addon maintenance. For example, our organization needs to service several released addons. This is not an easy task, as updates to Blender are released relatively often, studios or individual users can use both previous (sometimes not even LTS releases of Blender) and not yet fully ready pre-release (beta) versions of Blender. In any case, much of the testing of addons before releases is done manually, consistently on major versions of the Blender. Of course, it is necessary to repeat from time to time testing the functionality of addons on earlier versions of Blender, as well as on those versions that have not yet been released. But this is all the time that can be spent on developing new functionality and optimization.</p>
+<p>The main purpose of the module is to simplify the procedure for error handling when calling addon registration methods.</p>
+<p>In any case, there may be a situation where the addon for some reason can not be used or testing has not been conducted for the latest version of Blender. For this purpose the basic principles are allocated:</p>
+<ul>
+<li><p>If the user runs the addon on the Blender earlier than the minimum tested and approved for use:</p>
+<blockquote>
+<div><p>In this case, no addon registration methods will be called, and only the user preference class will be registered. In this case, the preferences will not display any addon settings, but will display a message stating that its addon cannot be used in this version of Blender.</p>
+</div></blockquote>
+</li>
+<li><p>If the user runs the addon on the Blender of the newer version than the last tested and approved:</p>
+<blockquote>
+<div><p>In this case, there will be an attempt to register the addon, but even if no errors occurred during registration - in the user preferences of the addon will first display a warning about it</p>
+</div></blockquote>
+</li>
+</ul>
+<p>Basic functions are also provided to simplify the output of log messages through the command line and the drawing of the user interface.</p>
+<ul class="simple">
+<li><p>If the version with which the addon is used is tested and approved, everything will be as usual.</p></li>
+</ul>
 <p>To simplify the understanding of further functions, we give a simple example of use:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This means that this is the root file of the addon module (__init__.py).</span>
 
@@ -311,11 +330,11 @@ Main goal is to catch errors due sub-module (un)registration function call.</p>
 <dt class="sig sig-object py" id="bhq_addon_base.unregister_helper">
 <span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">unregister_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pref_cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.AddonPreferences</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.unregister_helper" title="Permalink to this definition"></a></dt>
 <dd><p>Helper decorator for addon <code class="docutils literal notranslate"><span class="pre">unregister</span></code> function. Handles un-registration
-process after :func:..py:currentmodule::<cite>register_helper</cite> registration
+process after <a class="reference internal" href="#bhq_addon_base.register_helper" title="bhq_addon_base.register_helper"><code class="xref py py-func docutils literal notranslate"><span class="pre">register_helper()</span></code></a> registration
 process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>pref_cls</strong> (<em>bpy.types.AddonPreferences</em>) – Addon user preferences class.</p>
+<dd class="field-odd"><p><strong>pref_cls</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.AddonPreferences.html#bpy.types.AddonPreferences">bpy.types.AddonPreferences</a>) – Addon user preferences class.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -348,7 +367,7 @@ process.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../index.html" class="btn btn-neutral float-left" title="BlenderHQ Addon Base API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="utils_log.html" class="btn btn-neutral float-right" title="Log Messages (bhq_addon_base.utils_log)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="utils_log.html" class="btn btn-neutral float-right" title="Log (bhq_addon_base.utils_log)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
