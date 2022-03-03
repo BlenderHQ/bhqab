@@ -63,6 +63,7 @@ except ImportError as err:
 
 
 from . import utils_ui
+from . import utils_shader
 
 
 def addon_name() -> str:

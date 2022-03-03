@@ -4,6 +4,7 @@ _is_bpy_exists = False
 try:
     import bpy
     import blf
+    import gpu  # Just to validate it exists
     from bl_ui import space_statusbar  # Just to validate it exists
 except ImportError:
     pass  # Skip import error for (at least) documentation purposes.
