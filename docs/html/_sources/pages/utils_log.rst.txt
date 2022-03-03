@@ -1,4 +1,4 @@
-Log (bhq_addon_base.utils_log)
+Log Utils (.utils_log)
 =======================================================
 
 .. automodule:: bhq_addon_base.utils_log

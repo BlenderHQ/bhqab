@@ -35,6 +35,7 @@ To update the addon repository from the remote:
    pages/registration
    pages/utils_log
    pages/utils_ui
+   pages/utils_shader
 
 
 Indices and tables

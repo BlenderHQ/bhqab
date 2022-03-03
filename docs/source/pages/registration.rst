@@ -39,6 +39,7 @@ To simplify the understanding of further functions, we give a simple example of 
         "blender": (2, 83, 0),
         "category": "Render",
         # NOTE: For compatibility reasons both keys should be kept.
+        # (see https://developer.blender.org/T85675)
         "wiki_url": "https://...",
         "doc_url": "https://...",
     }
