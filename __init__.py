@@ -725,15 +725,34 @@ if is_bpy_exists():
         cancellable: bpy.props.BoolProperty()
 
         def execute(self, context):
+            log(f"{log.CYAN}Called `execute` method...")
+
             self.progress = utils_ui.progress.invoke()
+
+            log(f"{log.TAB}{log.CYAN}Invoked progress bar with index {self.progress.index}")
+
             self.progress.cancellable = self.cancellable
-            self.progress.label = f"Test Progress {random.randint(100, 200)}"
-            self.progress.icon = 'INFO'
-            self.progress.num_steps = 50
+
+            log(f"{log.TAB * 2}{log.CYAN}cancellable = {self.cancellable}")
+
+            label = f"Test Progress {self.progress.index}"
+            icon = 'INFO'
+            num_steps = 50
+
+            self.progress.label = label
+            log(f"{log.TAB * 2}{log.CYAN}label = {label}")
+
+            self.progress.icon = icon
+            log(f"{log.TAB * 2}{log.CYAN}icon = {icon}")
+
+            self.progress.num_steps = num_steps
+            log(f"{log.TAB * 2}{log.CYAN}num_steps = {num_steps}")
 
             wm = context.window_manager
             wm.modal_handler_add(self)
             self._timer = wm.event_timer_add(time_step=0.1, window=context.window)
+
+            log(f"{log.TAB}{log.CYAN}Added modal handler and event timer with time_step=0.1")
 
             return {'RUNNING_MODAL'}
 
@@ -741,7 +760,10 @@ if is_bpy_exists():
             wm = context.window_manager
             wm.event_timer_remove(self._timer)
 
+            log(f"{log.BLUE}Removed event timer...")
+
             utils_ui.progress.complete(self.progress)
+            log(f"{log.BLUE}Completed (utils_ui.progress.complete(self.progress))")
 
         def modal(self, context, event):
             if event.type == 'TIMER':
