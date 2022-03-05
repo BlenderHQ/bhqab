@@ -107,8 +107,6 @@ To simplify the understanding of further functions, we give a simple example of 
 .. automodule:: bhq_addon_base
     :members:
 
-* :ref:`genindex`
-* :ref:`modindex`
 
 .. _bpy.types:
         https://docs.blender.org/api/current/bpy.types.html

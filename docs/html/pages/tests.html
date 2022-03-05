@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Log Utils (.utils_log) &mdash; BlenderHQ Addon Base 1.0 documentation</title>
+  <title>Addon Test Suite &mdash; BlenderHQ Addon Base 1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="UI Utils (.utils_ui)" href="utils_ui.html" />
-    <link rel="prev" title="Addon Registration (bhq_addon_base)" href="registration.html" /> 
+    <link rel="prev" title="Shader Utils (.utils_shader)" href="utils_shader.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,11 +37,15 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+              <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="registration.html">Addon Registration (bhq_addon_base)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Log Utils (.utils_log)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils_ui.html">UI Utils (.utils_ui)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils_shader.html">Shader Utils (.utils_shader)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tests</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Addon Test Suite</a></li>
 </ul>
 
         </div>
@@ -59,9 +62,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Log Utils (.utils_log)</li>
+      <li>Addon Test Suite</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/pages/utils_log.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/pages/tests.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -69,36 +72,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-bhq_addon_base.utils_log">
-<span id="log-utils-utils-log"></span><h1>Log Utils (.utils_log)<a class="headerlink" href="#module-bhq_addon_base.utils_log" title="Permalink to this headline"></a></h1>
-<p>The module also provides opportunities to simplify the debugging and output of
-more detailed messages to the console. It is clear that from the user experience
-for ordinary users it may not be very necessary (usually they do not like
-consoles), this part is focused more on those who will set up addons on many
-computers, etc.</p>
-<p>There is a class <code class="xref py py-class docutils literal notranslate"><span class="pre">log</span></code> for outputting such debug messages. In order
-for it to display the message, you must either manually set the variable
-<code class="docutils literal notranslate"><span class="pre">_DEBUG</span></code> to a positive value, or put in the root folder of the addon an empty
-file called <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code>, <code class="docutils literal notranslate"><span class="pre">DEBUG.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">_DEBUG</span></code> or <code class="docutils literal notranslate"><span class="pre">_DEBUG.txt</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This workaround allows to make the addon maintenance faster because
-the developer should not set variable before each public commit. Obvious
-that possible existing file always should be in <code class="docutils literal notranslate"><span class="pre">./.gitignore</span></code>, so its
-would not present by default on user installations.</p>
-</div>
-<ul class="simple">
-<li><p><a class="reference internal" href="../genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="../py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-</ul>
+  <section id="addon-test-suite">
+<h1>Addon Test Suite<a class="headerlink" href="#addon-test-suite" title="Permalink to this headline"></a></h1>
+<img alt="pages/images/test_wrapped_text.gif" class="align-center" src="pages/images/test_wrapped_text.gif" />
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="registration.html" class="btn btn-neutral float-left" title="Addon Registration (bhq_addon_base)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="utils_ui.html" class="btn btn-neutral float-right" title="UI Utils (.utils_ui)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="utils_shader.html" class="btn btn-neutral float-left" title="Shader Utils (.utils_shader)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

@@ -32,10 +32,18 @@ To update the addon repository from the remote:
 
 
 .. toctree::
+   :maxdepth: 2
+   :caption: API Documentation
+
    pages/registration
-   pages/utils_log
    pages/utils_ui
    pages/utils_shader
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Tests
+
+   pages/tests
 
 
 Indices and tables
