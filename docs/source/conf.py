@@ -82,3 +82,4 @@ html_theme_options = {
 
 # html_logo = "bhq_logo_white.svg"
 html_logo = "bhq_logo_color_v0.svg"
+# html_logo = "bhq_logo_color_v1.svg"
