@@ -21,6 +21,20 @@
 # addons. See `./README.md` and `./LICENSE` files for details about possible
 # usage and licensing.
 
+# Module metadata.
+__version__ = (1, 0)
+
+__author__ = \
+    "Vlad Kuzmin (ssh4), Ivan Perevala (ivpe)"
+__copyright__ = \
+    "Copyright (C) 2022  Vlad Kuzmin (ssh4), Ivan Perevala (ivpe)"
+__maintainer__ = \
+    "Ivan Perevala (ivpe)"
+__credits__ = \
+    ["Vlad Kuzmin (ssh4)", ]
+__license__ = \
+    "GPLv3"
+
 bl_info = {
     "name": "BlenderHQ Addon Base Test",
     # Maximal tested Blender version. Newer versions would not be stop any
@@ -40,19 +54,6 @@ bl_info = {
     "doc_url": "https://github.com/BlenderHQ/bhq_addon_base",
 }
 
-# Module metadata.
-__version__ = (1, 0)
-
-__author__ = \
-    "Vlad Kuzmin (ssh4), Ivan Perevala (ivpe)"
-__copyright__ = \
-    "Copyright (C) 2022  Vlad Kuzmin (ssh4), Ivan Perevala (ivpe)"
-__maintainer__ = \
-    "Ivan Perevala (ivpe)"
-__credits__ = \
-    ["Vlad Kuzmin (ssh4)", ]
-__license__ = \
-    "GPLv3"
 
 import functools
 import string
