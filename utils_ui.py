@@ -8,9 +8,6 @@ import blf
 from bl_ui import space_statusbar
 
 
-WIN_PADDING = 32
-
-
 def _string_width(string: str) -> float:
     if len(string) == 1:
         num_single_ch_samples = 100
@@ -35,7 +32,14 @@ def draw_wrapped_text(context: bpy.types.Context, layout: bpy.types.UILayout, te
 
     col = layout.column(align=True)
 
-    wrap_width = context.region.width - WIN_PADDING
+    if context.region.type == 'WINDOW':
+        win_padding = 25
+    elif context.region.type == 'UI':
+        win_padding = 52
+    else:
+        win_padding = 52
+
+    wrap_width = context.region.width - win_padding
     space_width = _string_width(' ')
 
     for line in text.split('\n'):
