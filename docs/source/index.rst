@@ -44,6 +44,7 @@ To update the addon repository from the remote:
    :caption: Tests
 
    pages/tests
+   pages/test_wrapped_text
 
 
 Indices and tables
