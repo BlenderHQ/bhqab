@@ -720,39 +720,20 @@ if is_bpy_exists():
     class _BHQABT_OT_Progress(bpy.types.Operator):
         bl_idname = "bhqabt.progress"
         bl_label = "Progress"
-        bl_options = {'REGISTER'}
+        bl_options = {'INTERNAL'}
 
         cancellable: bpy.props.BoolProperty()
 
         def execute(self, context):
-            log(f"{log.CYAN}Called `execute` method...")
-
-            self.progress = utils_ui.progress.invoke()
-
-            log(f"{log.TAB}{log.CYAN}Invoked progress bar with index {self.progress.index}")
-
-            self.progress.cancellable = self.cancellable
-
-            log(f"{log.TAB * 2}{log.CYAN}cancellable = {self.cancellable}")
-
-            label = f"Test Progress {self.progress.index}"
-            icon = 'INFO'
-            num_steps = 50
-
-            self.progress.label = label
-            log(f"{log.TAB * 2}{log.CYAN}label = {label}")
-
-            self.progress.icon = icon
-            log(f"{log.TAB * 2}{log.CYAN}icon = {icon}")
-
-            self.progress.num_steps = num_steps
-            log(f"{log.TAB * 2}{log.CYAN}num_steps = {num_steps}")
+            self._progress = utils_ui.progress.invoke()
+            self._progress.cancellable = self.cancellable
+            self._progress.label = f"{self._progress.as_pointer()}"
+            self._progress.icon = 'INFO'
+            self._progress.num_steps = 50
 
             wm = context.window_manager
             wm.modal_handler_add(self)
             self._timer = wm.event_timer_add(time_step=0.1, window=context.window)
-
-            log(f"{log.TAB}{log.CYAN}Added modal handler and event timer with time_step=0.1")
 
             return {'RUNNING_MODAL'}
 
@@ -760,18 +741,15 @@ if is_bpy_exists():
             wm = context.window_manager
             wm.event_timer_remove(self._timer)
 
-            log(f"{log.BLUE}Removed event timer...")
-
-            utils_ui.progress.complete(self.progress)
-            log(f"{log.BLUE}Completed (utils_ui.progress.complete(self.progress))")
+            utils_ui.progress.complete(self._progress)
 
         def modal(self, context, event):
             if event.type == 'TIMER':
-                self.progress.step += 1
+                self._progress.step += 1
 
-            if self.progress.value >= 1.0 or self.progress.cancel or event.type == 'ESC':
+            if self._progress.value >= 100.0 or (not self._progress.valid) or event.type == 'ESC':
                 self.cancel(context)
-                return {'CANCELLED'}
+                return {'FINISHED'}
 
             return {'PASS_THROUGH'}
 
@@ -781,7 +759,8 @@ if is_bpy_exists():
 
         def draw(self, _context):
             layout = self.layout
-            layout.operator(operator=_BHQABT_OT_Progress.bl_idname, text="Progress Bar")
+            props = layout.operator(operator=_BHQABT_OT_Progress.bl_idname, text="Progress Bar")
+            props.cancellable = False
             props = layout.operator(operator=_BHQABT_OT_Progress.bl_idname, text="Cancellable Progress Bar")
             props.cancellable = True
 

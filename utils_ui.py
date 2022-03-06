@@ -83,13 +83,34 @@ def _update_statusbar():
     bpy.context.workspace.status_text_set(None)
 
 
-class progress:
+class _progress_meta(type):
+    @property
+    def PROGRESS_BAR_UI_UNITS(cls):
+        return cls._PROGRESS_BAR_UI_UNITS
+
+    @PROGRESS_BAR_UI_UNITS.setter
+    def PROGRESS_BAR_UI_UNITS(cls, value):
+        cls._PROGRESS_BAR_UI_UNITS = max(cls._PROGRESS_BAR_UI_UNITS_MIN, min(value, cls._PROGRESS_BAR_UI_UNITS_MAX))
+
+
+class progress(metaclass=_progress_meta):
     """A class that implements the initialization and completion of progressbars.
     The module provides the ability to display the progressbar (and even several
     progressbars) in the status bar of the Blender. This technique can be used
     mainly with modal operators that run for a relatively long time and require
     the output of the progress of their work.
+
+    Attributes:
+        PROGRESS_BAR_UI_UNITS (int): Number of UI units in range [4...12] used
+            for progressbar without text label and icon.
     """
+
+    _PROGRESS_BAR_UI_UNITS = 6
+    _PROGRESS_BAR_UI_UNITS_MIN = 4
+    _PROGRESS_BAR_UI_UNITS_MAX = 12
+
+    _is_drawn = False
+    _attrname = ""
 
     class ProgressPropertyItem(bpy.types.PropertyGroup):
         """Progress bar item that allows you to dynamically change some display parameters.
@@ -104,61 +125,56 @@ class progress:
             cancellable (bool): Positive value means that progressbar should draw cancel button.
         """
 
-        def _get_index(self) -> int:
-            if "index" in self:
-                return self["index"]
-            return 0
-
-        def _set_index(self, value: int) -> None:
-            if value == 0:
-                self["index"] = 0
-            elif not self.index:
-                self["index"] = value
-
         def _common_value_update(self, _context):
             _update_statusbar()
 
-        index: bpy.props.IntProperty(
-            options={'HIDDEN'},
-            get=_get_index,
-            set=_set_index,
+        valid: bpy.props.BoolProperty(
+            default=True,
+            update=_common_value_update,
         )
 
         num_steps: bpy.props.IntProperty(
             min=1,
             default=1,
+            subtype='UNSIGNED',
             options={'HIDDEN'},
             update=_common_value_update,
         )
 
         step: bpy.props.IntProperty(
             min=0,
+            subtype='UNSIGNED',
             options={'HIDDEN'},
             update=_common_value_update,
         )
 
         def _get_progress(self):
-            return self.step / self.num_steps
+            return (self.step / self.num_steps) * 100
 
-        def _set_progress(self, value):
+        def _set_progress(self, _value):
             pass
 
         value: bpy.props.FloatProperty(
             min=0.0,
-            max=1.0,
+            max=100.0,
+            precision=1,
             get=_get_progress,
-            set=_set_progress,
+            # set=_set_progress,
             subtype='PERCENTAGE',
             options={'HIDDEN'},
         )
 
         icon: bpy.props.StringProperty(
             default='NONE',
+            maxlen=64,
             options={'HIDDEN'},
             update=_common_value_update,
         )
 
         icon_value: bpy.props.IntProperty(
+            min=0,
+            default=0,
+            subtype='UNSIGNED',
             options={'HIDDEN'},
             update=_common_value_update,
         )
@@ -170,12 +186,7 @@ class progress:
         )
 
         cancellable: bpy.props.BoolProperty(
-            options={'HIDDEN'},
-            update=_common_value_update,
-        )
-
-        cancel: bpy.props.BoolProperty(
-            name="Cancel",
+            default=False,
             options={'HIDDEN'},
             update=_common_value_update,
         )
@@ -191,14 +202,17 @@ class progress:
         layout.template_reports_banner()
 
         if hasattr(bpy.types.WindowManager, progress._attrname):
-            progress_items = getattr(context.window_manager, progress._attrname)
-
             layout.separator_spacer()
-            for item in progress_items:
+            for item in progress.valid_progress_items():
                 row = layout.row(align=True)
-                row.prop(item, "value", text=item.label, icon=item.icon, icon_value=item.icon_value)
+                row.label(text=item.label, icon=item.icon, icon_value=item.icon_value)
+
+                srow = row.row(align=True)
+                srow.ui_units_x = progress.PROGRESS_BAR_UI_UNITS
+                srow.prop(item, "value", text="")
+
                 if item.cancellable:
-                    row.prop(item, "cancel", text="", icon='X', toggle=True)
+                    row.prop(item, "valid", text="", icon='X', toggle=True, invert_checkbox=True)
 
         layout.separator_spacer()
 
@@ -206,9 +220,6 @@ class progress:
         row.alignment = 'RIGHT'
 
         row.label(text=context.screen.statusbar_info(), translate=False)
-
-    _is_drawn = False
-    _attrname = ""
 
     @staticmethod
     def _generate_wm_attr_name() -> str:
@@ -224,7 +235,15 @@ class progress:
         while hasattr(bpy.types.WindowManager, attr):
             attr = _random_str()
 
-        return attr
+        return "bhq_" + attr
+
+    @classmethod
+    def progress_items(cls):
+        return getattr(bpy.context.window_manager, cls._attrname)
+
+    @classmethod
+    def valid_progress_items(cls):
+        return (_ for _ in cls.progress_items() if _.valid)
 
     @classmethod
     def invoke(cls) -> ProgressPropertyItem:
@@ -233,15 +252,8 @@ class progress:
         Returns:
             ProgressPropertyItem: New initialized progress property item.
         """
-        def _add_item():
-            progress_items = getattr(bpy.context.window_manager, cls._attrname)
-            item = progress_items.add()
-            item.index = len(progress_items) - 1
-            return item
 
-        if cls._is_drawn:
-            return _add_item()
-        else:
+        if not cls._is_drawn:
             bpy.utils.register_class(progress.ProgressPropertyItem)
             cls._attrname = cls._generate_wm_attr_name()
 
@@ -254,9 +266,8 @@ class progress:
             bpy.types.STATUSBAR_HT_header.draw = cls._func_draw_progress
             _update_statusbar()
 
-            cls._is_drawn = True
-
-            return _add_item()
+        cls._is_drawn = True
+        return cls.progress_items().add()
 
     @classmethod
     def complete(cls, item: ProgressPropertyItem):
@@ -269,17 +280,15 @@ class progress:
         """
         assert(isinstance(item, progress.ProgressPropertyItem))
 
-        progress_items = getattr(bpy.context.window_manager, cls._attrname)
-        for i, j in enumerate(progress_items):
-            if item.index == j.index:
-                progress_items.remove(i)
+        item.valid = False
 
-        if not len(progress_items):
-            cls.release_all()
+        for _ in cls.valid_progress_items():
+            return
+        cls.release_all()
 
     @classmethod
     def release_all(cls):
-        """Removes all progressbars"""
+        """Removes all progressbars."""
         if not cls._is_drawn:
             return
 
