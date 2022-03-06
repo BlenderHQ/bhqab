@@ -48,6 +48,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tests.html">About Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_wrapped_text.html">Wrapped Text Rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_progress_bars.html">Progress Bars</a></li>
 </ul>
 
         </div>
@@ -106,6 +107,18 @@ The module provides the ability to display the progressbar (and even several
 progressbars) in the status bar of the Blender. This technique can be used
 mainly with modal operators that run for a relatively long time and require
 the output of the progress of their work.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.PROGRESS_BAR_UI_UNITS">
+<span class="sig-name descname"><span class="pre">PROGRESS_BAR_UI_UNITS</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.PROGRESS_BAR_UI_UNITS" title="Permalink to this definition"></a></dt>
+<dd><p>Number of UI units in range [4…12] used
+for progressbar without text label and icon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProgressPropertyItem</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem" title="Permalink to this definition"></a></dt>
@@ -219,7 +232,7 @@ would be called
 <dl class="py method">
 <dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.release_all">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">release_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.release_all" title="Permalink to this definition"></a></dt>
-<dd><p>Removes all progressbars</p>
+<dd><p>Removes all progressbars.</p>
 </dd></dl>
 
 </dd></dl>

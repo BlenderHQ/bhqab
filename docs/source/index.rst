@@ -45,7 +45,7 @@ To update the addon repository from the remote:
 
    pages/tests
    pages/test_wrapped_text
-
+   pages/test_progress_bars
 
 Indices and tables
 ==================

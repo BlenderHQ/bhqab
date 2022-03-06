@@ -7,3 +7,11 @@ User Interface.
 
 .. image:: ../images/test_wrapped_text.gif
     :align: center
+
+--------------------------------------------------------------------------------
+
+The main criteria are the following:
+
+* The text block is displayed in full
+
+* No lines ending or separated by dots
