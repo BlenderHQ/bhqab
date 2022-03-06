@@ -522,13 +522,13 @@ def submodule_registration_helper(msg_ok="", msg_err=""):
 
                 if any_err:
                     print(
-                        "{0}{_msg_err}{1}:".format(
+                        "{0}{_msg_err}{1}:\n{_any_err}".format(
                             log.WARNING,  # Warning start.
                             log.END,  # Warning end.
                             _msg_err=msg_err,
+                            _any_err=any_err,
                         )
                     )
-                    raise ValueError(any_err)
                 else:
                     log(f"{log.CYAN}{msg_ok}")
                 return ret
