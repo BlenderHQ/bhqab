@@ -528,7 +528,7 @@ def submodule_registration_helper(msg_ok="", msg_err=""):
                             _msg_err=msg_err,
                         )
                     )
-                    raise ValueError(err)
+                    raise ValueError(any_err)
                 else:
                     log(f"{log.CYAN}{msg_ok}")
                 return ret
