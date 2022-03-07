@@ -518,7 +518,6 @@ def submodule_registration_helper(msg_ok="", msg_err=""):
                     any_err = err
                 else:
                     ret = tmp_ret
-                    log(f"{log.CYAN}")
 
                 if any_err:
                     print(
