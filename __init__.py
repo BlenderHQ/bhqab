@@ -518,7 +518,6 @@ def submodule_registration_helper(msg_ok="", msg_err=""):
                     any_err = err
                 else:
                     ret = tmp_ret
-                    log(f"{log.CYAN}")
 
                 if any_err:
                     print(
@@ -600,20 +599,20 @@ def unregister_extend_bpy_types(register_queue: tuple) -> None:
 # ____________________________________________________________________________ #
 # Tests.
 
+
 if is_bpy_exists():
-    _SAMPLE_TEXT = """
-    A grasshopper spent the summer hopping about in the sun and singing to his heart's content. One day, an ant went hurrying by, looking very hot and weary.
+    _SAMPLE_TEXT = None
 
-    "Why are you working on such a lovely day?" said the grasshopper.
+    def _sample_text():
+        global _SAMPLE_TEXT
 
-    "I'm collecting food for the winter," said the ant, "and I suggest you do the same." And off she went, helping the other ants to carry food to their store. The grasshopper carried on hopping and singing. When winter came the ground was covered with snow. The grasshopper had no food and was hungry. So he went to the ants and asked for food.
+        if _SAMPLE_TEXT is None:
+            with open(os.path.join(os.path.dirname(__file__), "tests", "SAMPLE_TEXT.txt")) as file:
+                _SAMPLE_TEXT = file.read()
 
-    "What did you do all summer when we were working to collect our food?" said one of the ants.
-
-    "I was busy hopping and singing," said the grasshopper.
-
-    "Well," said the ant, "if you hop and sing all summer, and do no work, then you must starve in the winter."
-    """
+        if _SAMPLE_TEXT is None:
+            return "Unable to read sample text file"
+        return _SAMPLE_TEXT
 
     def _test_draw_wrapped_text(context, layout):
         compact_ui = context.region.width < 450
@@ -636,12 +635,13 @@ if is_bpy_exists():
             layout.prop(addon_pref, "wrapped_text_char_interval")
         layout.prop(addon_pref, "wrapped_text_length")
         layout.label(
-            text=f"`.utils_ui.draw_wrapped_text` (region width: {context.region.width}px, type: \'{context.region.type}\')",
+            text=f"`.utils_ui.draw_wrapped_text` "
+            "(region width: {context.region.width}px, type: \'{context.region.type}\')",
             icon='INFO'
         )
 
         if addon_pref.wrapped_text_tab == 'LONG':
-            text = _SAMPLE_TEXT
+            text = _sample_text()
             if addon_pref.wrapped_text_length > 0:
                 if addon_pref.wrapped_text_length < len(text):
                     text = text[0:addon_pref.wrapped_text_length]
