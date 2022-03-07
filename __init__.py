@@ -56,10 +56,10 @@ bl_info = {
 
 
 import functools
-import string
-import random
-import typing
 import os
+import string
+import sys
+import typing
 
 if "bpy" in locals():
     from importlib import reload
@@ -179,7 +179,7 @@ _addon = None
 _bl_info = None
 
 if _is_bpy_exists:
-    _addon = __import__(__package__.split('.')[0])
+    _addon = sys.modules[__package__.split('.')[0]]
     _bl_info = getattr(_addon, "bl_info", None)
 
     # Basic assertions to validate the addon 'bl_info' data.
