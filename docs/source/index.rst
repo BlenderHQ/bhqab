@@ -40,12 +40,11 @@ To update the addon repository from the remote:
    pages/utils_shader
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Tests
 
    pages/tests
-   pages/test_wrapped_text
-   pages/test_progress_bars
+   pages/test_user_interface
 
 Indices and tables
 ==================

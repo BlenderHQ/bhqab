@@ -47,8 +47,7 @@
 <p class="caption" role="heading"><span class="caption-text">Tests</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tests.html">About Tests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="test_wrapped_text.html">Wrapped Text Rendering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="test_progress_bars.html">Progress Bars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_user_interface.html">User Interface</a></li>
 </ul>
 
         </div>
@@ -78,6 +77,23 @@
   <section id="module-bhq_addon_base.utils_ui">
 <span id="ui-utils-utils-ui"></span><h1>UI Utils (.utils_ui)<a class="headerlink" href="#module-bhq_addon_base.utils_ui" title="Permalink to this headline"></a></h1>
 <dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.developer_extras_poll">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.utils_ui.</span></span><span class="sig-name descname"><span class="pre">developer_extras_poll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.Context</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.developer_extras_poll" title="Permalink to this definition"></a></dt>
+<dd><p>A method for determining whether a user interface intended for developers should be displayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.Context.html#bpy.types.Context">bpy.types.Context</a>) – Current context.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A positive value means that it should.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="bhq_addon_base.utils_ui.draw_wrapped_text">
 <span class="sig-prename descclassname"><span class="pre">bhq_addon_base.utils_ui.</span></span><span class="sig-name descname"><span class="pre">draw_wrapped_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.draw_wrapped_text" title="Permalink to this definition"></a></dt>
 <dd><p>Draws a block of text in the given layout, dividing it into lines
@@ -91,8 +107,8 @@ of text as this may slow down the overall user interface.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<em>bpy.types.Context</em>) – Current context.</p></li>
-<li><p><strong>layout</strong> (<em>bpy.types.UILayout</em>) – Current layout.</p></li>
+<li><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.Context.html#bpy.types.Context">bpy.types.Context</a>) – Current context.</p></li>
+<li><p><strong>layout</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.UILayout.html#bpy.types.UILayout">bpy.types.UILayout</a>) – Current layout.</p></li>
 <li><p><strong>text</strong> (<em>str</em>) – Text to be wrapped and drawn.</p></li>
 </ul>
 </dd>
@@ -235,6 +251,22 @@ would be called
 <dd><p>Removes all progressbars.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.template_developer_extras_warning">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.utils_ui.</span></span><span class="sig-name descname"><span class="pre">template_developer_extras_warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.template_developer_extras_warning" title="Permalink to this definition"></a></dt>
+<dd><p>Output message in the user interface that this section of the interface
+is visible because the active options in the Blender settings. These
+options are also displayed with the ability to disable them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.Context.html#bpy.types.Context">bpy.types.Context</a>) – Current context.</p></li>
+<li><p><strong>layout</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.UILayout.html#bpy.types.UILayout">bpy.types.UILayout</a>) – Current UI layout.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

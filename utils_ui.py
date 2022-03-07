@@ -25,8 +25,8 @@ def draw_wrapped_text(context: bpy.types.Context, layout: bpy.types.UILayout, te
         of text as this may slow down the overall user interface.
 
     Args:
-        context (bpy.types.Context): Current context.
-        layout (bpy.types.UILayout): Current layout.
+        context (`bpy.types.Context`_): Current context.
+        layout (`bpy.types.UILayout`_): Current layout.
         text (str): Text to be wrapped and drawn.
     """
 
@@ -75,6 +75,37 @@ def draw_wrapped_text(context: bpy.types.Context, layout: bpy.types.UILayout, te
 
         for subline in sublines:
             col.label(text=subline)
+
+
+def developer_extras_poll(context: bpy.types.Context) -> bool:
+    """A method for determining whether a user interface intended for developers should be displayed.
+
+    Args:
+        context (`bpy.types.Context`_): Current context.
+
+    Returns:
+        bool: A positive value means that it should.
+    """
+    return context.preferences.view.show_developer_ui
+
+
+def template_developer_extras_warning(context: bpy.types.Context, layout: bpy.types.UILayout) -> None:
+    """Output message in the user interface that this section of the interface
+    is visible because the active options in the Blender settings. These
+    options are also displayed with the ability to disable them.
+
+    Args:
+        context (`bpy.types.Context`_): Current context.
+        layout (`bpy.types.UILayout`_): Current UI layout.
+    """
+    if developer_extras_poll(context):
+        col = layout.column(align=True)
+        col.label(text="Warning", icon='INFO')
+        text = "This section is intended for developers. You see it because " \
+            "you have an active \"Developers Extras\" option in the Blender " \
+            "user preferences."
+        draw_wrapped_text(context, col, text)
+        col.prop(context.preferences.view, "show_developer_ui")
 
 
 def _update_statusbar():

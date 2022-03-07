@@ -598,8 +598,6 @@ def unregister_extend_bpy_types(register_queue: tuple) -> None:
 
 # ____________________________________________________________________________ #
 # Tests.
-
-
 if is_bpy_exists():
     _SAMPLE_TEXT = None
 
@@ -764,11 +762,36 @@ if is_bpy_exists():
             props = layout.operator(operator=_BHQABT_OT_Progress.bl_idname, text="Cancellable Progress Bar")
             props.cancellable = True
 
+    class _BHQABT_PT_developer_extras(bpy.types.Panel, _BHQABT_View3DPanelBase):
+        bl_idname = "BHQABT_PT_developer_extras"
+        bl_label = "Developer Extras Test"
+
+        def draw(self, context):
+            layout = self.layout
+            text = "Given that the Blender preferences include the \"Developer " \
+                "Extras\" option, there should be another sub-panel."
+            utils_ui.draw_wrapped_text(context, layout, text)
+            layout.prop(context.preferences.view, "show_developer_ui")
+
+    class _BHQABT_PT_developer_extras_sub(bpy.types.Panel, _BHQABT_View3DPanelBase):
+        bl_idname = "BHQABT_PT_developer_extras_sub"
+        bl_label = "Developer Extras Test"
+        bl_parent_id = "BHQABT_PT_developer_extras"
+
+        @classmethod
+        def poll(cls, context):
+            return utils_ui.developer_extras_poll(context)
+
+        def draw(self, context):
+            utils_ui.template_developer_extras_warning(context, self.layout)
+
     _classes = (
         _BHQABT_Preferences,
         _BHQABT_PT_WrappedText,
         _BHQABT_OT_Progress,
         _BHQABT_PT_Progress,
+        _BHQABT_PT_developer_extras,
+        _BHQABT_PT_developer_extras_sub,
     )
 
     _cls_register, _cls_unregister = bpy.utils.register_classes_factory(classes=_classes)
