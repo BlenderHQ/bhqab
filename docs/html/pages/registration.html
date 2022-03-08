@@ -177,10 +177,24 @@
 </pre></div>
 </div>
 <span class="target" id="module-bhq_addon_base"></span><dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.addon_bl_info">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">addon_bl_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#bhq_addon_base.addon_bl_info" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the <code class="docutils literal notranslate"><span class="pre">bl_info</span></code> attribute of the addon module to which it belongs as a sub-module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#bhq_addon_base.addon_owner" title="bhq_addon_base.addon_owner"><code class="xref py py-func docutils literal notranslate"><span class="pre">addon_owner()</span></code></a>. <code class="docutils literal notranslate"><span class="pre">bl_info</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="bhq_addon_base.addon_doc_url">
 <span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">addon_doc_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bhq_addon_base.addon_doc_url" title="Permalink to this definition"></a></dt>
-<dd><p>Top level addon package <code class="docutils literal notranslate"><span class="pre">bl_info[&quot;wiki_url&quot;]</span></code> for Blender&lt;3.0 and
-<code class="docutils literal notranslate"><span class="pre">bl_info[&quot;doc_url&quot;]</span></code> for later versions of Blender.</p>
+<dd><p>Top level addon package <code class="docutils literal notranslate"><span class="pre">bl_info[&quot;wiki_url&quot;]</span></code> for Blender v2.8+
+and <code class="docutils literal notranslate"><span class="pre">bl_info[&quot;doc_url&quot;]</span></code> for later versions of Blender (v3.0+).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>Documentation url.</p>
@@ -206,6 +220,20 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.addon_owner">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">addon_owner</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">module</span></span></span><a class="headerlink" href="#bhq_addon_base.addon_owner" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the module of the addon to which it belongs as a sub-module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Module owner.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="bhq_addon_base.earliest_tested_version">
 <span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">earliest_tested_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#bhq_addon_base.earliest_tested_version" title="Permalink to this definition"></a></dt>
 <dd><p>Earliest tested Blender version. It should be guarantee that the addon
@@ -218,6 +246,34 @@ only tuple of 3 integers.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.is_bpy_exists">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">is_bpy_exists</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhq_addon_base.is_bpy_exists" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a positive value if the <code class="docutils literal notranslate"><span class="pre">bpy</span></code> module is present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Positive means that present.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.is_debug">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">is_debug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhq_addon_base.is_debug" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a positive value if the module is in the debug state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Positive means that debug state is active.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>

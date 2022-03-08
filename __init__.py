@@ -60,6 +60,8 @@ import os
 import string
 import sys
 import typing
+import types
+
 
 if "bpy" in locals():
     from importlib import reload
@@ -205,15 +207,40 @@ if _is_bpy_exists:
             assert(isinstance(_bl_info["doc_url"], str))
 
 
-def is_bpy_exists():
+def is_debug() -> bool:
+    """Returns a positive value if the module is in the debug state.
+
+    Returns:
+        bool: Positive means that debug state is active.
+    """
+    return _DEBUG
+
+
+def is_bpy_exists() -> bool:
+    """Returns a positive value if the ``bpy`` module is present.
+
+    Returns:
+        bool: Positive means that present.
+    """
     return _is_bpy_exists
 
 
-def addon_owner():
+def addon_owner() -> types.ModuleType:
+    """Returns the module of the addon to which it belongs as a sub-module.
+
+
+    Returns:
+        module: Module owner.
+    """
     return _addon
 
 
-def addon_bl_info():
+def addon_bl_info() -> dict:
+    """Returns the ``bl_info`` attribute of the addon module to which it belongs as a sub-module.
+
+    Returns:
+        dict: :py:func:`addon_owner`. ``bl_info``
+    """
     return _bl_info
 
 
@@ -246,7 +273,8 @@ def _func_placeholder(*args, **kwargs):
 
 
 def addon_name() -> str:
-    """Top-level addon package ``bl_info["name"]``
+    """
+    Top-level addon package ``bl_info["name"]``
 
     Returns:
         str: Addon display name.
@@ -257,8 +285,8 @@ def addon_name() -> str:
 
 
 def addon_doc_url() -> str:
-    """Top level addon package ``bl_info["wiki_url"]`` for Blender<3.0 and
-    ``bl_info["doc_url"]`` for later versions of Blender.
+    """Top level addon package ``bl_info["wiki_url"]`` for Blender v2.8+
+    and ``bl_info["doc_url"]`` for later versions of Blender (v3.0+).
 
     Returns:
         str: Documentation url.
