@@ -1,19 +1,19 @@
 User Interface
 =======================================================
+Testing the user interface is quite a complex task. Of course, full automation 
+of testing is possible but not feasible, as testing should be performed on all
+supported versions of Blender. As this can lead to significant overhead in the
+maintenance of the module itself, testing the functionality of the module in
+terms of user interface utilities is done manually.
 
 Wrapped Text Rendering
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Text block rendering is tested manually. The main purpose of the test is that
-individual lines of text should not be interrupted or shortened by the Blender
-User Interface.
+The main purpose of the test is that individual lines of text should not be
+interrupted or shortened by the Blender User Interface.
 
 .. image:: ../images/test_wrapped_text.gif
     :align: center
-
---------------------------------------------------------------------------------
-
-The main criteria are the following:
 
 * The text block is displayed in full
 
@@ -21,27 +21,21 @@ The main criteria are the following:
 
 
 Developer Extras UI
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. image:: ../images/test_developer_extras_ui.gif
     :align: center
 
 
---------------------------------------------------------------------------------
+* If the debug mode of the module is active, a panel with a warning about the debug mode should appear.
+
+* The panel must contain all the options needed to disable debug mode.
 
 Progress Bars
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-Testing the progress bars is done manually because their implementation is quite
-complex.
+""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. image:: ../images/test_progress_bars.gif
     :align: center
-
-
---------------------------------------------------------------------------------
-
-The main criteria are the following:
 
 * After initiating the progress bar, the original User Interface status bar is stored.
 

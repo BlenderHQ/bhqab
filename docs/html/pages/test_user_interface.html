@@ -80,14 +80,16 @@
              
   <section id="user-interface">
 <h1>User Interface<a class="headerlink" href="#user-interface" title="Permalink to this headline"></a></h1>
+<p>Testing the user interface is quite a complex task. Of course, full automation
+of testing is possible but not feasible, as testing should be performed on all
+supported versions of Blender. As this can lead to significant overhead in the
+maintenance of the module itself, testing the functionality of the module in
+terms of user interface utilities is done manually.</p>
 <section id="wrapped-text-rendering">
 <h2>Wrapped Text Rendering<a class="headerlink" href="#wrapped-text-rendering" title="Permalink to this headline"></a></h2>
-<p>Text block rendering is tested manually. The main purpose of the test is that
-individual lines of text should not be interrupted or shortened by the Blender
-User Interface.</p>
+<p>The main purpose of the test is that individual lines of text should not be
+interrupted or shortened by the Blender User Interface.</p>
 <img alt="../_images/test_wrapped_text.gif" class="align-center" src="../_images/test_wrapped_text.gif" />
-<hr class="docutils" />
-<p>The main criteria are the following:</p>
 <ul class="simple">
 <li><p>The text block is displayed in full</p></li>
 <li><p>No lines ending or separated by dots</p></li>
@@ -96,15 +98,14 @@ User Interface.</p>
 <section id="developer-extras-ui">
 <h2>Developer Extras UI<a class="headerlink" href="#developer-extras-ui" title="Permalink to this headline"></a></h2>
 <img alt="../_images/test_developer_extras_ui.gif" class="align-center" src="../_images/test_developer_extras_ui.gif" />
+<ul class="simple">
+<li><p>If the debug mode of the module is active, a panel with a warning about the debug mode should appear.</p></li>
+<li><p>The panel must contain all the options needed to disable debug mode.</p></li>
+</ul>
 </section>
-<hr class="docutils" />
 <section id="progress-bars">
 <h2>Progress Bars<a class="headerlink" href="#progress-bars" title="Permalink to this headline"></a></h2>
-<p>Testing the progress bars is done manually because their implementation is quite
-complex.</p>
 <img alt="../_images/test_progress_bars.gif" class="align-center" src="../_images/test_progress_bars.gif" />
-<hr class="docutils" />
-<p>The main criteria are the following:</p>
 <ul class="simple">
 <li><p>After initiating the progress bar, the original User Interface status bar is stored.</p></li>
 <li><p>After the disappearance of the last progress of the bar, the original method of displaying the status bar is completely restored.</p></li>
