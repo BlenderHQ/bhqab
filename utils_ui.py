@@ -7,6 +7,8 @@ import bpy
 import blf
 from bl_ui import space_statusbar
 
+from . import utils_extend_bpy_types
+
 
 def _string_width(string: str) -> float:
     if len(string) == 1:
@@ -252,22 +254,6 @@ class progress(metaclass=_progress_meta):
 
         row.label(text=context.screen.statusbar_info(), translate=False)
 
-    @staticmethod
-    def _generate_wm_attr_name() -> str:
-        """Generates random attribute name for `bpy.types.WindowManager`.
-
-        Returns:
-            str: Attribute name.
-        """
-        def _random_str() -> str:
-            return "".join((random.choice(string.ascii_lowercase) for _ in range(5)))
-
-        attr = _random_str()
-        while hasattr(bpy.types.WindowManager, attr):
-            attr = _random_str()
-
-        return "bhq_" + attr
-
     @classmethod
     def progress_items(cls):
         return getattr(bpy.context.window_manager, cls._attrname)
@@ -286,7 +272,11 @@ class progress(metaclass=_progress_meta):
 
         if not cls._is_drawn:
             bpy.utils.register_class(progress.ProgressPropertyItem)
-            cls._attrname = cls._generate_wm_attr_name()
+            cls._attrname = utils_extend_bpy_types.unique_name(
+                collection=bpy.types.WindowManager,
+                prefix="bhq_",
+                suffix="_progress"
+            )
 
             setattr(
                 bpy.types.WindowManager,
