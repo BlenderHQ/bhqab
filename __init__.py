@@ -61,12 +61,15 @@ import string
 import sys
 import typing
 import types
+import random
 
 
 if "bpy" in locals():
     from importlib import reload
 
     reload(utils_ui)
+    reload(utils_shader)
+    reload(utils_extend_bpy_types)
 
     del reload
 else:
@@ -266,6 +269,7 @@ except ImportError as err:
 
 from . import utils_ui
 from . import utils_shader
+from . import utils_extend_bpy_types
 
 
 def _func_placeholder(*args, **kwargs):
