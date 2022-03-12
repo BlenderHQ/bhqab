@@ -38,6 +38,7 @@ To update the addon repository from the remote:
    pages/registration
    pages/utils_ui
    pages/utils_shader
+   pages/utils_extend_bpy_types
 
 .. toctree::
    :maxdepth: 3
