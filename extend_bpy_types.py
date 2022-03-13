@@ -2,6 +2,8 @@ import typing
 import random
 import string
 
+import bpy
+
 
 def unique_name(collection: typing.Iterable, prefix="", suffix="") -> str:
     """Generates random name which would be unique in given collection. This can
@@ -19,6 +21,7 @@ def unique_name(collection: typing.Iterable, prefix="", suffix="") -> str:
         str: Generated unique name.
     """
     ret = prefix + str().join(random.sample(string.ascii_letters, k=16)) + suffix
-    if ret in collection or hasattr(collection, ret):
+
+    if hasattr(collection, ret) or (isinstance(collection, typing.Iterable) and ret in collection):
         return unique_name(collection, prefix, suffix)
     return ret
