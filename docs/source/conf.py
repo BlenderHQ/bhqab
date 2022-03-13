@@ -7,6 +7,9 @@ import qrcode.image.svg
 
 image_factory = qrcode.image.svg.SvgPathImage
 
+qr_bhqab_github_io = qrcode.make("https://blenderhq.github.io/bhq_addon_base/", image_factory=image_factory)
+qr_bhqab_github_io.save(os.path.abspath("./images/qr_bhqab_github_io.svg"))
+
 qr_bhqab_github = qrcode.make("https://github.com/BlenderHQ/bhq_addon_base", image_factory=image_factory)
 qr_bhqab_github.save(os.path.abspath("./images/qr_bhqab_github.svg"))
 
