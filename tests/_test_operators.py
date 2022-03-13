@@ -1,13 +1,15 @@
-from email.policy import default
 import random
 import string
+import unittest
 
 import bpy
 
-from .. import ui
-from .. import extend_bpy_types
+from . import _test_preferences
 
-import unittest
+from .. import registration
+from .. import extend_bpy_types
+from .. import shaders
+from .. import ui
 
 
 class BHQABT_OT_Progress(bpy.types.Operator):
@@ -47,7 +49,193 @@ class BHQABT_OT_Progress(bpy.types.Operator):
         return {'PASS_THROUGH'}
 
 
-class TEST_unique_name(unittest.TestCase):
+# ____________________________________________________________________________ #
+# Unit tests.
+
+class TEST_registration_is_debug(unittest.TestCase):
+    func = registration.is_debug
+
+    def test(self):
+        self.assertEqual(registration.is_debug(), True)
+
+
+class TEST_registration_current_addon(unittest.TestCase):
+    func = registration.current_addon
+
+    def test(self):
+        self.assertNotEqual(registration.current_addon(), None)
+        self.assertEqual(registration.current_addon().__package__, "bhq_addon_base")
+
+
+class TEST_registration_addon_bl_info(unittest.TestCase):
+    func = registration.addon_bl_info
+
+    def test(self):
+        self.assertNotEqual(registration.addon_bl_info(), None)
+        self.assertTrue(isinstance(registration.addon_bl_info(), dict))
+
+
+class TEST_registration_addon_display_name(unittest.TestCase):
+    func = registration.addon_display_name
+
+    def test(self):
+        self.assertNotEqual(registration.addon_display_name(), None)
+        self.assertEqual(registration.addon_display_name(), "BlenderHQ Addon Base Test")
+
+
+class TEST_registration_addon_doc_url(unittest.TestCase):
+    func = registration.addon_doc_url
+
+    def test(self):
+        self.assertNotEqual(registration.addon_doc_url(), None)
+        self.assertEqual(registration.addon_doc_url(), "https://github.com/BlenderHQ/bhq_addon_base")
+
+
+class TEST_registration_earliest_tested_version(unittest.TestCase):
+    func = registration.earliest_tested_version
+
+    def test(self):
+        self.assertNotEqual(registration.earliest_tested_version(), None)
+        self.assertEqual(len(registration.earliest_tested_version()), 3)
+        self.assertGreaterEqual(registration.earliest_tested_version(), (2, 80, 0))
+
+
+class TEST_registration_latest_tested_version(unittest.TestCase):
+    func = registration.latest_tested_version
+
+    def test(self):
+        self.assertNotEqual(registration.latest_tested_version(), None)
+        self.assertEqual(len(registration.latest_tested_version()), 3)
+
+
+class TEST_registration_version_string(unittest.TestCase):
+    func = registration.version_string
+
+    def test(self):
+        self.assertEqual(registration.version_string(ver=(2, 93, 1)), "2.93.1")
+        self.assertEqual(registration.version_string(ver=(0, 1, 0)), "0.1.0")
+
+
+class TEST_registration_addon_preferences(unittest.TestCase):
+    func = registration.addon_preferences
+
+    def test(self):
+        self.assertTrue(
+            isinstance(registration.addon_preferences(bpy.context),
+                       _test_preferences.BHQABT_Preferences)
+        )
+
+
+class _FakePreferencesClear(bpy.types.AddonPreferences):
+    bl_idname = "bhqabt_fake_pref"
+
+    def draw(self, _context):
+        pass
+
+
+class TEST_registration_register(unittest.TestCase):
+    func = registration.register
+
+    def test_all_ok(self):
+        @registration.register(pref_cls=_FakePreferencesClear)
+        def fake_register():
+            pass
+
+        print('\n')
+        fake_register()
+
+    def test_err(self):
+        @registration.register(pref_cls=_FakePreferencesClear)
+        def fake_register():
+            raise AttributeError("Grr")
+
+        print('\n')
+        fake_register()
+
+        is_fake_preferences_registered = False
+        try:
+            bpy.utils.unregister_class(_FakePreferencesClear)
+        except RuntimeError:
+            is_fake_preferences_registered = True
+
+        self.assertTrue(is_fake_preferences_registered)
+
+
+class TEST_registration_unregister(unittest.TestCase):
+    func = registration.unregister
+
+    def test_all_ok(self):
+        @registration.unregister(pref_cls=_FakePreferencesClear)
+        def fake_unregister():
+            pass
+
+        print('\n')
+        fake_unregister()
+
+    def test_err(self):
+        @registration.unregister(pref_cls=_FakePreferencesClear)
+        def fake_unregister():
+            raise AttributeError("Grr")
+
+        print('\n')
+        fake_unregister()
+
+        is_fake_preferences_registered = False
+        try:
+            bpy.utils.unregister_class(_FakePreferencesClear)
+        except RuntimeError:
+            is_fake_preferences_registered = True
+
+        self.assertTrue(is_fake_preferences_registered)
+
+
+class _FakeWindowManagerProperties(bpy.types.PropertyGroup):
+    my_int: bpy.props.IntProperty()
+
+
+class _FakeWindowManagerItem(bpy.types.PropertyGroup):
+    my_int: bpy.props.IntProperty()
+
+
+_fake_extend_bpy_types_register_queue = (
+    (
+        bpy.types.WindowManager,
+        "bhqabt",
+        bpy.props.PointerProperty,
+        _FakeWindowManagerProperties
+    ),
+    (
+        bpy.types.WindowManager,
+        "bhqabt_collection",
+        bpy.props.CollectionProperty,
+        _FakeWindowManagerItem
+    ),
+)
+
+
+class TEST_registration_register_extend_bpy_types(unittest.TestCase):
+    func = registration.register_extend_bpy_types
+
+    def test_all_ok(self):
+        registration.register_extend_bpy_types(register_queue=_fake_extend_bpy_types_register_queue)
+
+        wm = bpy.context.window_manager
+        self.assertTrue(hasattr(wm, "bhqabt"))
+        self.assertTrue(hasattr(wm, "bhqabt_collection"))
+
+
+class TEST_registration_unregister_extend_bpy_types(unittest.TestCase):
+    func = registration.unregister_extend_bpy_types
+
+    def test_all_ok(self):
+        registration.unregister_extend_bpy_types(register_queue=_fake_extend_bpy_types_register_queue)
+
+        wm = bpy.context.window_manager
+        self.assertFalse(hasattr(wm, "bhqabt"))
+        self.assertFalse(hasattr(wm, "bhqabt_collection"))
+
+
+class TEST_extend_bpy_types_unique_name(unittest.TestCase):
     func = extend_bpy_types.unique_name
 
     test_range = 1000
@@ -135,9 +323,25 @@ unit_test_ops = tuple(
                 execute=ot_unit_test_execute(test_case_cls)
             )
         )
+        if hasattr(test_case_cls, "func")
+        else None
         for test_case_cls in (
             # NOTE: Add new test cases here.
-            TEST_unique_name,
+            TEST_registration_is_debug,
+            TEST_registration_current_addon,
+            TEST_registration_addon_bl_info,
+            TEST_registration_addon_display_name,
+            TEST_registration_addon_doc_url,
+            TEST_registration_earliest_tested_version,
+            TEST_registration_latest_tested_version,
+            TEST_registration_version_string,
+            TEST_registration_addon_preferences,
+            TEST_registration_register,
+            TEST_registration_unregister,
+            TEST_registration_register_extend_bpy_types,
+            TEST_registration_unregister_extend_bpy_types,
+            None,
+            TEST_extend_bpy_types_unique_name,
         )
     )
 )
