@@ -3,15 +3,18 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath('..'))))
 
 import qrcode
+import qrcode.image.svg
 
-qr_bhqab_github = qrcode.make("https://github.com/BlenderHQ/bhq_addon_base")
-qr_bhqab_github.save(os.path.abspath("./images/qr_bhqab_github.jpg"))
+image_factory = qrcode.image.svg.SvgPathImage
 
-qr_bhq_github = qrcode.make("https://github.com/BlenderHQ")
-qr_bhq_github.save(os.path.abspath("./images/qr_bhq_github.jpg"))
+qr_bhqab_github = qrcode.make("https://github.com/BlenderHQ/bhq_addon_base", image_factory=image_factory)
+qr_bhqab_github.save(os.path.abspath("./images/qr_bhqab_github.svg"))
 
-qr_bhq_patreon = qrcode.make("https://www.patreon.com/BlenderHQ")
-qr_bhq_patreon.save(os.path.abspath("./images/qr_bhq_patreon.jpg"))
+qr_bhq_github = qrcode.make("https://github.com/BlenderHQ", image_factory=image_factory)
+qr_bhq_github.save(os.path.abspath("./images/qr_bhq_github.svg"))
+
+qr_bhq_patreon = qrcode.make("https://www.patreon.com/BlenderHQ", image_factory=image_factory)
+qr_bhq_patreon.save(os.path.abspath("./images/qr_bhq_patreon.svg"))
 
 from sphinx.builders.html import StandaloneHTMLBuilder
 StandaloneHTMLBuilder.supported_image_types = [

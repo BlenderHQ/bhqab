@@ -30,7 +30,7 @@ To update the addon repository from the remote:
 Links
 ================================================
 
-   .. figure:: images/qr_bhqab_github.jpg
+   .. figure:: images/qr_bhqab_github.svg
       :align: center
       :target: https://github.com/BlenderHQ/bhq_addon_base
       :alt: https://github.com/BlenderHQ/bhq_addon_base
@@ -38,7 +38,7 @@ Links
       
       GitHub Repository
 
-   .. figure:: images/qr_bhq_github.jpg
+   .. figure:: images/qr_bhq_github.svg
       :align: center
       :target: https://github.com/BlenderHQ
       :alt: https://github.com/BlenderHQ
@@ -46,7 +46,7 @@ Links
       
       BlenderHQ on GitHub
 
-   .. figure:: images/qr_bhq_patreon.jpg
+   .. figure:: images/qr_bhq_patreon.svg
       :align: center
       :target: https://www.patreon.com/BlenderHQ
       :alt: https://www.patreon.com/BlenderHQ
