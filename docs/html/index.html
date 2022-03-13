@@ -18,7 +18,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Addon Registration (bhq_addon_base)" href="pages/registration.html" /> 
+    <link rel="next" title="Addon Registration (registration)" href="pages/registration.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -39,10 +39,10 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="pages/registration.html">Addon Registration (bhq_addon_base)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/utils_ui.html">UI Utils (.utils_ui)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/utils_shader.html">Shader Utils (.utils_shader)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/utils_extend_bpy_types.html">Extend <code class="docutils literal notranslate"><span class="pre">bpy.types</span></code> Utils (.utils_extend_bpy_types)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/registration.html">Addon Registration (registration)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/ui.html">UI Utils (ui)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/shaders.html">Shader Utils (shaders)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/extend_bpy_types.html">bpy.types Utils (extend_bpy_types)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tests</span></p>
 <ul>
@@ -77,36 +77,52 @@
   <section id="blenderhq-addon-base-api">
 <h1>BlenderHQ Addon Base API<a class="headerlink" href="#blenderhq-addon-base-api" title="Permalink to this headline"></a></h1>
 <p>The design of the module is aimed at unifying the important functions used in several add-ons for the Blender 2.8+ series.</p>
-<dl class="simple">
-<dt>Links:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://github.com/BlenderHQ/bhq_addon_base">GitHub Repository</a></p></li>
-<li><p><a class="reference external" href="https://github.com/BlenderHQ">BlenderHQ GitHub</a></p></li>
-<li><p><a class="reference external" href="https://www.patreon.com/BlenderHQ">BlenderHQ Patreon</a></p></li>
-</ul>
-</dd>
-</dl>
-<p>For licensing information see <cite>./LICENSE</cite> file in repository root directory (GPLv3).</p>
+</section>
 <section id="addon-maintenance">
-<h2>Addon Maintenance<a class="headerlink" href="#addon-maintenance" title="Permalink to this headline"></a></h2>
+<h1>Addon Maintenance<a class="headerlink" href="#addon-maintenance" title="Permalink to this headline"></a></h1>
 <p>To add a module to the addon, you can use the command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">submodule</span> <span class="n">add</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">BlenderHQ</span><span class="o">/</span><span class="n">bhq_addon_base</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git submodule add https://github.com/BlenderHQ/bhq_addon_base</span>
 </pre></div>
 </div>
 <p>To clone the addon repository to a local machine, the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="p">[</span><span class="n">repository</span> <span class="n">url</span><span class="p">]</span> <span class="o">--</span><span class="n">recursive</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone [repository url] --recursive</span>
 </pre></div>
 </div>
 <p>To update the addon repository from the remote:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">submodule</span> <span class="n">foreach</span> <span class="n">git</span> <span class="n">pull</span> <span class="n">origin</span> <span class="n">main</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git submodule foreach git pull origin main</span>
 </pre></div>
 </div>
+</section>
+<section id="links">
+<h1>Links<a class="headerlink" href="#links" title="Permalink to this headline"></a></h1>
+<blockquote>
+<div><figure class="align-center" id="id1">
+<a class="reference external image-reference" href="https://github.com/BlenderHQ/bhq_addon_base"><img alt="https://github.com/BlenderHQ/bhq_addon_base" src="_images/qr_bhqab_github.jpg" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">GitHub Repository</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id2">
+<a class="reference external image-reference" href="https://github.com/BlenderHQ"><img alt="https://github.com/BlenderHQ" src="_images/qr_bhq_github.jpg" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">BlenderHQ on GitHub</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id3">
+<a class="reference external image-reference" href="https://www.patreon.com/BlenderHQ"><img alt="https://www.patreon.com/BlenderHQ" src="_images/qr_bhq_patreon.jpg" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">BlenderHQ on Patreon</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div></blockquote>
+<p>For licensing information see <cite>./LICENSE</cite> file in repository root directory (GPLv3).</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="pages/registration.html">Addon Registration (bhq_addon_base)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/utils_ui.html">UI Utils (.utils_ui)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/utils_shader.html">Shader Utils (.utils_shader)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/utils_extend_bpy_types.html">Extend <code class="docutils literal notranslate"><span class="pre">bpy.types</span></code> Utils (.utils_extend_bpy_types)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/registration.html">Addon Registration (registration)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/ui.html">UI Utils (ui)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/shaders.html">Shader Utils (shaders)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/extend_bpy_types.html">bpy.types Utils (extend_bpy_types)</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -122,7 +138,6 @@
 </ul>
 </div>
 </section>
-</section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
 <ul class="simple">
@@ -135,7 +150,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pages/registration.html" class="btn btn-neutral float-right" title="Addon Registration (bhq_addon_base)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pages/registration.html" class="btn btn-neutral float-right" title="Addon Registration (registration)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -156,7 +171,7 @@
   </div>
   <script>
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.Navigation.enable(false);
       });
   </script> 
 

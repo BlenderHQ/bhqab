@@ -1,4 +1,4 @@
-Addon Registration (bhq_addon_base)
+Addon Registration (registration)
 =======================================================
 
 The module was created primarily to simplify addon maintenance. For example, our organization needs to service several released addons. This is not an easy task, as updates to Blender are released relatively often, studios or individual users can use both previous (sometimes not even LTS releases of Blender) and not yet fully ready pre-release (beta) versions of Blender. In any case, much of the testing of addons before releases is done manually, consistently on major versions of the Blender. Of course, it is necessary to repeat from time to time testing the functionality of addons on earlier versions of Blender, as well as on those versions that have not yet been released. But this is all the time that can be spent on developing new functionality and optimization.
@@ -67,44 +67,27 @@ To simplify the understanding of further functions, we give a simple example of 
     class SamplePreferences(bpy.types.AddonPreferences):
         bl_idname = __package__
 
-        @bhq_addon_base.preferences_draw_versioning_helper("https://...compatibility-link")
+        @bhq_addon_base.ui.template_addon_versioning("https://...compatibility-link")
         def draw(self, context):
-            ...
+            layout = self.layout
+            layout.label(text="Hi!")
 
-    _register_queue = (
+    _types_register_queue = (
         (bpy.types.Scene, "my_attr", bpy.props.PointerProperty, SA_SceneProperties),
     )
 
-    _classes = (
-        SA_ScenePanel,
-    )
-
-    _cls_register, _cls_unregister = bpy.utils.register_classes_factory(_classes)
-
-
-    @bhq_addon_base.submodule_registration_helper("UI classes registered", "UI classes registration failed")
-    def some_outer_register():
-        _cls_register()
-
-
-    @bhq_addon_base.submodule_registration_helper("UI classes unregistered", "UI classes unregister failed")
-    def some_outer_unregister():
-        _cls_unregister()
-
-
     @bhq_addon_base.register_helper(SamplePreferences)
     def register():
-        bhq_addon_base.register_extend_bpy_types(register_queue=_register_queue)
-        some_outer_unregister()
+        bpy.utils.register_class(SamplePreferences)
+        bhq_addon_base.register_extend_bpy_types(register_queue=_types_register_queue)
     
     
     @bhq_addon_base.unregister_helper(SamplePreferences)
     def unregister():
-        bhq_addon_base.unregister_extend_bpy_types(register_queue=_register_queue)
-        some_outer_unregister()
+        bhq_addon_base.unregister_extend_bpy_types(register_queue=_types_register_queue)
+        bpy.utils.unregister_class(SamplePreferences)
 
-
-.. automodule:: bhq_addon_base
+.. automodule:: bhq_addon_base.registration
     :members:
 
 

@@ -1,7 +1,7 @@
-Shader Utils (.utils_shader)
+Shader Utils (shaders)
 =======================================================
 
-.. automodule:: bhq_addon_base.utils_shader
+.. automodule:: bhq_addon_base.shaders
     :members:
 
 .. _gpu.types.GPUShader:

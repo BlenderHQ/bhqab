@@ -1,7 +1,7 @@
-UI Utils (.utils_ui)
+UI Utils (ui)
 =======================================================
 
-.. automodule:: bhq_addon_base.utils_ui
+.. automodule:: bhq_addon_base.ui
     :members:
 
 .. _bpy.types.Context:

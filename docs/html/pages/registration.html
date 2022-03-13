@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Addon Registration (bhq_addon_base) &mdash; BlenderHQ Addon Base 1.0 documentation</title>
+  <title>Addon Registration (registration) &mdash; BlenderHQ Addon Base 1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,7 +18,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="UI Utils (.utils_ui)" href="utils_ui.html" />
+    <link rel="next" title="UI Utils (ui)" href="ui.html" />
     <link rel="prev" title="BlenderHQ Addon Base API" href="../index.html" /> 
 </head>
 
@@ -40,10 +40,10 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Addon Registration (bhq_addon_base)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utils_ui.html">UI Utils (.utils_ui)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utils_shader.html">Shader Utils (.utils_shader)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utils_extend_bpy_types.html">Extend <code class="docutils literal notranslate"><span class="pre">bpy.types</span></code> Utils (.utils_extend_bpy_types)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Addon Registration (registration)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html">UI Utils (ui)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shaders.html">Shader Utils (shaders)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extend_bpy_types.html">bpy.types Utils (extend_bpy_types)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tests</span></p>
 <ul>
@@ -65,7 +65,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Addon Registration (bhq_addon_base)</li>
+      <li>Addon Registration (registration)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/pages/registration.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -75,8 +75,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="addon-registration-bhq-addon-base">
-<h1>Addon Registration (bhq_addon_base)<a class="headerlink" href="#addon-registration-bhq-addon-base" title="Permalink to this headline"></a></h1>
+  <section id="addon-registration-registration">
+<h1>Addon Registration (registration)<a class="headerlink" href="#addon-registration-registration" title="Permalink to this headline"></a></h1>
 <p>The module was created primarily to simplify addon maintenance. For example, our organization needs to service several released addons. This is not an easy task, as updates to Blender are released relatively often, studios or individual users can use both previous (sometimes not even LTS releases of Blender) and not yet fully ready pre-release (beta) versions of Blender. In any case, much of the testing of addons before releases is done manually, consistently on major versions of the Blender. Of course, it is necessary to repeat from time to time testing the functionality of addons on earlier versions of Blender, as well as on those versions that have not yet been released. But this is all the time that can be spent on developing new functionality and optimization.</p>
 <p>The main purpose of the module is to simplify the procedure for error handling when calling addon registration methods.</p>
 <p>In any case, there may be a situation where the addon for some reason can not be used or testing has not been conducted for the latest version of Blender. For this purpose the basic principles are allocated:</p>
@@ -140,50 +140,62 @@
 <span class="k">class</span> <span class="nc">SamplePreferences</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">AddonPreferences</span><span class="p">):</span>
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">__package__</span>
 
-    <span class="nd">@bhq_addon_base</span><span class="o">.</span><span class="n">preferences_draw_versioning_helper</span><span class="p">(</span><span class="s2">&quot;https://...compatibility-link&quot;</span><span class="p">)</span>
+    <span class="nd">@bhq_addon_base</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">template_addon_versioning</span><span class="p">(</span><span class="s2">&quot;https://...compatibility-link&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="o">...</span>
+        <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hi!&quot;</span><span class="p">)</span>
 
-<span class="n">_register_queue</span> <span class="o">=</span> <span class="p">(</span>
+<span class="n">_types_register_queue</span> <span class="o">=</span> <span class="p">(</span>
     <span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Scene</span><span class="p">,</span> <span class="s2">&quot;my_attr&quot;</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">PointerProperty</span><span class="p">,</span> <span class="n">SA_SceneProperties</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="n">_classes</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">SA_ScenePanel</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">_cls_register</span><span class="p">,</span> <span class="n">_cls_unregister</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_classes_factory</span><span class="p">(</span><span class="n">_classes</span><span class="p">)</span>
-
-
-<span class="nd">@bhq_addon_base</span><span class="o">.</span><span class="n">submodule_registration_helper</span><span class="p">(</span><span class="s2">&quot;UI classes registered&quot;</span><span class="p">,</span> <span class="s2">&quot;UI classes registration failed&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">some_outer_register</span><span class="p">():</span>
-    <span class="n">_cls_register</span><span class="p">()</span>
-
-
-<span class="nd">@bhq_addon_base</span><span class="o">.</span><span class="n">submodule_registration_helper</span><span class="p">(</span><span class="s2">&quot;UI classes unregistered&quot;</span><span class="p">,</span> <span class="s2">&quot;UI classes unregister failed&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">some_outer_unregister</span><span class="p">():</span>
-    <span class="n">_cls_unregister</span><span class="p">()</span>
-
-
 <span class="nd">@bhq_addon_base</span><span class="o">.</span><span class="n">register_helper</span><span class="p">(</span><span class="n">SamplePreferences</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">register</span><span class="p">():</span>
-    <span class="n">bhq_addon_base</span><span class="o">.</span><span class="n">register_extend_bpy_types</span><span class="p">(</span><span class="n">register_queue</span><span class="o">=</span><span class="n">_register_queue</span><span class="p">)</span>
-    <span class="n">some_outer_unregister</span><span class="p">()</span>
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_class</span><span class="p">(</span><span class="n">SamplePreferences</span><span class="p">)</span>
+    <span class="n">bhq_addon_base</span><span class="o">.</span><span class="n">register_extend_bpy_types</span><span class="p">(</span><span class="n">register_queue</span><span class="o">=</span><span class="n">_types_register_queue</span><span class="p">)</span>
 
 
 <span class="nd">@bhq_addon_base</span><span class="o">.</span><span class="n">unregister_helper</span><span class="p">(</span><span class="n">SamplePreferences</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">unregister</span><span class="p">():</span>
-    <span class="n">bhq_addon_base</span><span class="o">.</span><span class="n">unregister_extend_bpy_types</span><span class="p">(</span><span class="n">register_queue</span><span class="o">=</span><span class="n">_register_queue</span><span class="p">)</span>
-    <span class="n">some_outer_unregister</span><span class="p">()</span>
+    <span class="n">bhq_addon_base</span><span class="o">.</span><span class="n">unregister_extend_bpy_types</span><span class="p">(</span><span class="n">register_queue</span><span class="o">=</span><span class="n">_types_register_queue</span><span class="p">)</span>
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_class</span><span class="p">(</span><span class="n">SamplePreferences</span><span class="p">)</span>
 </pre></div>
 </div>
-<span class="target" id="module-bhq_addon_base"></span><dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.addon_bl_info">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">addon_bl_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#bhq_addon_base.addon_bl_info" title="Permalink to this definition"></a></dt>
+<span class="target" id="module-bhq_addon_base.registration"></span><dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.registration.is_debug">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">is_debug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.is_debug" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a positive value if the module is in the debug state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Positive means that debug state is active.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.registration.current_addon">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">current_addon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">module</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.current_addon" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the module of the addon to which it belongs as a sub-module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Module owner.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.registration.addon_bl_info">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">addon_bl_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.addon_bl_info" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the <code class="docutils literal notranslate"><span class="pre">bl_info</span></code> attribute of the addon module to which it belongs as a sub-module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#bhq_addon_base.addon_owner" title="bhq_addon_base.addon_owner"><code class="xref py py-func docutils literal notranslate"><span class="pre">addon_owner()</span></code></a>. <code class="docutils literal notranslate"><span class="pre">bl_info</span></code></p>
+<dd class="field-odd"><p><a class="reference internal" href="#bhq_addon_base.registration.current_addon" title="bhq_addon_base.registration.current_addon"><code class="xref py py-func docutils literal notranslate"><span class="pre">current_addon()</span></code></a>. <code class="docutils literal notranslate"><span class="pre">bl_info</span></code></p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>dict</p>
@@ -192,8 +204,22 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.addon_doc_url">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">addon_doc_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bhq_addon_base.addon_doc_url" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.registration.addon_display_name">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">addon_display_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.addon_display_name" title="Permalink to this definition"></a></dt>
+<dd><p>Top-level addon package <code class="docutils literal notranslate"><span class="pre">bl_info[&quot;name&quot;]</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Addon display name.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.registration.addon_doc_url">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">addon_doc_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.addon_doc_url" title="Permalink to this definition"></a></dt>
 <dd><p>Top level addon package <code class="docutils literal notranslate"><span class="pre">bl_info[&quot;wiki_url&quot;]</span></code> for Blender v2.8+
 and <code class="docutils literal notranslate"><span class="pre">bl_info[&quot;doc_url&quot;]</span></code> for later versions of Blender (v3.0+).</p>
 <dl class="field-list simple">
@@ -207,36 +233,8 @@ and <code class="docutils literal notranslate"><span class="pre">bl_info[&quot;d
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.addon_name">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">addon_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bhq_addon_base.addon_name" title="Permalink to this definition"></a></dt>
-<dd><p>Top-level addon package <code class="docutils literal notranslate"><span class="pre">bl_info[&quot;name&quot;]</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Addon display name.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.addon_owner">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">addon_owner</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">module</span></span></span><a class="headerlink" href="#bhq_addon_base.addon_owner" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the module of the addon to which it belongs as a sub-module.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Module owner.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>module</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.earliest_tested_version">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">earliest_tested_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#bhq_addon_base.earliest_tested_version" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.registration.earliest_tested_version">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">earliest_tested_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.earliest_tested_version" title="Permalink to this definition"></a></dt>
 <dd><p>Earliest tested Blender version. It should be guarantee that the addon
 would work properly on previous Blender versions. This information would
 be retrieved from <code class="docutils literal notranslate"><span class="pre">bl_info[&quot;blender&quot;]</span></code>. Note that this field should contains
@@ -252,36 +250,8 @@ only tuple of 3 integers.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.is_bpy_exists">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">is_bpy_exists</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhq_addon_base.is_bpy_exists" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a positive value if the <code class="docutils literal notranslate"><span class="pre">bpy</span></code> module is present.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Positive means that present.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.is_debug">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">is_debug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhq_addon_base.is_debug" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a positive value if the module is in the debug state.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Positive means that debug state is active.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.latest_tested_version">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">latest_tested_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#bhq_addon_base.latest_tested_version" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.registration.latest_tested_version">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">latest_tested_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.latest_tested_version" title="Permalink to this definition"></a></dt>
 <dd><p>Latest tested Blender version. It should be guarantee that the addon
 would work properly on latest Blender versions. This information would
 be retrieved from <code class="docutils literal notranslate"><span class="pre">bl_info[&quot;version&quot;]</span></code>. Note that this field should contains
@@ -296,95 +266,83 @@ only tuple of 3 integers.</p>
 </dl>
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="bhq_addon_base.log">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.log" title="Permalink to this definition"></a></dt>
-<dd><p>The module also provides opportunities to simplify the debugging and output
-of more detailed messages to the console. It is clear that from the user
-experience for ordinary users it may not be very necessary (usually they do
-not like consoles), this part is focused more on those who will set up
-addons on many computers, etc.</p>
-<p>There is a class <a class="reference internal" href="#bhq_addon_base.log" title="bhq_addon_base.log"><code class="xref py py-class docutils literal notranslate"><span class="pre">log</span></code></a> for outputting such debug messages.
-In order for it to display the message, you must either manually set the
-variable <code class="docutils literal notranslate"><span class="pre">_DEBUG</span></code> to a positive value, or put in the root folder of the
-addon an empty file called <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code>, <code class="docutils literal notranslate"><span class="pre">DEBUG.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">_DEBUG</span></code> or
-<code class="docutils literal notranslate"><span class="pre">_DEBUG.txt</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This workaround allows to make the addon maintenance faster because
-the developer should not set variable before each public commit. Obvious
-that possible existing file always should be in <code class="docutils literal notranslate"><span class="pre">./.gitignore</span></code>, so its
-would not present by default on user installations.</p>
-</div>
-<p>A class behaves similarly to the <code class="docutils literal notranslate"><span class="pre">print</span></code> function in a python except that
-the message will only be entered if debug mode is active. The class contains
-several attributes for displaying colored text in messages, they can be used
-when formatting the line before the call (but in this case, the
-initialization of the class instance).</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.log.TAB">
-<span class="sig-name descname"><span class="pre">TAB</span></span><a class="headerlink" href="#bhq_addon_base.log.TAB" title="Permalink to this definition"></a></dt>
-<dd><p>One level of tabs in the message.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.log.BLUE">
-<span class="sig-name descname"><span class="pre">BLUE</span></span><a class="headerlink" href="#bhq_addon_base.log.BLUE" title="Permalink to this definition"></a></dt>
-<dd><p>Blue message color.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.log.CYAN">
-<span class="sig-name descname"><span class="pre">CYAN</span></span><a class="headerlink" href="#bhq_addon_base.log.CYAN" title="Permalink to this definition"></a></dt>
-<dd><p>Cyan message color.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.log.GREEN">
-<span class="sig-name descname"><span class="pre">GREEN</span></span><a class="headerlink" href="#bhq_addon_base.log.GREEN" title="Permalink to this definition"></a></dt>
-<dd><p>Green message color.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.log.WARNING">
-<span class="sig-name descname"><span class="pre">WARNING</span></span><a class="headerlink" href="#bhq_addon_base.log.WARNING" title="Permalink to this definition"></a></dt>
-<dd><p>Orange warning message color.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.log.FAIL">
-<span class="sig-name descname"><span class="pre">FAIL</span></span><a class="headerlink" href="#bhq_addon_base.log.FAIL" title="Permalink to this definition"></a></dt>
-<dd><p>Red fail message color.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.log.END">
-<span class="sig-name descname"><span class="pre">END</span></span><a class="headerlink" href="#bhq_addon_base.log.END" title="Permalink to this definition"></a></dt>
-<dd><p>End of message color formatting.</p>
-</dd></dl>
-
-</dd></dl>
-
 <dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.preferences_draw_versioning_helper">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">preferences_draw_versioning_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url_help</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.preferences_draw_versioning_helper" title="Permalink to this definition"></a></dt>
-<dd><p>Helper decorator for addon user preferences <code class="docutils literal notranslate"><span class="pre">draw</span></code> method. Should be used
-with <a class="reference internal" href="#bhq_addon_base.register_helper" title="bhq_addon_base.register_helper"><code class="xref py py-func docutils literal notranslate"><span class="pre">register_helper()</span></code></a> and <a class="reference internal" href="#bhq_addon_base.unregister_helper" title="bhq_addon_base.unregister_helper"><code class="xref py py-func docutils literal notranslate"><span class="pre">unregister_helper()</span></code></a>.</p>
-<p>If current Blender version is less than earliest tested, draw method would
-not be called, would be displayed only information about versioning with
-respective documentation link (<code class="docutils literal notranslate"><span class="pre">url_help</span></code>).</p>
-<p>If current Blender version is greater than latest tested, first would be
-displayed versioning information and only than - actual draw method content.</p>
+<dt class="sig sig-object py" id="bhq_addon_base.registration.version_string">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">version_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ver</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.version_string" title="Permalink to this definition"></a></dt>
+<dd><p>String version separated by ‘.’ character.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>url_help</strong> (<em>str</em>) – Addon documentation versioning information link.</p>
+<dd class="field-odd"><p><strong>ver</strong> (<em>Iterable</em>) – Iterable which contains integer values.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String representation of version.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.register_extend_bpy_types">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">register_extend_bpy_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">register_queue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.register_extend_bpy_types" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.registration.addon_preferences">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">addon_preferences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bpy_types.AddonPreferences</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.addon_preferences" title="Permalink to this definition"></a></dt>
+<dd><p>Current addon user preferences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>bpy.types.Context</em>) – Current context.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Addon user preferences.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bpy.types.AddonPreferences</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.registration.register">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pref_cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.AddonPreferences</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.registration.register" title="Permalink to this definition"></a></dt>
+<dd><p>Helper decorator for addon <code class="docutils literal notranslate"><span class="pre">register</span></code> function. Handles addon Blender
+versioning support w.r.t. earliest and latest tested Blender versions.</p>
+<p>In case if current Blender version is less than earliest tested, decorated
+<code class="docutils literal notranslate"><span class="pre">register</span></code> function would not be called. In this case would be registered
+only addon user preferences class (<code class="docutils literal notranslate"><span class="pre">pref_cls</span></code>). Note that class <code class="docutils literal notranslate"><span class="pre">draw</span></code>
+method should be decorated with
+<a class="reference internal" href="ui.html#bhq_addon_base.ui.template_addon_versioning" title="bhq_addon_base.ui.template_addon_versioning"><code class="xref py py-func docutils literal notranslate"><span class="pre">bhq_addon_base.ui.template_addon_versioning()</span></code></a>
+decorator to provide warning for end user.</p>
+<p>If current Blender version is greater than latest tested, only warning
+message would be printed into console and main <code class="docutils literal notranslate"><span class="pre">register</span></code> function would be
+called.</p>
+<p>Note that execution also implies that
+<a class="reference internal" href="#bhq_addon_base.registration.unregister" title="bhq_addon_base.registration.unregister"><code class="xref py py-func docutils literal notranslate"><span class="pre">unregister()</span></code></a>
+would unregister only user preferences class if regular registration
+function was not called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pref_cls</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.AddonPreferences.html#bpy.types.AddonPreferences">bpy.types.AddonPreferences</a>) – Addon user preferences class,
+which would be the only class registered in case of current Blender
+version is less than earliest tested.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.registration.unregister">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">unregister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pref_cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.AddonPreferences</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.registration.unregister" title="Permalink to this definition"></a></dt>
+<dd><p>Helper decorator for addon <code class="docutils literal notranslate"><span class="pre">unregister</span></code> function. Handles un-registration
+process after <a class="reference internal" href="#bhq_addon_base.registration.register" title="bhq_addon_base.registration.register"><code class="xref py py-func docutils literal notranslate"><span class="pre">register()</span></code></a> registration
+process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pref_cls</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.AddonPreferences.html#bpy.types.AddonPreferences">bpy.types.AddonPreferences</a>) – Addon user preferences class.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.registration.register_extend_bpy_types">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">register_extend_bpy_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">register_queue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.register_extend_bpy_types" title="Permalink to this definition"></a></dt>
 <dd><p>Helper function for extend <a class="reference external" href="https://docs.blender.org/api/current/bpy.types.html">bpy.types</a> registration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -407,84 +365,12 @@ instance of <a class="reference external" href="https://docs.blender.org/api/cur
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.register_helper">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">register_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pref_cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.AddonPreferences</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.register_helper" title="Permalink to this definition"></a></dt>
-<dd><p>Helper decorator for addon <code class="docutils literal notranslate"><span class="pre">register</span></code> function. Handles addon Blender
-versioning support w.r.t. earliest and latest tested Blender versions.</p>
-<p>In case if current Blender version is less than earliest tested, decorated
-<code class="docutils literal notranslate"><span class="pre">register</span></code> function would not be called. In this case would be registered
-only addon user preferences class (<code class="docutils literal notranslate"><span class="pre">pref_cls</span></code>). Note that class <code class="docutils literal notranslate"><span class="pre">draw</span></code>
-method should be decorated with
-<a class="reference internal" href="#bhq_addon_base.preferences_draw_versioning_helper" title="bhq_addon_base.preferences_draw_versioning_helper"><code class="xref py py-func docutils literal notranslate"><span class="pre">preferences_draw_versioning_helper()</span></code></a>
-decorator to provide warning for end user.</p>
-<p>If current Blender version is greater than latest tested, only warning
-message would be printed into console and main <code class="docutils literal notranslate"><span class="pre">register</span></code> function would be
-called.</p>
-<p>Note that execution also implies that
-<a class="reference internal" href="#bhq_addon_base.unregister_helper" title="bhq_addon_base.unregister_helper"><code class="xref py py-func docutils literal notranslate"><span class="pre">unregister_helper()</span></code></a>
-would unregister only user preferences class if regular registration
-function was not called.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>pref_cls</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.AddonPreferences.html#bpy.types.AddonPreferences">bpy.types.AddonPreferences</a>) – Addon user preferences class,
-which would be the only class registered in case of current Blender
-version is less than earliest tested.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.submodule_registration_helper">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">submodule_registration_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg_ok</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_err</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.submodule_registration_helper" title="Permalink to this definition"></a></dt>
-<dd><p>Helper function decorator for addon sub-module (un)registration.
-Main goal is to catch errors due sub-module (un)registration function call.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>msg_ok</strong> (<em>str</em><em>, </em><em>optional</em>) – Message to be printed on success. Defaults to “”.</p></li>
-<li><p><strong>msg_err</strong> (<em>str</em><em>, </em><em>optional</em>) – Message to be printed on fail. Defaults to “”.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.unregister_extend_bpy_types">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">unregister_extend_bpy_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">register_queue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.unregister_extend_bpy_types" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.registration.unregister_extend_bpy_types">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">unregister_extend_bpy_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">register_queue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.unregister_extend_bpy_types" title="Permalink to this definition"></a></dt>
 <dd><p>Helper function for extend <cite>bpy.types</cite> un-registration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>register_queue</strong> (<em>tuple</em>) – tuple of tuples (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.html">bpy.types</a>.[class], attr_name, prop_type, cls)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.unregister_helper">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">unregister_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pref_cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.AddonPreferences</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.unregister_helper" title="Permalink to this definition"></a></dt>
-<dd><p>Helper decorator for addon <code class="docutils literal notranslate"><span class="pre">unregister</span></code> function. Handles un-registration
-process after <a class="reference internal" href="#bhq_addon_base.register_helper" title="bhq_addon_base.register_helper"><code class="xref py py-func docutils literal notranslate"><span class="pre">register_helper()</span></code></a> registration
-process.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>pref_cls</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.AddonPreferences.html#bpy.types.AddonPreferences">bpy.types.AddonPreferences</a>) – Addon user preferences class.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.version_string">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.</span></span><span class="sig-name descname"><span class="pre">version_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ver</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bhq_addon_base.version_string" title="Permalink to this definition"></a></dt>
-<dd><p>String version separated by ‘.’ character.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>ver</strong> (<em>Iterable</em>) – Iterable which contains integer values.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>String representation of version.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -496,7 +382,7 @@ process.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../index.html" class="btn btn-neutral float-left" title="BlenderHQ Addon Base API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="utils_ui.html" class="btn btn-neutral float-right" title="UI Utils (.utils_ui)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ui.html" class="btn btn-neutral float-right" title="UI Utils (ui)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -517,7 +403,7 @@ process.</p>
   </div>
   <script>
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.Navigation.enable(false);
       });
   </script> 
 
