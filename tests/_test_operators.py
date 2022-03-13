@@ -149,6 +149,7 @@ class TEST_registration_register(unittest.TestCase):
         def fake_register():
             raise AttributeError("Grr")
 
+        # with self.assertRaises(AttributeError):
         print('\n')
         fake_register()
 
@@ -173,6 +174,11 @@ class TEST_registration_unregister(unittest.TestCase):
         fake_unregister()
 
     def test_err(self):
+        try:
+            bpy.utils.register_class(_FakePreferencesClear)
+        except RuntimeError:
+            pass
+
         @registration.unregister(pref_cls=_FakePreferencesClear)
         def fake_unregister():
             raise AttributeError("Grr")
@@ -180,13 +186,13 @@ class TEST_registration_unregister(unittest.TestCase):
         print('\n')
         fake_unregister()
 
-        is_fake_preferences_registered = False
+        is_fake_preferences_unregistered = False
         try:
             bpy.utils.unregister_class(_FakePreferencesClear)
         except RuntimeError:
-            is_fake_preferences_registered = True
+            is_fake_preferences_unregistered = True
 
-        self.assertTrue(is_fake_preferences_registered)
+        self.assertTrue(is_fake_preferences_unregistered)
 
 
 class _FakeWindowManagerProperties(bpy.types.PropertyGroup):
@@ -289,13 +295,34 @@ class TEST_extend_bpy_types_unique_name(unittest.TestCase):
             bpy.data.meshes.remove(mesh)
 
 
-# ____________________________________________________________________________ #
-# Generate unit test operators w.r.t test cases.
+_unit_test_classes = (
+    # NOTE: Add new test cases here.
+    TEST_registration_is_debug,
+    TEST_registration_current_addon,
+    TEST_registration_addon_bl_info,
+    TEST_registration_addon_display_name,
+    TEST_registration_addon_doc_url,
+    TEST_registration_earliest_tested_version,
+    TEST_registration_latest_tested_version,
+    TEST_registration_version_string,
+    TEST_registration_addon_preferences,
+    TEST_registration_register,
+    TEST_registration_unregister,
+    TEST_registration_register_extend_bpy_types,
+    TEST_registration_unregister_extend_bpy_types,
+    None,
+    TEST_extend_bpy_types_unique_name,
+)
 
-def ot_unit_test_execute(test_case_cls: unittest.TestCase):
+
+# ____________________________________________________________________________ #
+# Global unit test operator.
+def ot_unit_test_execute(test_case_classes):
     def wrapper(self, _context):
         suite = unittest.TestSuite()
-        suite.addTests(unittest.makeSuite(test_case_cls))
+        for cls in test_case_classes:
+            if cls:
+                suite.addTests(unittest.makeSuite(cls))
         runner = unittest.TextTestRunner(verbosity=2)
         result = runner.run(suite)
 
@@ -312,6 +339,18 @@ def ot_unit_test_execute(test_case_cls: unittest.TestCase):
     return wrapper
 
 
+class BHQABT_OT_unit_tests_all(bpy.types.Operator):
+    bl_idname = "bhqabt.unit_tests_all"
+    bl_label = "Run All Unit Tests"
+    bl_options = {'INTERNAL'}
+
+    execute = ot_unit_test_execute(_unit_test_classes)
+
+
+# ____________________________________________________________________________ #
+# Generate unit test operators w.r.t test cases.
+
+
 unit_test_ops = tuple(
     (
         type(
@@ -320,28 +359,11 @@ unit_test_ops = tuple(
             dict(
                 bl_idname=f"bhqabt.test_{test_case_cls.func.__qualname__}",
                 bl_label=f"{test_case_cls.func.__module__}.{test_case_cls.func.__qualname__}",
-                execute=ot_unit_test_execute(test_case_cls)
+                execute=ot_unit_test_execute((test_case_cls,))
             )
         )
         if hasattr(test_case_cls, "func")
         else None
-        for test_case_cls in (
-            # NOTE: Add new test cases here.
-            TEST_registration_is_debug,
-            TEST_registration_current_addon,
-            TEST_registration_addon_bl_info,
-            TEST_registration_addon_display_name,
-            TEST_registration_addon_doc_url,
-            TEST_registration_earliest_tested_version,
-            TEST_registration_latest_tested_version,
-            TEST_registration_version_string,
-            TEST_registration_addon_preferences,
-            TEST_registration_register,
-            TEST_registration_unregister,
-            TEST_registration_register_extend_bpy_types,
-            TEST_registration_unregister_extend_bpy_types,
-            None,
-            TEST_extend_bpy_types_unique_name,
-        )
+        for test_case_cls in _unit_test_classes
     )
 )

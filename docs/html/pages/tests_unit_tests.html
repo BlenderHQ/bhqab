@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Tests &mdash; BlenderHQ Addon Base 1.0 documentation</title>
+  <title>Unit Tests &mdash; BlenderHQ Addon Base 1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Unit Tests" href="tests_unit_tests.html" />
-    <link rel="prev" title="bpy.types Utils (extend_bpy_types)" href="extend_bpy_types.html" /> 
+    <link rel="next" title="User Interface" href="test_user_interface.html" />
+    <link rel="prev" title="About Tests" href="tests.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,8 +47,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tests</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">About Tests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests_unit_tests.html">Unit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">About Tests</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_user_interface.html">User Interface</a></li>
 </ul>
 
@@ -66,9 +66,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>About Tests</li>
+      <li>Unit Tests</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/pages/tests.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/pages/tests_unit_tests.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -76,33 +76,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="about-tests">
-<h1>About Tests<a class="headerlink" href="#about-tests" title="Permalink to this headline"></a></h1>
-<p>Testing the module is not an easy task as there are many interdependencies.</p>
-<p>Currently, the main method of testing is to install the module as an add-on to
-the Blender. This can be done in different ways, but here we describe the method
-used.</p>
-<p>Since addons are tested on all official releases and pre-releases of Blender, it
-is first necessary to test this basic module. So, we have all versions of
-Blender installed on the hard drive and separately, in our case on another
-physical drive - the directory with supported addons. The directory with addons
-is called “addons”, it is important in the following. Using symbolic file system
-links, this directory is available in all custom Blender folders. This is the
-easiest way to maintain and supplement existing addons.</p>
-<p>Since the main file system has already been described, then - regarding the
-testing of the module. There is also a symbolic link to this module in the
-addons folder. At the same time, it is obvious that not for a module in the
-directory of any of the addons, but for a separate local copy of the git
-repository. In this way, the module will be available as a separate addon with
-the required functionality for testing.</p>
+  <section id="unit-tests">
+<h1>Unit Tests<a class="headerlink" href="#unit-tests" title="Permalink to this headline"></a></h1>
+<p>Testing is also done using unit tests. With this method it is not possible to test all the functions of the module without significant overhead, so for some functionality it is still necessary to test manually using functional tests.</p>
+<p>For unit tests, the module installed as an add-on has a set of operators that test each function separately and a main operator that runs all available unit tests.</p>
+<p>The following is an example of how testing can be run.</p>
+<img alt="../_images/test_unit_tests.gif" class="align-center" src="../_images/test_unit_tests.gif" />
+<p>Obviously, if you want to make any changes to the main repository, these changes should not destroy existing unit tests. For the new functionality - it is very desirable to write new unit tests.</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="extend_bpy_types.html" class="btn btn-neutral float-left" title="bpy.types Utils (extend_bpy_types)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="tests_unit_tests.html" class="btn btn-neutral float-right" title="Unit Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tests.html" class="btn btn-neutral float-left" title="About Tests" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="test_user_interface.html" class="btn btn-neutral float-right" title="User Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

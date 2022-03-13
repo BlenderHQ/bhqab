@@ -72,6 +72,7 @@ For licensing information see `./LICENSE` file in repository root directory (GPL
    :caption: Tests
 
    pages/tests
+   pages/tests_unit_tests
    pages/test_user_interface
 
 Indices and tables

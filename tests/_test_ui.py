@@ -19,7 +19,11 @@ class BHQABT_PT_unit_tests(bpy.types.Panel, View3DPanelBase):
     def draw(self, context):
         layout = self.layout
         layout.use_property_split = True
-        
+
+        col = layout.column()
+        col.scale_y = 1.5
+        col.operator(operator=_test_operators.BHQABT_OT_unit_tests_all.bl_idname)
+
         col = layout.column(align=True)
         for unit_test_ot in _test_operators.unit_test_ops:
             if unit_test_ot:

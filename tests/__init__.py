@@ -8,6 +8,7 @@ from . import _test_ui
 _classes = (
     _test_preferences.BHQABT_Preferences,
 
+    _test_operators.BHQABT_OT_unit_tests_all,
     _test_operators.BHQABT_OT_Progress,
 
     _test_ui.BHQABT_PT_unit_tests,  # Unit tests.
