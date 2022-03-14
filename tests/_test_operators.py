@@ -126,121 +126,6 @@ class TEST_registration_addon_preferences(unittest.TestCase):
         )
 
 
-class _FakePreferencesClear(bpy.types.AddonPreferences):
-    bl_idname = "bhqabt_fake_pref"
-
-    def draw(self, _context):
-        pass
-
-
-class TEST_registration_register(unittest.TestCase):
-    func = registration.register
-
-    def test_all_ok(self):
-        @registration.register(pref_cls=_FakePreferencesClear)
-        def fake_register():
-            pass
-
-        print('\n')
-        fake_register()
-
-    def test_err(self):
-        @registration.register(pref_cls=_FakePreferencesClear)
-        def fake_register():
-            raise AttributeError("Grr")
-
-        # with self.assertRaises(AttributeError):
-        print('\n')
-        fake_register()
-
-        is_fake_preferences_registered = False
-        try:
-            bpy.utils.unregister_class(_FakePreferencesClear)
-        except RuntimeError:
-            is_fake_preferences_registered = True
-
-        self.assertTrue(is_fake_preferences_registered)
-
-
-class TEST_registration_unregister(unittest.TestCase):
-    func = registration.unregister
-
-    def test_all_ok(self):
-        @registration.unregister(pref_cls=_FakePreferencesClear)
-        def fake_unregister():
-            pass
-
-        print('\n')
-        fake_unregister()
-
-    def test_err(self):
-        try:
-            bpy.utils.register_class(_FakePreferencesClear)
-        except RuntimeError:
-            pass
-
-        @registration.unregister(pref_cls=_FakePreferencesClear)
-        def fake_unregister():
-            raise AttributeError("Grr")
-
-        print('\n')
-        fake_unregister()
-
-        is_fake_preferences_unregistered = False
-        try:
-            bpy.utils.unregister_class(_FakePreferencesClear)
-        except RuntimeError:
-            is_fake_preferences_unregistered = True
-
-        self.assertTrue(is_fake_preferences_unregistered)
-
-
-class _FakeWindowManagerProperties(bpy.types.PropertyGroup):
-    my_int: bpy.props.IntProperty()
-
-
-class _FakeWindowManagerItem(bpy.types.PropertyGroup):
-    my_int: bpy.props.IntProperty()
-
-
-_fake_extend_bpy_types_register_queue = (
-    (
-        bpy.types.WindowManager,
-        "bhqabt",
-        bpy.props.PointerProperty,
-        _FakeWindowManagerProperties
-    ),
-    (
-        bpy.types.WindowManager,
-        "bhqabt_collection",
-        bpy.props.CollectionProperty,
-        _FakeWindowManagerItem
-    ),
-)
-
-
-class TEST_registration_register_extend_bpy_types(unittest.TestCase):
-    func = registration.register_extend_bpy_types
-
-    def test_all_ok(self):
-        registration.register_extend_bpy_types(register_queue=_fake_extend_bpy_types_register_queue)
-
-        wm = bpy.context.window_manager
-        self.assertTrue(hasattr(wm, "bhqabt"))
-        self.assertTrue(hasattr(wm, "bhqabt_collection"))
-
-
-class TEST_registration_unregister_extend_bpy_types(unittest.TestCase):
-    func = registration.unregister_extend_bpy_types
-
-    def test_all_ok(self):
-        registration.unregister_extend_bpy_types(register_queue=_fake_extend_bpy_types_register_queue)
-
-        wm = bpy.context.window_manager
-        self.assertFalse(hasattr(wm, "bhqabt"))
-        self.assertFalse(hasattr(wm, "bhqabt_collection"))
-
-
 class TEST_extend_bpy_types_unique_name(unittest.TestCase):
     func = extend_bpy_types.unique_name
 
@@ -306,10 +191,6 @@ _unit_test_classes = (
     TEST_registration_latest_tested_version,
     TEST_registration_version_string,
     TEST_registration_addon_preferences,
-    TEST_registration_register,
-    TEST_registration_unregister,
-    TEST_registration_register_extend_bpy_types,
-    TEST_registration_unregister_extend_bpy_types,
     None,
     TEST_extend_bpy_types_unique_name,
 )
