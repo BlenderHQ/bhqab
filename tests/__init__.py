@@ -17,6 +17,6 @@ _classes = (
     _test_ui.BHQABT_PT_Progress,
     _test_ui.BHQABT_PT_developer_extras,
     _test_ui.BHQABT_PT_developer_extras_sub,
-) + tuple((_ for _ in _test_operators.unit_test_ops if _ is not None))
+) + _test_operators.unit_test_ops
 
 register, unregister = bpy.utils.register_classes_factory(_classes)

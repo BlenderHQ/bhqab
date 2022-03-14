@@ -56,7 +56,14 @@ class TEST_registration_is_debug(unittest.TestCase):
     func = registration.is_debug
 
     def test(self):
-        self.assertEqual(registration.is_debug(), True)
+        self.assertTrue(isinstance(registration.is_debug(), bool))
+
+        prev_dbg_mode = registration._MODULE_DEBUG_MODE
+        registration._MODULE_DEBUG_MODE = False
+        self.assertFalse(registration.is_debug())
+        registration._MODULE_DEBUG_MODE = True
+        self.assertTrue(registration.is_debug())
+        registration._MODULE_DEBUG_MODE = prev_dbg_mode
 
 
 class TEST_registration_current_addon(unittest.TestCase):
@@ -126,6 +133,79 @@ class TEST_registration_addon_preferences(unittest.TestCase):
         )
 
 
+class TEST_registration_registration(unittest.TestCase):
+    class _TestEmptyAddonPreferences(bpy.types.AddonPreferences):
+        bl_idname = "bhqabt_addon_preferences"
+
+        def draw(self, _context):
+            pass
+
+    class _TestWindowManagerProperties(bpy.types.PropertyGroup):
+        my_int: bpy.props.IntProperty()
+
+    class _TestWindowManagerItem(bpy.types.PropertyGroup):
+        my_int: bpy.props.IntProperty()
+
+    _extend_bpy_types_register_queue = (
+        (
+            bpy.types.WindowManager,
+            "bhqabt",
+            bpy.props.PointerProperty,
+            _TestWindowManagerProperties
+        ),
+        (
+            bpy.types.WindowManager,
+            "bhqabt_coll",
+            bpy.props.CollectionProperty,
+            _TestWindowManagerItem
+        )
+    )
+
+    def test_register_unregister(self):
+        @registration.register(pref_cls=self.__class__._TestEmptyAddonPreferences)
+        def test_register():
+            bpy.utils.register_class(self.__class__._TestWindowManagerProperties)
+            bpy.types.WindowManager.bhqabt = bpy.props.PointerProperty(
+                type=self.__class__._TestWindowManagerProperties
+            )
+
+        @registration.unregister(pref_cls=self.__class__._TestEmptyAddonPreferences)
+        def test_unregister():
+            bpy.utils.unregister_class(self.__class__._TestWindowManagerProperties)
+            del bpy.types.WindowManager.bhqabt
+
+        # --- Register ---
+        test_register()
+
+        # Test if user preferences class registered.
+        with self.assertRaises(ValueError):
+            bpy.utils.register_class(self.__class__._TestEmptyAddonPreferences)
+
+        # Test if class registered.
+        with self.assertRaises(ValueError):
+            bpy.utils.register_class(self.__class__._TestWindowManagerProperties)
+
+        # Test if register function body was executed.
+        wm = bpy.context.window_manager
+        self.assertTrue(hasattr(wm, "bhqabt"))
+        self.assertEqual(wm.bhqabt.my_int, 0)
+
+        # --- Unregister ---
+        test_unregister()
+        wm = bpy.context.window_manager
+
+        # Test if user preferences class unregistered.
+        with self.assertRaises(RuntimeError):
+            bpy.utils.unregister_class(self.__class__._TestEmptyAddonPreferences)
+
+        # Test if class unregistered.
+        with self.assertRaises(RuntimeError):
+            bpy.utils.unregister_class(self.__class__._TestWindowManagerProperties)
+
+        # Test if unregister function body was executed.
+        self.assertFalse(hasattr(wm, "bhqabt"))
+
+
 class TEST_extend_bpy_types_unique_name(unittest.TestCase):
     func = extend_bpy_types.unique_name
 
@@ -191,7 +271,7 @@ _unit_test_classes = (
     TEST_registration_latest_tested_version,
     TEST_registration_version_string,
     TEST_registration_addon_preferences,
-    None,
+    TEST_registration_registration,
     TEST_extend_bpy_types_unique_name,
 )
 
@@ -225,26 +305,31 @@ class BHQABT_OT_unit_tests_all(bpy.types.Operator):
     bl_label = "Run All Unit Tests"
     bl_options = {'INTERNAL'}
 
-    execute = ot_unit_test_execute(_unit_test_classes)
+    def execute(self, context):
+        prev_dbg_mode = registration._MODULE_DEBUG_MODE
+        registration._MODULE_DEBUG_MODE = False
+        ret = ot_unit_test_execute(_unit_test_classes)(self, context)
+        registration._MODULE_DEBUG_MODE = prev_dbg_mode
+        return ret
 
 
 # ____________________________________________________________________________ #
 # Generate unit test operators w.r.t test cases.
-
-
 unit_test_ops = tuple(
     (
         type(
-            f"BHQABT_OT_test_{test_case_cls.func.__qualname__}",
+            f"BHQABT_OT_test_{test_case_cls.__name__.lower()}",
             (bpy.types.Operator, ),
             dict(
-                bl_idname=f"bhqabt.test_{test_case_cls.func.__qualname__}",
-                bl_label=f"{test_case_cls.func.__module__}.{test_case_cls.func.__qualname__}",
-                execute=ot_unit_test_execute((test_case_cls,))
+                bl_idname=f"bhqabt.test_{test_case_cls.__name__.lower()}",
+                bl_label=test_case_cls.__name__,
+                execute=ot_unit_test_execute((test_case_cls,)),
+                bl_description="Function doc string:\n\n"
+                + getattr(test_case_cls, "func", None).__doc__
+                if hasattr(test_case_cls, "func")
+                else "",
             )
         )
-        if hasattr(test_case_cls, "func")
-        else None
         for test_case_cls in _unit_test_classes
     )
 )
