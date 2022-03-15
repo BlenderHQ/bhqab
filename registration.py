@@ -73,10 +73,12 @@ def addon_doc_url() -> str:
     Returns:
         str: Documentation url.
     """
-    if bpy.app.version < (3, 0, 0):
-        return addon_bl_info()["wiki_url"]
-    else:
-        return addon_bl_info()["doc_url"]
+    _bl_info = addon_bl_info()
+    if bpy.app.version < (3, 0, 0) and "wiki_url" in _bl_info:
+        return _bl_info["wiki_url"]
+    elif "doc_url" in _bl_info:
+        return _bl_info["doc_url"]
+    return ""
 
 
 def earliest_tested_version() -> tuple:
