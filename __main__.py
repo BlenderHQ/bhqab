@@ -23,6 +23,9 @@ def main():
     args = parser.parse_args()
 
     blender_dirs = args.dir_blender
+    if blender_dirs is None:
+        blender_dirs = []
+
     if args.use_default_win32_pathes:
         base_win32_blender_path = 'C:/Program Files/Blender Foundation/Blender'
 
