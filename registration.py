@@ -10,8 +10,9 @@ import bpy
 _ADDON_WITH_MODULE = sys.modules[__package__.split('.')[0]]
 _ADDON_BL_INFO = getattr(_ADDON_WITH_MODULE, "bl_info", None)
 
-
 _MODULE_DEBUG_MODE = False
+
+_FULL_REGISTRATION_DONE = False
 
 
 def __dbg_file_exists(name: str) -> bool:
@@ -154,60 +155,88 @@ def register(pref_cls: bpy.types.AddonPreferences):
     def _register_outer(reg_func):
         @functools.wraps(reg_func)
         def _wrapper(*args, **kwargs):
-            global _full_registration_done
+            global _FULL_REGISTRATION_DONE
 
-            earliest_tested = earliest_tested_version()
-            latest_tested = latest_tested_version()
+            _FULL_REGISTRATION_DONE = False
 
-            if bpy.app.version < earliest_tested:
+            ret = None
+
+            # Try to register user preferences class.
+            reg_pref_err_msg = ""
+            try:
                 bpy.utils.register_class(pref_cls)
-                print("{0}{_addon_name} WARNING: Current Blender version ({_b_ver_str}) is less than older tested "
-                      "({_earltested}). Registered only addon user preferences, which warn user about that.\n"
-                      "Please, visit the addon documentation:\n{_addon_doc_url}{1}".format(
-                          _log.log.WARNING,  # Warning start.
-                          _log.log.END,  # Warning end.
-                          _addon_name=addon_display_name(),
-                          _b_ver_str=bpy.app.version_string,
-                          _earltested=version_string(earliest_tested),
-                          _addon_doc_url=addon_doc_url(),
-                      ))
-                _full_registration_done = False
-                return
+            except ValueError as err:
+                reg_pref_err_msg = err
+            except AttributeError as err:
+                reg_pref_err_msg = err
+            except RuntimeError as err:
+                reg_pref_err_msg = err
+            else:
+                # Check Blender version for compatibility with current addon.
+                earliest_tested = earliest_tested_version()
+                latest_tested = latest_tested_version()
 
-            elif bpy.app.version > latest_tested:
+                if bpy.app.version < earliest_tested:
+                    print("{0}{_addon_name} WARNING: Current Blender version ({_b_ver_str}) is less than older tested "
+                          "({_earltested}). Registered only addon user preferences, which warn user about that.\n"
+                          "Please, visit the addon documentation:\n{_addon_doc_url}{1}".format(
+                              _log.log.WARNING,  # Warning start.
+                              _log.log.END,  # Warning end.
+                              _addon_name=addon_display_name(),
+                              _b_ver_str=bpy.app.version_string,
+                              _earltested=version_string(earliest_tested),
+                              _addon_doc_url=addon_doc_url(),
+                          ))
+
+                elif bpy.app.version > latest_tested:
+                    print(
+                        "{0}{_addon_name} WARNING: Current Blender version ({_b_ver_str}) is greater than latest "
+                        "tested ({_lattested}).\nPlease, visit the addon documentation:\n{_addon_doc_url}{1}".format(
+                            _log.log.WARNING,  # Warning start.
+                            _log.log.END,  # Warning end.
+                            _addon_name=addon_display_name(),
+                            _b_ver_str=bpy.app.version_string,
+                            _lattested=version_string(latest_tested),
+                            _addon_doc_url=addon_doc_url(),
+                        ))
+                else:
+                    # Try to call addon registration methods.
+                    reg_func_err_msg = ""
+                    try:
+                        ret = reg_func(*args, **kwargs)
+                    except ValueError as err:
+                        reg_func_err_msg = err
+                    except AttributeError as err:
+                        reg_func_err_msg = err
+                    except RuntimeError as err:
+                        reg_func_err_msg = err
+                    else:
+                        _FULL_REGISTRATION_DONE = True
+                        _log.log(f"{_log.log.CYAN}Registered addon: \"{addon_display_name()}\"")
+
+                    if reg_func_err_msg:
+                        print(
+                            "{0}{_addon_name} WARNING: Unable to register addon for reason:\n"
+                            "{_reg_func_err_msg}\n\n"
+                            "Please, try again in debug mode (add 'DEBUG.txt' file to addon root directory).{1}".format(
+                                _log.log.FAIL,  # Failure start.
+                                _log.log.END,  # Failure end.
+                                _addon_name=addon_display_name(),
+                                _reg_func_err_msg=reg_func_err_msg
+                            )
+                        )
+
+            if reg_pref_err_msg:
                 print(
-                    "{0}{_addon_name} WARNING: Current Blender version ({_b_ver_str}) is greater than latest "
-                    "tested ({_lattested}).\nPlease, visit the addon documentation:\n{_addon_doc_url}{1}".format(
+                    "{0}{_addon_name} WARNING: Unable to register addon user preferences class "
+                    "for reason:\n{_reg_pref_err_msg}{1}".format(
                         _log.log.WARNING,  # Warning start.
                         _log.log.END,  # Warning end.
                         _addon_name=addon_display_name(),
-                        _b_ver_str=bpy.app.version_string,
-                        _lattested=version_string(latest_tested),
-                        _addon_doc_url=addon_doc_url(),
-                    ))
-
-            ret = None
-            is_any_err = False
-            try:
-                ret = reg_func(*args, **kwargs)
-            except ValueError:
-                is_any_err = True
-            except AttributeError:
-                is_any_err = True
-            else:
-                _full_registration_done = True
-
-            if is_any_err:
-                print(
-                    "{0}Unable to register addon: \"{_addon_name}\".\n"
-                    "Please, try again in debug mode (add 'DEBUG.txt' file to addon root directory).{1}".format(
-                        _log.log.FAIL,  # Failure start.
-                        _log.log.END,  # Failure end.
-                        _addon_name=addon_display_name(),
+                        _reg_pref_err_msg=reg_pref_err_msg,
                     )
                 )
-            else:
-                _log.log(f"{_log.log.CYAN}Registered addon: \"{addon_display_name()}\"")
+
             return ret
 
         return _wrapper
@@ -223,34 +252,59 @@ def unregister(pref_cls: bpy.types.AddonPreferences):
         pref_cls (`bpy.types.AddonPreferences`_): Addon user preferences class.
     """
     def _unregister_outer(unreg_func):
-        @functools.wraps(unreg_func)
+        @ functools.wraps(unreg_func)
         def _wrapper(*args, **kwargs):
-            global _full_registration_done
-            if _full_registration_done:
-                ret = None
-                is_any_err = False
-                try:
-                    ret = unreg_func(*args, **kwargs)
-                except ValueError:
-                    is_any_err = True
-                except AttributeError:
-                    is_any_err = True
-                else:
-                    _full_registration_done = False
+            global _FULL_REGISTRATION_DONE
 
-                if is_any_err:
+            _FULL_REGISTRATION_DONE = False
+
+            ret = None
+
+            unreg_func_err_msg = ""
+            try:
+                ret = unreg_func(*args, **kwargs)
+            except ValueError as err:
+                unreg_func_err_msg = err
+            except AttributeError as err:
+                unreg_func_err_msg = err
+            except RuntimeError as err:
+                unreg_func_err_msg = err
+            else:
+                unreg_pref_err_msg = ""
+                try:
+                    bpy.utils.unregister_class(pref_cls)
+                except ValueError as err:
+                    unreg_pref_err_msg = err
+                except AttributeError as err:
+                    unreg_pref_err_msg = err
+                except RuntimeError as err:
+                    unreg_pref_err_msg = err
+                else:
+                    _log.log(f"{_log.log.CYAN}Unregistered addon: \"{addon_display_name()}\"")
+
+                if unreg_pref_err_msg:
                     print(
-                        "{0}Unable to unregister addon: \"{_addon_name}\".\n"
+                        "{0}Unable to unregister addon \"{_addon_name}\" user preferences for reason:\n"
+                        "{_unreg_func_err_msg}\n"
                         "Please, try again in debug mode (add 'DEBUG.txt' file to addon root directory).{1}".format(
                             _log.log.FAIL,  # Failure start.
                             _log.log.END,  # Failure end.
                             _addon_name=addon_display_name(),
-                        ))
-                else:
-                    _log.log(f"{_log.log.CYAN}Unregistered addon: \"{addon_display_name()}\"")
-                return ret
-            else:
-                bpy.utils.unregister_class(pref_cls)
+                            _unreg_func_err_msg=unreg_func_err_msg,
+                        )
+                    )
+
+            if unreg_func_err_msg:
+                print(
+                    "{0}Unable to unregister addon \"{_addon_name}\" for reason:\n"
+                    "{_unreg_func_err_msg}\n"
+                    "Please, try again in debug mode (add 'DEBUG.txt' file to addon root directory).{1}".format(
+                        _log.log.FAIL,  # Failure start.
+                        _log.log.END,  # Failure end.
+                        _addon_name=addon_display_name(),
+                        _unreg_func_err_msg=unreg_func_err_msg,
+                    )
+                )
         return _wrapper
     return _unregister_outer
 
