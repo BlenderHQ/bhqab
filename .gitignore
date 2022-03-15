@@ -11,3 +11,4 @@ docs/
 
 # Tests
 tests/
+__main__.py
