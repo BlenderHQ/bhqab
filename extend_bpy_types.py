@@ -7,11 +7,10 @@ _UNIQUE_NAME_K = 5
 
 
 def unique_name(collection: typing.Iterable, prefix="", suffix="") -> str:
-    """Generates random name which would be unique in given collection. This can
-    be used for Generates a random unique name with a specified suffix and
-    prefix for the given collection. It can be used for
-    ``bpy.data.[collection].new(name)`` or for registration of temporary
-    properties of data blocks, etc.
+    """Generates a random name that will be unique in this collection. It can be
+    used to create a random unique name with the specified suffix and prefix for
+    this collection. It can be used with ``bpy.data.[...].new (name)`` or to
+    register temporary properties of data blocks, etc.
 
     Args:
         collection (typing.Iterable): A collection of objects for which a unique new name must be generated.

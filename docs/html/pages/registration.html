@@ -150,16 +150,14 @@
     <span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Scene</span><span class="p">,</span> <span class="s2">&quot;my_attr&quot;</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">PointerProperty</span><span class="p">,</span> <span class="n">SA_SceneProperties</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="nd">@bhq_addon_base</span><span class="o">.</span><span class="n">register_helper</span><span class="p">(</span><span class="n">SamplePreferences</span><span class="p">)</span>
+<span class="nd">@bhq_addon_base</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">pref_cls</span><span class="o">=</span><span class="n">SamplePreferences</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">register</span><span class="p">():</span>
-    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_class</span><span class="p">(</span><span class="n">SamplePreferences</span><span class="p">)</span>
     <span class="n">bhq_addon_base</span><span class="o">.</span><span class="n">register_extend_bpy_types</span><span class="p">(</span><span class="n">register_queue</span><span class="o">=</span><span class="n">_types_register_queue</span><span class="p">)</span>
 
 
-<span class="nd">@bhq_addon_base</span><span class="o">.</span><span class="n">unregister_helper</span><span class="p">(</span><span class="n">SamplePreferences</span><span class="p">)</span>
+<span class="nd">@bhq_addon_base</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="n">pref_cls</span><span class="o">=</span><span class="n">SamplePreferences</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">unregister</span><span class="p">():</span>
     <span class="n">bhq_addon_base</span><span class="o">.</span><span class="n">unregister_extend_bpy_types</span><span class="p">(</span><span class="n">register_queue</span><span class="o">=</span><span class="n">_types_register_queue</span><span class="p">)</span>
-    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_class</span><span class="p">(</span><span class="n">SamplePreferences</span><span class="p">)</span>
 </pre></div>
 </div>
 <span class="target" id="module-bhq_addon_base.registration"></span><dl class="py function">
@@ -290,13 +288,13 @@ only tuple of 3 integers.</p>
 <dd><p>Current addon user preferences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>context</strong> (<em>bpy.types.Context</em>) – Current context.</p>
+<dd class="field-odd"><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.Context.html#bpy.types.Context">bpy.types.Context</a>) – Current context.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Addon user preferences.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bpy.types.AddonPreferences</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/current/bpy.types.AddonPreferences.html#bpy.types.AddonPreferences">bpy.types.AddonPreferences</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -368,7 +366,7 @@ instance of <a class="reference external" href="https://docs.blender.org/api/cur
 <dl class="py function">
 <dt class="sig sig-object py" id="bhq_addon_base.registration.unregister_extend_bpy_types">
 <span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">unregister_extend_bpy_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">register_queue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.unregister_extend_bpy_types" title="Permalink to this definition"></a></dt>
-<dd><p>Helper function for extend <cite>bpy.types</cite> un-registration.</p>
+<dd><p>Helper function for extend <a class="reference external" href="https://docs.blender.org/api/current/bpy.types.html">bpy.types</a> un-registration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>register_queue</strong> (<em>tuple</em>) – tuple of tuples (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.html">bpy.types</a>.[class], attr_name, prop_type, cls)</p>

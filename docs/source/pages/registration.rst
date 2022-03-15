@@ -76,16 +76,15 @@ To simplify the understanding of further functions, we give a simple example of 
         (bpy.types.Scene, "my_attr", bpy.props.PointerProperty, SA_SceneProperties),
     )
 
-    @bhq_addon_base.register_helper(SamplePreferences)
+    @bhq_addon_base.register(pref_cls=SamplePreferences)
     def register():
-        bpy.utils.register_class(SamplePreferences)
         bhq_addon_base.register_extend_bpy_types(register_queue=_types_register_queue)
     
     
-    @bhq_addon_base.unregister_helper(SamplePreferences)
+    @bhq_addon_base.unregister(pref_cls=SamplePreferences)
     def unregister():
         bhq_addon_base.unregister_extend_bpy_types(register_queue=_types_register_queue)
-        bpy.utils.unregister_class(SamplePreferences)
+
 
 .. automodule:: bhq_addon_base.registration
     :members:
@@ -97,17 +96,17 @@ To simplify the understanding of further functions, we give a simple example of 
 .. _bpy.types.AddonPreferences:
         https://docs.blender.org/api/current/bpy.types.AddonPreferences.html#bpy.types.AddonPreferences
 
+.. _bpy.types.Context:
+    https://docs.blender.org/api/current/bpy.types.Context.html#bpy.types.Context
+
 .. _bpy.types.Scene:
     https://docs.blender.org/api/current/bpy.types.Scene.html#bpy.types.Scene
-
 
 .. _bpy.types.PropertyGroup:
     https://docs.blender.org/api/current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup
 
-
 .. _bpy.props.CollectionProperty:
     https://docs.blender.org/api/current/bpy.props.html#bpy.props.CollectionProperty
-
 
 .. _bpy.props.PointerProperty:
     https://docs.blender.org/api/current/bpy.props.html#bpy.props.PointerProperty
