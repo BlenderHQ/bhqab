@@ -165,12 +165,12 @@ def register(pref_cls: bpy.types.AddonPreferences):
             reg_pref_err_msg = ""
             try:
                 bpy.utils.register_class(pref_cls)
-            except ValueError as reg_pref_err_msg:
-                pass
-            except AttributeError as reg_pref_err_msg:
-                pass
-            except RuntimeError as reg_pref_err_msg:
-                pass
+            except ValueError as err:
+                reg_pref_err_msg = err
+            except AttributeError as err:
+                reg_pref_err_msg = err
+            except RuntimeError as err:
+                reg_pref_err_msg = err
             else:
                 # Check Blender version for compatibility with current addon.
                 earliest_tested = earliest_tested_version()
@@ -204,12 +204,12 @@ def register(pref_cls: bpy.types.AddonPreferences):
                     reg_func_err_msg = ""
                     try:
                         ret = reg_func(*args, **kwargs)
-                    except ValueError as reg_func_err_msg:
-                        pass
-                    except AttributeError as reg_func_err_msg:
-                        pass
-                    except RuntimeError as reg_func_err_msg:
-                        pass
+                    except ValueError as err:
+                        reg_func_err_msg = err
+                    except AttributeError as err:
+                        reg_func_err_msg = err
+                    except RuntimeError as err:
+                        reg_func_err_msg = err
                     else:
                         _FULL_REGISTRATION_DONE = True
                         _log.log(f"{_log.log.CYAN}Registered addon: \"{addon_display_name()}\"")
@@ -263,22 +263,22 @@ def unregister(pref_cls: bpy.types.AddonPreferences):
             unreg_func_err_msg = ""
             try:
                 ret = unreg_func(*args, **kwargs)
-            except ValueError as unreg_func_err_msg:
-                pass
-            except AttributeError as unreg_func_err_msg:
-                pass
-            except RuntimeError as unreg_func_err_msg:
-                pass
+            except ValueError as err:
+                unreg_func_err_msg = err
+            except AttributeError as err:
+                unreg_func_err_msg = err
+            except RuntimeError as err:
+                unreg_func_err_msg = err
             else:
                 unreg_pref_err_msg = ""
                 try:
                     bpy.utils.unregister_class(pref_cls)
-                except ValueError as unreg_pref_err_msg:
-                    pass
-                except AttributeError as unreg_pref_err_msg:
-                    pass
-                except RuntimeError as unreg_pref_err_msg:
-                    pass
+                except ValueError as err:
+                    unreg_pref_err_msg = err
+                except AttributeError as err:
+                    unreg_pref_err_msg = err
+                except RuntimeError as err:
+                    unreg_pref_err_msg = err
                 else:
                     _log.log(f"{_log.log.CYAN}Unregistered addon: \"{addon_display_name()}\"")
 

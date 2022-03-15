@@ -205,6 +205,19 @@ class TEST_registration_registration(unittest.TestCase):
         # Test if unregister function body was executed.
         self.assertFalse(hasattr(wm, "bhqabt"))
 
+    def test_register_unregister_expected_fail(self):
+        @registration.register(pref_cls=self.__class__._TestEmptyAddonPreferences)
+        def test_register():
+            bpy.utils.register_class(self.__class__._TestWindowManagerProperties)
+            bpy.utils.register_class(self.__class__._TestWindowManagerProperties)
+
+        @registration.unregister(pref_cls=self.__class__._TestEmptyAddonPreferences)
+        def test_unregister():
+            bpy.utils.unregister_class(self.__class__._TestWindowManagerProperties)
+
+        # --- Register ---
+        test_register()
+
 
 class TEST_extend_bpy_types_unique_name(unittest.TestCase):
     func = extend_bpy_types.unique_name
