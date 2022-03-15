@@ -127,10 +127,7 @@ class TEST_registration_addon_preferences(unittest.TestCase):
     func = registration.addon_preferences
 
     def test(self):
-        self.assertTrue(
-            isinstance(registration.addon_preferences(bpy.context),
-                       _test_preferences.BHQABT_Preferences)
-        )
+        self.assertTrue(isinstance(registration.addon_preferences(bpy.context), _test_preferences.BHQABT_Preferences))
 
 
 class TEST_registration_registration(unittest.TestCase):

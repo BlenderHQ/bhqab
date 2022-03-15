@@ -19,4 +19,12 @@ _classes = (
     _test_ui.BHQABT_PT_developer_extras_sub,
 ) + _test_operators.unit_test_ops
 
-register, unregister = bpy.utils.register_classes_factory(_classes)
+_cls_register, _cls_unregister = bpy.utils.register_classes_factory(_classes)
+
+
+def register():
+    _cls_register()
+
+
+def unregister():
+    _cls_unregister()

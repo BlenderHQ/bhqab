@@ -63,12 +63,18 @@ def main():
             print(f"Blender executable not found by path \"{bfp}\", test skipped.")
             continue
         else:
+            # NOTE: Do not use ``--addons`` argument because it causes issues with addon registration.
+            # ``bpy.ops.preferences.addon_enable`` used instread.
             cli_args = [
                 bfp,
-                "--factory-startup",
-                "--addons", "bhq_addon_base",
-                "--python-expr", "import bpy; bpy.ops.bhqabt.unit_tests_all('EXEC_DEFAULT')",
+                # "--addons", "bhq_addon_base,",
+                "--python-expr",
+
+                "import bpy; bpy.ops.preferences.addon_enable(module='bhq_addon_base');" \
+                "bpy.ops.bhqabt.unit_tests_all('EXEC_DEFAULT')",
+
                 "--enable-autoexec",
+                "--factory-startup",
             ]
 
             if run_in_background:

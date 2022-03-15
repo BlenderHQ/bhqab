@@ -124,7 +124,11 @@ def addon_preferences(context: bpy.types.Context) -> bpy.types.AddonPreferences:
     Returns:
         bpy.types.AddonPreferences: Addon user preferences.
     """
-    return context.preferences.addons[current_addon().__package__].preferences
+    addon = current_addon()
+    if addon:
+        if __package__ in context.preferences.addons:
+            return context.preferences.addons[__package__].preferences
+    return None
 
 
 def register(pref_cls: bpy.types.AddonPreferences):
