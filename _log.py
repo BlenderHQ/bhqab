@@ -1,4 +1,4 @@
-import os
+import bpy
 
 from . import registration
 
@@ -10,26 +10,38 @@ class _log_meta(type):
 
     @property
     def BLUE(cls):
+        if bpy.app.version < (2, 83, 0):
+            return ""
         return cls._BLUE
 
     @property
     def CYAN(cls):
+        if bpy.app.version < (2, 83, 0):
+            return ""
         return cls._CYAN
 
     @property
     def GREEN(cls):
+        if bpy.app.version < (2, 83, 0):
+            return ""
         return cls._GREEN
 
     @property
     def WARNING(cls):
+        if bpy.app.version < (2, 83, 0):
+            return ""
         return cls._WARNING
 
     @property
     def FAIL(cls):
+        if bpy.app.version < (2, 83, 0):
+            return ""
         return cls._FAIL
 
     @property
     def END(cls):
+        if bpy.app.version < (2, 83, 0):
+            return ""
         return cls._END
 
 

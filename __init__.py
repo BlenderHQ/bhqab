@@ -32,7 +32,7 @@ bl_info = {
     # before this value do not guaranteed that some functions works as expected,
     # because of found during development process bugs from Blender side, which was
     # fixed in later versions.
-    "blender": (2, 83, 0),
+    "blender": (2, 80, 0),
     "category": "Development",
     "warning": "This addon is exclusively part of the module testing",
     # NOTE: For compatibility reasons both keys should be kept.
