@@ -48,7 +48,11 @@
 <p class="caption" role="heading"><span class="caption-text">Tests</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="tests.html">About Tests</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Unit Tests</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Unit Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#about-unit-test-system">About Unit Test System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#batch-unit-tests">Batch Unit Tests</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="test_user_interface.html">User Interface</a></li>
 </ul>
 
@@ -78,11 +82,21 @@
              
   <section id="unit-tests">
 <h1>Unit Tests<a class="headerlink" href="#unit-tests" title="Permalink to this headline"></a></h1>
+<section id="about-unit-test-system">
+<h2>About Unit Test System<a class="headerlink" href="#about-unit-test-system" title="Permalink to this headline"></a></h2>
 <p>Testing is also done using unit tests. With this method it is not possible to test all the functions of the module without significant overhead, so for some functionality it is still necessary to test manually using functional tests.</p>
 <p>For unit tests, the module installed as an add-on has a set of operators that test each function separately and a main operator that runs all available unit tests.</p>
 <p>The following is an example of how testing can be run.</p>
 <img alt="../_images/test_unit_tests.gif" class="align-center" src="../_images/test_unit_tests.gif" />
 <p>Obviously, if you want to make any changes to the main repository, these changes should not destroy existing unit tests. For the new functionality - it is very desirable to write new unit tests.</p>
+</section>
+<section id="batch-unit-tests">
+<h2>Batch Unit Tests<a class="headerlink" href="#batch-unit-tests" title="Permalink to this headline"></a></h2>
+<p>There is also a system for testing the module sequentially in several versions of the Blender using the command line.</p>
+<p>The following is an approximate method of testing:</p>
+<img alt="../_images/test_batch_unit_tests.gif" class="align-center" src="../_images/test_batch_unit_tests.gif" />
+<p>Actually, the module can be used as a command line utility. You can use the <code class="docutils literal notranslate"><span class="pre">--help</span></code> command for more detailed information on the utility options.</p>
+</section>
 </section>
 
 

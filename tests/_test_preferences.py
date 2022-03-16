@@ -43,7 +43,7 @@ def test_draw_wrapped_text(context, layout):
     layout.prop(addon_pref, "wrapped_text_length")
     layout.label(
         text=f"`.utils_ui.draw_wrapped_text` "
-        "(region width: {context.region.width}px, type: \'{context.region.type}\')",
+        f"(region width: {context.region.width}px, type: \'{context.region.type}\')",
         icon='INFO'
     )
 
