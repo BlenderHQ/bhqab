@@ -121,10 +121,10 @@ def addon_preferences(context: bpy.types.Context) -> bpy.types.AddonPreferences:
     """Current addon user preferences.
 
     Args:
-        context (bpy.types.Context): Current context.
+        context (`bpy.types.Context`_): Current context.
 
     Returns:
-        bpy.types.AddonPreferences: Addon user preferences.
+        `bpy.types.AddonPreferences`_: Addon user preferences.
     """
     addon = current_addon()
     if addon:
@@ -352,7 +352,7 @@ def register_extend_bpy_types(register_queue: tuple) -> None:
 
 
 def unregister_extend_bpy_types(register_queue: tuple) -> None:
-    """Helper function for extend `bpy.types` un-registration.
+    """Helper function for extend `bpy.types`_ un-registration.
 
     Args:
         register_queue (tuple): tuple of tuples (`bpy.types`_.[class], attr_name, prop_type, cls)

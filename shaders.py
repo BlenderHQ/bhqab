@@ -1,84 +1,68 @@
-"""The module provides an opportunity to simplify the use of shaders. This is
-implemented by automatically generating shader objects from shader files located
-in a specific folder. All shader files must have the extension ``*.glsl``.
-File names must contain a shader name without spaces (only ``'_'`` is allowed)
-and a separate type through the ``'_'`` character of the shader type at the end
-of the file name.
-"""
-
 import os
 
 import bpy
+import gpu
 
 
-_SUFFIX_VERTEX = "vert"
-_SUFFIX_FRAGMENT = "frag"
-_SUFFIX_GEOMETRY = "geom"
-_SUFFIX_DEFINES = "def"
-_SUFFIX_LIBRARY = "lib"
+class shader_meta(type):
+    @property
+    def SHADER_FILE_EXTENSION(cls):
+        return cls._SHADER_FILE_EXTENSION
+
+    @property
+    def SEPARATOR_CHAR(cls):
+        return cls._SEPARATOR_CHAR
+
+    @property
+    def SUFFIX_VERTEX(cls):
+        return cls._SUFFIX_VERTEX
+
+    @property
+    def SUFFIX_FRAGMENT(cls):
+        return cls._SUFFIX_FRAGMENT
+
+    @property
+    def SUFFIX_GEOMETRY(cls):
+        return cls._SUFFIX_GEOMETRY
+
+    @property
+    def SUFFIX_DEFINES(cls):
+        return cls._SUFFIX_DEFINES
+
+    @property
+    def SUFFIX_LIBRARY(cls) -> str:
+        return cls._SUFFIX_LIBRARY
 
 
-def suffix_vertex() -> str:
-    """File name suffix for vertex shader.
-
-    Returns:
-        str: Constant ``"vert"``
-    """
-    return _SUFFIX_VERTEX
-
-
-def suffix_fragment() -> str:
-    """File name suffix for fragment shader.
-
-    Returns:
-        str: Constant ``"frag"``
-    """
-    return _SUFFIX_FRAGMENT
-
-
-def suffix_geometry() -> str:
-    """File name suffix for geometry shader.
-
-    Returns:
-        str: Constant ``"geom"``
-    """
-    return _SUFFIX_GEOMETRY
-
-
-def suffix_defines() -> str:
-    """File name suffix for shader defines.
-
-    Returns:
-        str: Constant ``"def"``
-    """
-    return _SUFFIX_DEFINES
-
-
-def suffix_library() -> str:
-    """File name suffix for common shader library.
-
-    Returns:
-        str: Constant ``"lib"``
-    """
-    return _SUFFIX_LIBRARY
-
-
-class shader:
+class shader(metaclass=shader_meta):
     """Shader utility class. After calling the
-        :py:func:`generate_shaders`
-        method of the class, the shaders will be available as class attributes.
+    :py:func:`bhq_addon_base.shaders.shader.generate_shaders`
+    method of the class, the shaders will be available as class attributes.
 
-        For example, there are shader files ``my_shader_vert.glsl`` and
-        ``my_shader_frag.glsl``. After generating the shaders, the access to the
-        shader will be done through the
+    For example, there are shader files ``my_shader_vert.glsl`` and
+    ``my_shader_frag.glsl``. After generating the shaders, the access to the
+    shader will be done through the ``shader.my_shader``.
 
-        .. code-block:: python
+    Which would return instance of `gpu.types.GPUShader`_.
 
-            from .bhq_addon_base.utils_shader import shader
-            my_shader = shader.my_shader
-
-        Which would return instance of `gpu.types.GPUShader`_.
+    Attributes:
+        SHADER_FILE_EXTENSION (str): Constant ``".glsl"`` (readonly).
+        SEPARATOR_CHAR (str): Constant ``'_'`` (readonly).
+        SUFFIX_VERTEX (str): Constant ``"vert"`` (readonly).
+        SUFFIX_FRAGMENT (str): Constant ``"frag"`` (readonly).
+        SUFFIX_GEOMETRY (str): Constant ``"geom"`` (readonly).
+        SUFFIX_DEFINES (str): Constant ``"def"`` (readonly).
+        SUFFIX_LIBRARY (str): Constant ``"lib"`` (readonly).
     """
+
+    _SHADER_FILE_EXTENSION = ".glsl"
+    _SEPARATOR_CHAR = '_'
+    _SUFFIX_VERTEX = "vert"
+    _SUFFIX_FRAGMENT = "frag"
+    _SUFFIX_GEOMETRY = "geom"
+    _SUFFIX_DEFINES = "def"
+    _SUFFIX_LIBRARY = "lib"
+
     @classmethod
     def generate_shaders(cls, dir_path: str) -> bool:
         """Generate shaders cache.
@@ -95,14 +79,12 @@ class shader:
         if bpy.app.background:
             return False
 
-        import gpu
-
         shader_endings = (
-            _SUFFIX_VERTEX,
-            _SUFFIX_FRAGMENT,
-            _SUFFIX_GEOMETRY,
-            _SUFFIX_DEFINES,
-            _SUFFIX_LIBRARY
+            cls.SUFFIX_VERTEX,
+            cls.SUFFIX_FRAGMENT,
+            cls.SUFFIX_GEOMETRY,
+            cls.SUFFIX_DEFINES,
+            cls.SUFFIX_LIBRARY
         )
 
         _shader_dict = {}
@@ -117,10 +99,10 @@ class shader:
 
             name, extension = os.path.splitext(filename)
 
-            if extension != ".glsl":
+            if extension != cls.SHADER_FILE_EXTENSION:
                 continue
 
-            name_split = name.split('_')
+            name_split = name.split(cls.SEPARATOR_CHAR)
 
             if len(name_split) == 1:
                 raise NameError("Shader file name should have [some_name]_[type].glsl pattern")
@@ -139,12 +121,12 @@ class shader:
                     data = code.read()
                     _shader_dict[shader_name][shader_index] = data
 
-            elif shader_type == _SUFFIX_LIBRARY:
+            elif shader_type == cls.SUFFIX_LIBRARY:
                 with open(filepath, 'r') as code:
                     data = code.read()
                     _shader_library += "\n\n%s" % data
 
-            elif shader_type == _SUFFIX_DEFINES:
+            elif shader_type == cls.SUFFIX_DEFINES:
                 with open(filepath, 'r') as code:
                     data = code.read()
                     _defines_library += "\n\n%s" % data
