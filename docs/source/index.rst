@@ -60,7 +60,7 @@ For licensing information see `./LICENSE` file in repository root directory (GPL
 
 .. toctree::
    :maxdepth: 2
-   :caption: API Documentation
+   :caption: API Reference
 
    pages/registration
    pages/ui
@@ -68,7 +68,7 @@ For licensing information see `./LICENSE` file in repository root directory (GPL
    pages/extend_bpy_types
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Tests
 
    pages/tests
