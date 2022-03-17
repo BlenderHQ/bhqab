@@ -348,7 +348,7 @@ def register_extend_bpy_types(register_queue: tuple) -> None:
             else:
                 setattr(bpy_type, attr_name, prop_type(type=cls))
 
-        _log.log(f"{_log.log.CYAN}Registered extend bpy types")
+    _log.log(f"{_log.log.CYAN}Registered extend bpy types")
 
 
 def unregister_extend_bpy_types(register_queue: tuple) -> None:
