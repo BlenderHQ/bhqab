@@ -1,3 +1,6 @@
+import os
+import ctypes
+
 import bpy
 
 from . import registration
@@ -10,38 +13,26 @@ class _log_meta(type):
 
     @property
     def BLUE(cls):
-        if bpy.app.version < (2, 83, 0):
-            return ""
         return cls._BLUE
 
     @property
     def CYAN(cls):
-        if bpy.app.version < (2, 83, 0):
-            return ""
         return cls._CYAN
 
     @property
     def GREEN(cls):
-        if bpy.app.version < (2, 83, 0):
-            return ""
         return cls._GREEN
 
     @property
     def WARNING(cls):
-        if bpy.app.version < (2, 83, 0):
-            return ""
         return cls._WARNING
 
     @property
     def FAIL(cls):
-        if bpy.app.version < (2, 83, 0):
-            return ""
         return cls._FAIL
 
     @property
     def END(cls):
-        if bpy.app.version < (2, 83, 0):
-            return ""
         return cls._END
 
 
@@ -88,11 +79,11 @@ class log(object, metaclass=_log_meta):
 
     _END = '\033[0m'
 
-    # UNDERLINE = '\033[4m'
-    # BOLD = '\033[1m'
-    # HEADER = '\033[95m'
-
     def __init__(self, *args, **kwargs) -> None:
-        if registration._MODULE_DEBUG_MODE:
+        if registration.is_debug():
+            if os.name == 'nt':
+                w32dll = ctypes.windll.kernel32
+                w32dll.SetConsoleMode(w32dll.GetStdHandle(-11), 7)
+
             args += (log.END,)
             print(*args, **kwargs)
