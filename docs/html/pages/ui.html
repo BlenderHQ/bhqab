@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UI Utils (ui) &mdash; BlenderHQ Addon Base 1.0 documentation</title>
+  <title>UI Utils (ui) &mdash; BlenderHQ Addon Base rc documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,6 +30,9 @@
             <a href="../index.html" class="icon icon-home"> BlenderHQ Addon Base
             <img src="../_static/bhq_logo_color_v0.svg" class="logo" alt="Logo"/>
           </a>
+              <div class="version">
+                3.1.0
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -79,44 +82,6 @@
   <section id="module-bhq_addon_base.ui">
 <span id="ui-utils-ui"></span><h1>UI Utils (ui)<a class="headerlink" href="#module-bhq_addon_base.ui" title="Permalink to this headline"></a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.ui.draw_wrapped_text">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.ui.</span></span><span class="sig-name descname"><span class="pre">draw_wrapped_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.ui.draw_wrapped_text" title="Permalink to this definition"></a></dt>
-<dd><p>Draws a block of text in the given layout, dividing it into lines
-according to the width of the current region of the interface.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The function uses a fairly accurate but at the same time relatively slow
-way to format strings. Not recommended for use with very large blocks
-of text as this may slow down the overall user interface.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.Context.html#bpy.types.Context">bpy.types.Context</a>) – Current context.</p></li>
-<li><p><strong>layout</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.UILayout.html#bpy.types.UILayout">bpy.types.UILayout</a>) – Current layout.</p></li>
-<li><p><strong>text</strong> (<em>str</em>) – Text to be wrapped and drawn.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.ui.template_addon_versioning">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.ui.</span></span><span class="sig-name descname"><span class="pre">template_addon_versioning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url_help</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.ui.template_addon_versioning" title="Permalink to this definition"></a></dt>
-<dd><p>Helper decorator for addon user preferences <code class="docutils literal notranslate"><span class="pre">draw</span></code> method.</p>
-<p>If current Blender version is less than earliest tested, draw method would
-not be called, would be displayed only information about versioning with
-respective documentation link (<code class="docutils literal notranslate"><span class="pre">url_help</span></code>).</p>
-<p>If current Blender version is greater than latest tested, first would be
-displayed versioning information and only than - actual draw method content.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>url_help</strong> (<em>str</em>) – Addon documentation versioning information link.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="bhq_addon_base.ui.developer_extras_poll">
 <span class="sig-prename descclassname"><span class="pre">bhq_addon_base.ui.</span></span><span class="sig-name descname"><span class="pre">developer_extras_poll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhq_addon_base.ui.developer_extras_poll" title="Permalink to this definition"></a></dt>
 <dd><p>A method for determining whether a user interface intended for developers should be displayed.</p>
@@ -134,16 +99,22 @@ displayed versioning information and only than - actual draw method content.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.ui.template_developer_extras_warning">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.ui.</span></span><span class="sig-name descname"><span class="pre">template_developer_extras_warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.ui.template_developer_extras_warning" title="Permalink to this definition"></a></dt>
-<dd><p>Output message in the user interface that this section of the interface
-is visible because the active options in the Blender settings. These
-options are also displayed with the ability to disable them.</p>
+<dt class="sig sig-object py" id="bhq_addon_base.ui.draw_wrapped_text">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.ui.</span></span><span class="sig-name descname"><span class="pre">draw_wrapped_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.ui.draw_wrapped_text" title="Permalink to this definition"></a></dt>
+<dd><p>Draws a block of text in the given layout, dividing it into lines
+according to the width of the current region of the interface.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The function uses a fairly accurate but at the same time relatively slow
+way to format strings. Not recommended for use with very large blocks
+of text as this may slow down the overall user interface.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.Context.html#bpy.types.Context">bpy.types.Context</a>) – Current context.</p></li>
-<li><p><strong>layout</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.UILayout.html#bpy.types.UILayout">bpy.types.UILayout</a>) – Current UI layout.</p></li>
+<li><p><strong>layout</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.UILayout.html#bpy.types.UILayout">bpy.types.UILayout</a>) – Current layout.</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – Text to be wrapped and drawn.</p></li>
 </ul>
 </dd>
 </dl>
@@ -253,6 +224,19 @@ for progressbar without text label and icon.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="bhq_addon_base.ui.progress.complete">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bhq_addon_base.ui.progress.ProgressPropertyItem" title="bhq_addon_base.ui.progress.ProgressPropertyItem"><span class="pre">bhq_addon_base.ui.progress.ProgressPropertyItem</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.ui.progress.complete" title="Permalink to this definition"></a></dt>
+<dd><p>Removes progressbar from UI. If removed progressbar was the last one,
+would be called
+<a class="reference internal" href="#bhq_addon_base.ui.progress.release_all" title="bhq_addon_base.ui.progress.release_all"><code class="xref py py-func docutils literal notranslate"><span class="pre">progress.release_all()</span></code></a> class method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<a class="reference internal" href="#bhq_addon_base.ui.progress.ProgressPropertyItem" title="bhq_addon_base.ui.progress.ProgressPropertyItem"><em>ProgressPropertyItem</em></a>) – Progress item to be removed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="bhq_addon_base.ui.progress.invoke">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">invoke</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#bhq_addon_base.ui.progress.ProgressPropertyItem" title="bhq_addon_base.ui.progress.ProgressPropertyItem"><span class="pre">bhq_addon_base.ui.progress.ProgressPropertyItem</span></a></span></span><a class="headerlink" href="#bhq_addon_base.ui.progress.invoke" title="Permalink to this definition"></a></dt>
 <dd><p>Invoke new progressbar for each call.</p>
@@ -267,24 +251,58 @@ for progressbar without text label and icon.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="bhq_addon_base.ui.progress.complete">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bhq_addon_base.ui.progress.ProgressPropertyItem" title="bhq_addon_base.ui.progress.ProgressPropertyItem"><span class="pre">bhq_addon_base.ui.progress.ProgressPropertyItem</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.ui.progress.complete" title="Permalink to this definition"></a></dt>
-<dd><p>Removes progressbar from UI. If removed progressbar was the last one,
-would be called
-<a class="reference internal" href="#bhq_addon_base.ui.progress.release_all" title="bhq_addon_base.ui.progress.release_all"><code class="xref py py-func docutils literal notranslate"><span class="pre">progress.release_all()</span></code></a> class method.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>item</strong> (<a class="reference internal" href="#bhq_addon_base.ui.progress.ProgressPropertyItem" title="bhq_addon_base.ui.progress.ProgressPropertyItem"><em>ProgressPropertyItem</em></a>) – Progress item to be removed.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="bhq_addon_base.ui.progress.release_all">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">release_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.ui.progress.release_all" title="Permalink to this definition"></a></dt>
 <dd><p>Removes all progressbars.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.ui.template_addon_versioning">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.ui.</span></span><span class="sig-name descname"><span class="pre">template_addon_versioning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url_help</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.ui.template_addon_versioning" title="Permalink to this definition"></a></dt>
+<dd><p>Helper decorator for addon user preferences <code class="docutils literal notranslate"><span class="pre">draw</span></code> method.</p>
+<p>If current Blender version is less than earliest tested, draw method would
+not be called, would be displayed only information about versioning with
+respective documentation link (<code class="docutils literal notranslate"><span class="pre">url_help</span></code>).</p>
+<p>If current Blender version is greater than latest tested, first would be
+displayed versioning information and only than - actual draw method content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>url_help</strong> (<em>str</em>) – Addon documentation versioning information link.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.ui.template_developer_extras_warning">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.ui.</span></span><span class="sig-name descname"><span class="pre">template_developer_extras_warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.ui.template_developer_extras_warning" title="Permalink to this definition"></a></dt>
+<dd><p>Output message in the user interface that this section of the interface
+is visible because the active options in the Blender settings. These
+options are also displayed with the ability to disable them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.Context.html#bpy.types.Context">bpy.types.Context</a>) – Current context.</p></li>
+<li><p><strong>layout</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.UILayout.html#bpy.types.UILayout">bpy.types.UILayout</a>) – Current UI layout.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.ui.template_qr_code_links">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.ui.</span></span><span class="sig-name descname"><span class="pre">template_qr_code_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.ui.template_qr_code_links" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>bpy.types.Context</em>) – _description_</p></li>
+<li><p><strong>layout</strong> (<em>bpy.types.UILayout</em>) – _description_</p></li>
+<li><p><strong>links</strong> (<em>Union</em><em>[</em><em>Iterable</em><em>, </em><em>str</em><em>]</em>) – _description_</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -315,7 +333,7 @@ would be called
   </div>
   <script>
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(false);
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script> 
 

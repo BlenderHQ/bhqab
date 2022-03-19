@@ -91,13 +91,13 @@ class shader(metaclass=shader_meta):
         _shader_library = ""
         _defines_library = ""
 
-        for filename in os.listdir(dir_path):
-            filepath = os.path.join(dir_path, filename)
+        for file_name in os.listdir(dir_path):
+            file_path = os.path.join(dir_path, file_name)
 
-            if not os.path.isfile(filepath):
+            if not os.path.isfile(file_path):
                 continue
 
-            name, extension = os.path.splitext(filename)
+            name, extension = os.path.splitext(file_name)
 
             if extension != cls.SHADER_FILE_EXTENSION:
                 continue
@@ -117,17 +117,17 @@ class shader(metaclass=shader_meta):
                     _shader_dict[shader_name] = [None for _ in range(5)]
 
                 shader_index = shader_endings.index(shader_type)
-                with open(filepath, 'r') as code:
+                with open(file_path, 'r') as code:
                     data = code.read()
                     _shader_dict[shader_name][shader_index] = data
 
             elif shader_type == cls.SUFFIX_LIBRARY:
-                with open(filepath, 'r') as code:
+                with open(file_path, 'r') as code:
                     data = code.read()
                     _shader_library += "\n\n%s" % data
 
             elif shader_type == cls.SUFFIX_DEFINES:
-                with open(filepath, 'r') as code:
+                with open(file_path, 'r') as code:
                     data = code.read()
                     _defines_library += "\n\n%s" % data
 

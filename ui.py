@@ -1,13 +1,19 @@
-import random
+import os
 import functools
-import string
+import typing
+import time
+import numpy as np
 
 import bpy
 import blf
+import bpy.utils.previews
 from bl_ui import space_statusbar
+from bpy.app.handlers import persistent
 
 from . import registration
 from . import extend_bpy_types
+
+from . import _log
 
 
 def _string_width(string: str) -> float:
@@ -371,3 +377,151 @@ class progress(metaclass=_progress_meta):
         del reload
 
         cls._is_drawn = False
+
+
+class icon_meta(type):
+    pass
+
+
+class icon(metaclass=icon_meta):
+
+    _arg_cache = []
+    _cache = dict()
+
+    _handler_type = bpy.app.handlers.load_post
+
+    @staticmethod
+    def _reshape_split(image, kernel_size):
+        img_height, img_width, channels = image.shape
+        tile_height, tile_width = kernel_size
+
+        tiled_arr = image.reshape(
+            img_height // tile_height,
+            tile_height,
+            img_width // tile_width,
+            tile_width,
+            channels,
+        )
+
+        tiled_arr = tiled_arr.swapaxes(1, 2)
+
+        return tiled_arr
+
+    @staticmethod
+    @persistent
+    def _handler_generate_icons_from_atlases(_=None):
+        dt = 0.0
+        num_succeeded = 0
+        if registration.is_debug():
+            dt = time.time()
+
+        # Process registration arguments cache.
+        for args in icon._arg_cache:
+            # Unpack arguments.
+            atlas_fp, tile_size, icon_names, group_name = args
+
+            if not group_name:
+                group_name, _ = os.path.splitext(os.path.basename(atlas_fp))
+
+            # Create temp image data-block.
+            atlas_image = bpy.data.images.new(
+                name=extend_bpy_types.unique_name(
+                    collection=bpy.data.images,
+                    prefix="bhqab_icon_",
+                ),
+                width=32,
+                height=32,
+                alpha=True,
+            )
+
+            atlas_image.filepath = atlas_fp
+            atlas_image.source = 'FILE'
+            atlas_image.alpha_mode = 'PREMUL'
+
+            if atlas_image.gl_load():
+                _log.log(f"{_log.log.WARNING}Unable to load icon atlas image \"{atlas_fp}\"")
+            else:
+
+                atlas_width, atlas_height = atlas_image.size
+                if atlas_width % tile_size:
+                    _log.log(
+                        f"Invalid icon atlas image width ({atlas_width}) for tile size ({tile_size}) (\"{atlas_fp}\")"
+                    )
+                elif atlas_height % tile_size:
+                    _log.log(
+                        f"Invalid icon atlas image height ({atlas_height}) for tile size ({tile_size}) (\"{atlas_fp}\")"
+                    )
+                else:
+                    pcoll = bpy.utils.previews.new()
+
+                    if hasattr(atlas_image.pixels, "foreach_get"):
+                        atlas_pixel_arr = np.zeros((atlas_width, atlas_height, 4), dtype=np.float32)
+                        atlas_image.pixels.foreach_get(atlas_pixel_arr.ravel())
+
+                        atlas_tiles_pixel_arr = icon._reshape_split(atlas_pixel_arr, (tile_size, tile_size))
+                        num_rows, num_cols, tile_width, tile_height = atlas_tiles_pixel_arr.shape[0:4]
+
+                        for i in range(num_cols):
+                            for j in range(num_rows):
+                                icon_name_index = (i * num_rows) + j
+                                if icon_name_index < len(icon_names):
+                                    tile_name = icon_names[icon_name_index]
+                                    tile_pixel_arr = atlas_tiles_pixel_arr[i][j]
+
+                                    tile = pcoll.new(tile_name)
+                                    tile.icon_size = tile.image_size = (tile_width, tile_height)
+                                    if (
+                                        hasattr(tile, "icon_pixels_float")
+                                        and hasattr(tile, "image_pixels_float")
+                                        and hasattr(tile.icon_pixels_float, "foreach_set")
+                                        and hasattr(tile.image_pixels_float, "foreach_set")
+                                    ):
+                                        tile.icon_pixels_float.foreach_set(tile_pixel_arr.ravel())
+                                        tile.image_pixels_float.foreach_set(tile_pixel_arr.ravel())
+
+                                        num_succeeded += 1
+
+                        icon._cache[group_name] = pcoll
+
+            bpy.data.images.remove(atlas_image)
+        icon._arg_cache.clear()
+        icon._handler_type.remove(icon._handler_generate_icons_from_atlases)
+
+        if registration.is_debug():
+            if num_succeeded:
+                _log.log(f"{_log.log.CYAN}Generated {num_succeeded} icon(s) from atlas(es) in {time.time() - dt} sec.")
+            else:
+                _log.log(f"{_log.log.WARNING}Icons from atlas(es) was not generated.")
+
+    @classmethod
+    def from_atlas(cls, atlas_fp: str, tile_size: int, icon_names: typing.Iterable, group_name=None):
+        cls._arg_cache.append(
+            tuple((
+                atlas_fp,
+                tile_size,
+                icon_names,
+                group_name,
+            ))
+        )
+
+        if cls._handler_generate_icons_from_atlases not in icon._handler_type:
+            cls._handler_type.append(cls._handler_generate_icons_from_atlases)
+
+    @classmethod
+    def get(cls, key: str) -> int:
+        group_name, icon_name = key.split('.')
+        if group_name in cls._cache:
+            group = cls._cache[group_name]
+            if icon_name in group:
+                return group[icon_name].icon_id
+        return 0
+
+
+def template_qr_code_links(layout: bpy.types.UILayout, links: tuple) -> None:
+
+    grid = layout.grid_flow(even_columns=True, even_rows=True, row_major=True, align=True)
+    for icon_key, url, label in links:
+        scol = grid.column(align=True)
+
+        scol.template_icon(icon_value=icon.get(icon_key), scale=8.0)
+        scol.operator(operator="wm.url_open", text=label, emboss=False).url = url

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Addon Registration (registration) &mdash; BlenderHQ Addon Base 1.0 documentation</title>
+  <title>Addon Registration (registration) &mdash; BlenderHQ Addon Base rc documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,6 +30,9 @@
             <a href="../index.html" class="icon icon-home"> BlenderHQ Addon Base
             <img src="../_static/bhq_logo_color_v0.svg" class="logo" alt="Logo"/>
           </a>
+              <div class="version">
+                3.1.0
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -161,34 +164,6 @@
 </pre></div>
 </div>
 <span class="target" id="module-bhq_addon_base.registration"></span><dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.registration.is_debug">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">is_debug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.is_debug" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a positive value if the module is in the debug state.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Positive means that debug state is active.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.registration.current_addon">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">current_addon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">module</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.current_addon" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the module of the addon to which it belongs as a sub-module.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Module owner.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>module</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="bhq_addon_base.registration.addon_bl_info">
 <span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">addon_bl_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.addon_bl_info" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the <code class="docutils literal notranslate"><span class="pre">bl_info</span></code> attribute of the addon module to which it belongs as a sub-module.</p>
@@ -232,6 +207,37 @@ and <code class="docutils literal notranslate"><span class="pre">bl_info[&quot;d
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.registration.addon_preferences">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">addon_preferences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bpy_types.AddonPreferences</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.addon_preferences" title="Permalink to this definition"></a></dt>
+<dd><p>Current addon user preferences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.Context.html#bpy.types.Context">bpy.types.Context</a>) – Current context.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Addon user preferences.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/current/bpy.types.AddonPreferences.html#bpy.types.AddonPreferences">bpy.types.AddonPreferences</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.registration.current_addon">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">current_addon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">module</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.current_addon" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the module of the addon to which it belongs as a sub-module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Module owner.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="bhq_addon_base.registration.earliest_tested_version">
 <span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">earliest_tested_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.earliest_tested_version" title="Permalink to this definition"></a></dt>
 <dd><p>Earliest tested Blender version. It should be guarantee that the addon
@@ -249,6 +255,20 @@ only tuple of 3 integers.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.registration.is_debug">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">is_debug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.is_debug" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a positive value if the module is in the debug state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Positive means that debug state is active.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="bhq_addon_base.registration.latest_tested_version">
 <span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">latest_tested_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.latest_tested_version" title="Permalink to this definition"></a></dt>
 <dd><p>Latest tested Blender version. It should be guarantee that the addon
@@ -261,40 +281,6 @@ only tuple of 3 integers.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.registration.version_string">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">version_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ver</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.version_string" title="Permalink to this definition"></a></dt>
-<dd><p>String version separated by ‘.’ character.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>ver</strong> (<em>Iterable</em>) – Iterable which contains integer values.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>String representation of version.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.registration.addon_preferences">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">addon_preferences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bpy_types.AddonPreferences</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.addon_preferences" title="Permalink to this definition"></a></dt>
-<dd><p>Current addon user preferences.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.Context.html#bpy.types.Context">bpy.types.Context</a>) – Current context.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Addon user preferences.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.blender.org/api/current/bpy.types.AddonPreferences.html#bpy.types.AddonPreferences">bpy.types.AddonPreferences</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -327,19 +313,6 @@ version is less than earliest tested.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.registration.unregister">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">unregister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pref_cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.AddonPreferences</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.registration.unregister" title="Permalink to this definition"></a></dt>
-<dd><p>Helper decorator for addon <code class="docutils literal notranslate"><span class="pre">unregister</span></code> function. Handles un-registration
-process after <a class="reference internal" href="#bhq_addon_base.registration.register" title="bhq_addon_base.registration.register"><code class="xref py py-func docutils literal notranslate"><span class="pre">register()</span></code></a> registration
-process.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>pref_cls</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.AddonPreferences.html#bpy.types.AddonPreferences">bpy.types.AddonPreferences</a>) – Addon user preferences class.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="bhq_addon_base.registration.register_extend_bpy_types">
 <span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">register_extend_bpy_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">register_queue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.register_extend_bpy_types" title="Permalink to this definition"></a></dt>
 <dd><p>Helper function for extend <a class="reference external" href="https://docs.blender.org/api/current/bpy.types.html">bpy.types</a> registration.</p>
@@ -364,12 +337,42 @@ instance of <a class="reference external" href="https://docs.blender.org/api/cur
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.registration.unregister">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">unregister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pref_cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.AddonPreferences</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.registration.unregister" title="Permalink to this definition"></a></dt>
+<dd><p>Helper decorator for addon <code class="docutils literal notranslate"><span class="pre">unregister</span></code> function. Handles un-registration
+process after <a class="reference internal" href="#bhq_addon_base.registration.register" title="bhq_addon_base.registration.register"><code class="xref py py-func docutils literal notranslate"><span class="pre">register()</span></code></a> registration
+process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pref_cls</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.AddonPreferences.html#bpy.types.AddonPreferences">bpy.types.AddonPreferences</a>) – Addon user preferences class.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="bhq_addon_base.registration.unregister_extend_bpy_types">
 <span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">unregister_extend_bpy_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">register_queue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.unregister_extend_bpy_types" title="Permalink to this definition"></a></dt>
 <dd><p>Helper function for extend <a class="reference external" href="https://docs.blender.org/api/current/bpy.types.html">bpy.types</a> un-registration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>register_queue</strong> (<em>tuple</em>) – tuple of tuples (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.html">bpy.types</a>.[class], attr_name, prop_type, cls)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.registration.version_string">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.registration.</span></span><span class="sig-name descname"><span class="pre">version_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ver</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bhq_addon_base.registration.version_string" title="Permalink to this definition"></a></dt>
+<dd><p>String version separated by ‘.’ character.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ver</strong> (<em>Iterable</em>) – Iterable which contains integer values.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String representation of version.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -402,7 +405,7 @@ instance of <a class="reference external" href="https://docs.blender.org/api/cur
   </div>
   <script>
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(false);
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script> 
 

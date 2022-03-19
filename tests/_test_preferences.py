@@ -82,6 +82,7 @@ class BHQABT_Preferences(bpy.types.AddonPreferences):
     tab: bpy.props.EnumProperty(
         items=(
             ('WRAPPED_TEXT', "Wrapped Text", ""),
+            ('INFO', "Info", ""),
         )
     )
 
@@ -107,6 +108,16 @@ class BHQABT_Preferences(bpy.types.AddonPreferences):
     def draw(self, context):
         layout = self.layout
 
-        layout.prop_tabs_enum(self, "tab")
+        row = layout.row()
+        row.prop_tabs_enum(self, "tab")
         if self.tab == 'WRAPPED_TEXT':
             test_draw_wrapped_text(context, layout)
+        elif self.tab == 'INFO':
+            ui.template_qr_code_links(
+                layout=layout,
+                links=(
+                    ("qr.bhqab_github", "https://github.com/BlenderHQ/bhq_addon_base", "GitHub Repository"),
+                    ("qr.bhq_github", "https://github.com/BlenderHQ", "BlenderHQ on GitHub"),
+                    ("qr.bhq_patreon", "https://www.patreon.com/BlenderHQ", "BlenderHQ on Patreon"),
+                )
+            )
