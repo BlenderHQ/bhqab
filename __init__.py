@@ -22,44 +22,21 @@ __maintainer__ = "Ivan Perevala (ivpe)"
 __credits__ = ["Vlad Kuzmin (ssh4)", ]
 __license__ = "GPLv3"
 
-bl_info = {
-    "name": "BlenderHQ Addon Base Test",
-    # Maximal tested Blender version. Newer versions would not be stop any
-    # registration process, because (as a rule), newer versions hold older Python
-    # API for backward compatibility.
-    "version": (3, 1, 0),
-    # Minimal tested (and supported as well) Blender version. Blender Python API
-    # before this value do not guaranteed that some functions works as expected,
-    # because of found during development process bugs from Blender side, which was
-    # fixed in later versions.
-    "blender": (2, 80, 0),
-    "category": "Development",
-    "warning": "This addon is exclusively part of the module testing",
-    # NOTE: For compatibility reasons both keys should be kept.
-    # (see https://developer.blender.org/T85675)
-    "wiki_url": "https://github.com/BlenderHQ/bhq_addon_base",
-    "doc_url": "https://github.com/BlenderHQ/bhq_addon_base",
-}
 
 if "bpy" in locals():
     from importlib import reload
 
-    reload(registration)
-    reload(extend_bpy_types)
-    reload(shaders)
-    reload(ui)
+    if "registration" in locals():
+        reload(registration)
+    if "shaders" in locals():
+        reload(shaders)
+    if "ui" in locals():
+        reload(ui)
 
     del reload
 
+import bpy
+
 from . import registration
-from . import extend_bpy_types
 from . import shaders
 from . import ui
-
-try:
-    from . import tests
-except ImportError:
-    pass
-else:
-    register = tests.register
-    unregister = tests.unregister

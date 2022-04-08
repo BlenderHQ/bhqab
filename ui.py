@@ -1,20 +1,10 @@
-import os
 import functools
-from re import L
-import typing
-import time
-import numpy as np
 
 import bpy
 import blf
-import bpy.utils.previews
 from bl_ui import space_statusbar
-from bpy.app.handlers import persistent
 
 from . import registration
-from . import extend_bpy_types
-
-from . import _log
 
 
 def _string_width(string: str) -> float:
@@ -324,7 +314,7 @@ class progress(metaclass=_progress_meta):
 
         if not cls._is_drawn:
             bpy.utils.register_class(progress.ProgressPropertyItem)
-            cls._attrname = extend_bpy_types.unique_name(
+            cls._attrname = registration.unique_name(
                 collection=bpy.types.WindowManager,
                 prefix="bhq_",
                 suffix="_progress"

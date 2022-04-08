@@ -65,7 +65,6 @@ For licensing information see `./LICENSE` file in repository root directory (GPL
    pages/registration
    pages/ui
    pages/shaders
-   pages/extend_bpy_types
 
 .. toctree::
    :maxdepth: 2

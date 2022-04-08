@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>bpy.types Utils (extend_bpy_types) &mdash; BlenderHQ Addon Base rc documentation</title>
+  <title>bpy.types Utils (properties) &mdash; BlenderHQ Addon Base rc documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -46,7 +46,7 @@
 <li class="toctree-l1"><a class="reference internal" href="registration.html">Addon Registration (registration)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ui.html">UI Utils (ui)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shaders.html">Shader Utils (shaders)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">bpy.types Utils (extend_bpy_types)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">bpy.types Utils (properties)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tests</span></p>
 <ul>
@@ -69,9 +69,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>bpy.types Utils (extend_bpy_types)</li>
+      <li>bpy.types Utils (properties)</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/pages/extend_bpy_types.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/pages/properties.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -79,11 +79,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-bhq_addon_base.extend_bpy_types">
-<span id="bpy-types-utils-extend-bpy-types"></span><h1>bpy.types Utils (extend_bpy_types)<a class="headerlink" href="#module-bhq_addon_base.extend_bpy_types" title="Permalink to this headline"></a></h1>
+  <section id="module-bhq_addon_base.properties">
+<span id="bpy-types-utils-properties"></span><h1>bpy.types Utils (properties)<a class="headerlink" href="#module-bhq_addon_base.properties" title="Permalink to this headline"></a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.extend_bpy_types.unique_name">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.extend_bpy_types.</span></span><span class="sig-name descname"><span class="pre">unique_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bhq_addon_base.extend_bpy_types.unique_name" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.properties.unique_name">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.properties.</span></span><span class="sig-name descname"><span class="pre">unique_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bhq_addon_base.properties.unique_name" title="Permalink to this definition"></a></dt>
 <dd><p>Generates a random name that will be unique in this collection. It can be
 used to create a random unique name with the specified suffix and prefix for
 this collection. It can be used with <code class="docutils literal notranslate"><span class="pre">bpy.data.[...].new</span> <span class="pre">(name)</span></code> or to
