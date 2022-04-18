@@ -19,7 +19,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Shader Utils (shaders)" href="shaders.html" />
-    <link rel="prev" title="Addon Registration (registration)" href="registration.html" /> 
+    <link rel="prev" title="Addon Registration (registration)" href="utils.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,7 +40,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="registration.html">Addon Registration (registration)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Addon Registration (registration)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">UI Utils (ui)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shaders.html">Shader Utils (shaders)</a></li>
 </ul>
@@ -95,22 +95,6 @@ of text as this may slow down the overall user interface.</p>
 <li><p><strong>layout</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.UILayout.html#bpy.types.UILayout">bpy.types.UILayout</a>) – Current layout.</p></li>
 <li><p><strong>text</strong> (<em>str</em>) – Text to be wrapped and drawn.</p></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.ui.template_addon_versioning">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.ui.</span></span><span class="sig-name descname"><span class="pre">template_addon_versioning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url_help</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.ui.template_addon_versioning" title="Permalink to this definition"></a></dt>
-<dd><p>Helper decorator for addon user preferences <code class="docutils literal notranslate"><span class="pre">draw</span></code> method.</p>
-<p>If current Blender version is less than earliest tested, draw method would
-not be called, would be displayed only information about versioning with
-respective documentation link (<code class="docutils literal notranslate"><span class="pre">url_help</span></code>).</p>
-<p>If current Blender version is greater than latest tested, first would be
-displayed versioning information and only than - actual draw method content.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>url_help</strong> (<em>str</em>) – Addon documentation versioning information link.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -292,7 +276,7 @@ would be called
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="registration.html" class="btn btn-neutral float-left" title="Addon Registration (registration)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utils.html" class="btn btn-neutral float-left" title="Addon Registration (registration)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="shaders.html" class="btn btn-neutral float-right" title="Shader Utils (shaders)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

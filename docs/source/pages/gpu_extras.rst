@@ -1,4 +1,4 @@
-Shader Utils (shaders)
+GPU (gpu_extras)
 =======================================================
 
 The module provides an opportunity to simplify the use of shaders. This is
@@ -8,7 +8,7 @@ File names must contain a shader name without spaces (only ``'_'`` is allowed)
 and a separate type through the ``'_'`` character of the shader type at the end
 of the file name.
 
-.. automodule:: bhq_addon_base.shaders
+.. automodule:: bhq_addon_base.gpu_extras
     :members:
 
 .. _gpu.types.GPUShader:

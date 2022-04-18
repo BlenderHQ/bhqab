@@ -1,7 +1,7 @@
 BlenderHQ Addon Base API
 ================================================
 
-The design of the module is aimed at unifying the important functions used in several add-ons for the Blender 2.8+ series.
+The main purpose of the module is to unify some functionality used in several add-ons for Blender. This simplifies the model of maintenance and support of these addons.
 
 Addon Maintenance
 ================================================
@@ -62,17 +62,9 @@ For licensing information see `./LICENSE` file in repository root directory (GPL
    :maxdepth: 2
    :caption: API Reference
 
-   pages/registration
-   pages/ui
-   pages/shaders
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Tests
-
-   pages/tests
-   pages/tests_unit_tests
-   pages/test_user_interface
+   pages/utils_ui
+   pages/gpu_extras
+   pages/misc
 
 Indices and tables
 ==================

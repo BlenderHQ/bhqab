@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UI Utils (utils_ui) &mdash; BlenderHQ Addon Base rc documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="GPU (gpu_extras)" href="gpu_extras.html" />
+    <link rel="prev" title="BlenderHQ Addon Base API" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> BlenderHQ Addon Base
+            <img src="../_static/bhq_logo_color_v0.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">UI Utils (utils_ui)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gpu_extras.html">GPU (gpu_extras)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Miscellaneous (misc)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BlenderHQ Addon Base</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>UI Utils (utils_ui)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/pages/utils_ui.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-bhq_addon_base.utils_ui">
+<span id="ui-utils-utils-ui"></span><h1>UI Utils (utils_ui)<a class="headerlink" href="#module-bhq_addon_base.utils_ui" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.draw_wrapped_text">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.utils_ui.</span></span><span class="sig-name descname"><span class="pre">draw_wrapped_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.draw_wrapped_text" title="Permalink to this definition"></a></dt>
+<dd><p>Draws a block of text in the given layout, dividing it into lines
+according to the width of the current region of the interface.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The function uses a fairly accurate but at the same time relatively slow
+way to format strings. Not recommended for use with very large blocks
+of text as this may slow down the overall user interface.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.Context.html#bpy.types.Context">bpy.types.Context</a>) – Current context.</p></li>
+<li><p><strong>layout</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.UILayout.html#bpy.types.UILayout">bpy.types.UILayout</a>) – Current layout.</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – Text to be wrapped and drawn.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.developer_extras_poll">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.utils_ui.</span></span><span class="sig-name descname"><span class="pre">developer_extras_poll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.developer_extras_poll" title="Permalink to this definition"></a></dt>
+<dd><p>A method for determining whether a user interface intended for developers should be displayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.Context.html#bpy.types.Context">bpy.types.Context</a>) – Current context.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A positive value means that it should.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.template_developer_extras_warning">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.utils_ui.</span></span><span class="sig-name descname"><span class="pre">template_developer_extras_warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.template_developer_extras_warning" title="Permalink to this definition"></a></dt>
+<dd><p>Output message in the user interface that this section of the interface
+is visible because the active options in the Blender settings. These
+options are also displayed with the ability to disable them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.Context.html#bpy.types.Context">bpy.types.Context</a>) – Current context.</p></li>
+<li><p><strong>layout</strong> (<a class="reference external" href="https://docs.blender.org/api/current/bpy.types.UILayout.html#bpy.types.UILayout">bpy.types.UILayout</a>) – Current UI layout.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bhq_addon_base.utils_ui.</span></span><span class="sig-name descname"><span class="pre">progress</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress" title="Permalink to this definition"></a></dt>
+<dd><p>A class that implements the initialization and completion of progressbars.
+The module provides the ability to display the progressbar (and even several
+progressbars) in the status bar of the Blender. This technique can be used
+mainly with modal operators that run for a relatively long time and require
+the output of the progress of their work.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.PROGRESS_BAR_UI_UNITS">
+<span class="sig-name descname"><span class="pre">PROGRESS_BAR_UI_UNITS</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.PROGRESS_BAR_UI_UNITS" title="Permalink to this definition"></a></dt>
+<dd><p>Number of UI units in range [4…12] used
+for progressbar without text label and icon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProgressPropertyItem</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem" title="Permalink to this definition"></a></dt>
+<dd><p>Progress bar item that allows you to dynamically change some display parameters.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem.num_steps">
+<span class="sig-name descname"><span class="pre">num_steps</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem.num_steps" title="Permalink to this definition"></a></dt>
+<dd><p>Number of progress steps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem.step">
+<span class="sig-name descname"><span class="pre">step</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem.step" title="Permalink to this definition"></a></dt>
+<dd><p>Current progress step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem.value">
+<span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem.value" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluated progress value (readonly).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem.icon">
+<span class="sig-name descname"><span class="pre">icon</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem.icon" title="Permalink to this definition"></a></dt>
+<dd><p>Blender icon to be displayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem.icon_value">
+<span class="sig-name descname"><span class="pre">icon_value</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem.icon_value" title="Permalink to this definition"></a></dt>
+<dd><p>Icon id to be displayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem.label">
+<span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem.label" title="Permalink to this definition"></a></dt>
+<dd><p>Progressbar text label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem.cancellable">
+<span class="sig-name descname"><span class="pre">cancellable</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem.cancellable" title="Permalink to this definition"></a></dt>
+<dd><p>Positive value means that progressbar should draw cancel button.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.invoke">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">invoke</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem" title="bhq_addon_base.utils_ui.progress.ProgressPropertyItem"><span class="pre">bhq_addon_base.utils_ui.progress.ProgressPropertyItem</span></a></span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.invoke" title="Permalink to this definition"></a></dt>
+<dd><p>Invoke new progressbar for each call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>New initialized progress property item.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem" title="bhq_addon_base.utils_ui.progress.ProgressPropertyItem">ProgressPropertyItem</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.complete">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem" title="bhq_addon_base.utils_ui.progress.ProgressPropertyItem"><span class="pre">bhq_addon_base.utils_ui.progress.ProgressPropertyItem</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.complete" title="Permalink to this definition"></a></dt>
+<dd><p>Removes progressbar from UI. If removed progressbar was the last one,
+would be called
+<a class="reference internal" href="#bhq_addon_base.utils_ui.progress.release_all" title="bhq_addon_base.utils_ui.progress.release_all"><code class="xref py py-func docutils literal notranslate"><span class="pre">progress.release_all()</span></code></a> class method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<a class="reference internal" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem" title="bhq_addon_base.utils_ui.progress.ProgressPropertyItem"><em>ProgressPropertyItem</em></a>) – Progress item to be removed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.release_all">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">release_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.release_all" title="Permalink to this definition"></a></dt>
+<dd><p>Removes all progressbars.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="BlenderHQ Addon Base API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gpu_extras.html" class="btn btn-neutral float-right" title="GPU (gpu_extras)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Vlad Kuzmin (ssh4), Ivan Perevala (ivpe).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

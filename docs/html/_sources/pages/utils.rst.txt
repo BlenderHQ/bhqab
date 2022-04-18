@@ -22,11 +22,11 @@ Basic functions are also provided to simplify the output of log messages through
 
 To simplify the understanding of further functions, we give a simple example of use:
 
-.. literalinclude :: py_samples/registration_addon.py
-   :language: python
+#.. literalinclude :: py_samples/registration_addon.py
+#   :language: python
 
 
-.. automodule:: bhq_addon_base.registration
+.. automodule:: bhq_addon_base.utils
     :members:
 
 

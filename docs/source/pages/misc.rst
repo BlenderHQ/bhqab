@@ -1,5 +1,5 @@
-bpy.types Utils (properties)
+Miscellaneous (misc)
 =======================================================
 
-.. automodule:: bhq_addon_base.properties
+.. automodule:: bhq_addon_base.misc
     :members:

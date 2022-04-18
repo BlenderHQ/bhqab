@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shader Utils (shaders) &mdash; BlenderHQ Addon Base rc documentation</title>
+  <title>GPU (gpu_extras) &mdash; BlenderHQ Addon Base rc documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="About Tests" href="tests.html" />
-    <link rel="prev" title="UI Utils (ui)" href="ui.html" /> 
+    <link rel="next" title="Miscellaneous (misc)" href="misc.html" />
+    <link rel="prev" title="UI Utils (utils_ui)" href="utils_ui.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,15 +40,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="utils.html">Addon Registration (registration)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ui.html">UI Utils (ui)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Shader Utils (shaders)</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Tests</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">About Tests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests_unit_tests.html">Unit Tests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="test_user_interface.html">User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils_ui.html">UI Utils (utils_ui)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">GPU (gpu_extras)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Miscellaneous (misc)</a></li>
 </ul>
 
         </div>
@@ -65,9 +59,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Shader Utils (shaders)</li>
+      <li>GPU (gpu_extras)</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/pages/shaders.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/pages/gpu_extras.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -75,27 +69,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="shader-utils-shaders">
-<h1>Shader Utils (shaders)<a class="headerlink" href="#shader-utils-shaders" title="Permalink to this headline"></a></h1>
+  <section id="gpu-gpu-extras">
+<h1>GPU (gpu_extras)<a class="headerlink" href="#gpu-gpu-extras" title="Permalink to this headline"></a></h1>
 <p>The module provides an opportunity to simplify the use of shaders. This is
 implemented by automatically generating shader objects from shader files located
 in a specific folder. All shader files must have the extension <code class="docutils literal notranslate"><span class="pre">*.glsl</span></code>.
 File names must contain a shader name without spaces (only <code class="docutils literal notranslate"><span class="pre">'_'</span></code> is allowed)
 and a separate type through the <code class="docutils literal notranslate"><span class="pre">'_'</span></code> character of the shader type at the end
 of the file name.</p>
-<span class="target" id="module-bhq_addon_base.shaders"></span><dl class="py class">
-<dt class="sig sig-object py" id="bhq_addon_base.shaders.shader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bhq_addon_base.shaders.</span></span><span class="sig-name descname"><span class="pre">shader</span></span><a class="headerlink" href="#bhq_addon_base.shaders.shader" title="Permalink to this definition"></a></dt>
+<span class="target" id="module-bhq_addon_base.gpu_extras"></span><dl class="py class">
+<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bhq_addon_base.gpu_extras.</span></span><span class="sig-name descname"><span class="pre">shader</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader" title="Permalink to this definition"></a></dt>
 <dd><p>Shader utility class. After calling the
-<a class="reference internal" href="#bhq_addon_base.shaders.shader.generate_shaders" title="bhq_addon_base.shaders.shader.generate_shaders"><code class="xref py py-func docutils literal notranslate"><span class="pre">bhq_addon_base.shaders.shader.generate_shaders()</span></code></a>
+<code class="xref py py-func docutils literal notranslate"><span class="pre">bhq_addon_base.shaders.shader.generate_shaders()</span></code>
 method of the class, the shaders will be available as class attributes.</p>
 <p>For example, there are shader files <code class="docutils literal notranslate"><span class="pre">my_shader_vert.glsl</span></code> and
 <code class="docutils literal notranslate"><span class="pre">my_shader_frag.glsl</span></code>. After generating the shaders, the access to the
 shader will be done through the <code class="docutils literal notranslate"><span class="pre">shader.my_shader</span></code>.</p>
 <p>Which would return instance of <a class="reference external" href="https://docs.blender.org/api/current/gpu.types.html#gpu.types.GPUShader">gpu.types.GPUShader</a>.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.shaders.shader.SHADER_FILE_EXTENSION">
-<span class="sig-name descname"><span class="pre">SHADER_FILE_EXTENSION</span></span><a class="headerlink" href="#bhq_addon_base.shaders.shader.SHADER_FILE_EXTENSION" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.SHADER_FILE_EXTENSION">
+<span class="sig-name descname"><span class="pre">SHADER_FILE_EXTENSION</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.SHADER_FILE_EXTENSION" title="Permalink to this definition"></a></dt>
 <dd><p>Constant <code class="docutils literal notranslate"><span class="pre">&quot;.glsl&quot;</span></code> (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -105,8 +99,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.shaders.shader.SEPARATOR_CHAR">
-<span class="sig-name descname"><span class="pre">SEPARATOR_CHAR</span></span><a class="headerlink" href="#bhq_addon_base.shaders.shader.SEPARATOR_CHAR" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.SEPARATOR_CHAR">
+<span class="sig-name descname"><span class="pre">SEPARATOR_CHAR</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.SEPARATOR_CHAR" title="Permalink to this definition"></a></dt>
 <dd><p>Constant <code class="docutils literal notranslate"><span class="pre">'_'</span></code> (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -116,8 +110,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.shaders.shader.SUFFIX_VERTEX">
-<span class="sig-name descname"><span class="pre">SUFFIX_VERTEX</span></span><a class="headerlink" href="#bhq_addon_base.shaders.shader.SUFFIX_VERTEX" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.SUFFIX_VERTEX">
+<span class="sig-name descname"><span class="pre">SUFFIX_VERTEX</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.SUFFIX_VERTEX" title="Permalink to this definition"></a></dt>
 <dd><p>Constant <code class="docutils literal notranslate"><span class="pre">&quot;vert&quot;</span></code> (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -127,8 +121,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.shaders.shader.SUFFIX_FRAGMENT">
-<span class="sig-name descname"><span class="pre">SUFFIX_FRAGMENT</span></span><a class="headerlink" href="#bhq_addon_base.shaders.shader.SUFFIX_FRAGMENT" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.SUFFIX_FRAGMENT">
+<span class="sig-name descname"><span class="pre">SUFFIX_FRAGMENT</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.SUFFIX_FRAGMENT" title="Permalink to this definition"></a></dt>
 <dd><p>Constant <code class="docutils literal notranslate"><span class="pre">&quot;frag&quot;</span></code> (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -138,8 +132,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.shaders.shader.SUFFIX_GEOMETRY">
-<span class="sig-name descname"><span class="pre">SUFFIX_GEOMETRY</span></span><a class="headerlink" href="#bhq_addon_base.shaders.shader.SUFFIX_GEOMETRY" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.SUFFIX_GEOMETRY">
+<span class="sig-name descname"><span class="pre">SUFFIX_GEOMETRY</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.SUFFIX_GEOMETRY" title="Permalink to this definition"></a></dt>
 <dd><p>Constant <code class="docutils literal notranslate"><span class="pre">&quot;geom&quot;</span></code> (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -149,8 +143,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.shaders.shader.SUFFIX_DEFINES">
-<span class="sig-name descname"><span class="pre">SUFFIX_DEFINES</span></span><a class="headerlink" href="#bhq_addon_base.shaders.shader.SUFFIX_DEFINES" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.SUFFIX_DEFINES">
+<span class="sig-name descname"><span class="pre">SUFFIX_DEFINES</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.SUFFIX_DEFINES" title="Permalink to this definition"></a></dt>
 <dd><p>Constant <code class="docutils literal notranslate"><span class="pre">&quot;def&quot;</span></code> (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -160,8 +154,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.shaders.shader.SUFFIX_LIBRARY">
-<span class="sig-name descname"><span class="pre">SUFFIX_LIBRARY</span></span><a class="headerlink" href="#bhq_addon_base.shaders.shader.SUFFIX_LIBRARY" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.SUFFIX_LIBRARY">
+<span class="sig-name descname"><span class="pre">SUFFIX_LIBRARY</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.SUFFIX_LIBRARY" title="Permalink to this definition"></a></dt>
 <dd><p>Constant <code class="docutils literal notranslate"><span class="pre">&quot;lib&quot;</span></code> (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -171,8 +165,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="bhq_addon_base.shaders.shader.generate_shaders">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_shaders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhq_addon_base.shaders.shader.generate_shaders" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.generate_shaders">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_shaders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.generate_shaders" title="Permalink to this definition"></a></dt>
 <dd><p>Generate shaders cache.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -198,8 +192,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="ui.html" class="btn btn-neutral float-left" title="UI Utils (ui)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="tests.html" class="btn btn-neutral float-right" title="About Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="utils_ui.html" class="btn btn-neutral float-left" title="UI Utils (utils_ui)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="misc.html" class="btn btn-neutral float-right" title="Miscellaneous (misc)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

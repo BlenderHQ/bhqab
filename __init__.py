@@ -26,17 +26,17 @@ __license__ = "GPLv3"
 if "bpy" in locals():
     from importlib import reload
 
-    if "registration" in locals():
-        reload(registration)
-    if "shaders" in locals():
-        reload(shaders)
-    if "ui" in locals():
-        reload(ui)
+    if "misc" in locals():
+        reload(misc)
+    if "gpu_extras" in locals():
+        reload(gpu_extras)
+    if "utils_ui" in locals():
+        reload(utils_ui)
 
     del reload
 
 import bpy
 
-from . import registration
-from . import shaders
-from . import ui
+from . import misc
+from . import gpu_extras
+from . import utils_ui

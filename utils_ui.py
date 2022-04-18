@@ -1,10 +1,8 @@
-import functools
-
 import bpy
 import blf
 from bl_ui import space_statusbar
 
-from . import registration
+from . import misc
 
 
 def _string_width(string: str) -> float:
@@ -74,51 +72,6 @@ def draw_wrapped_text(context: bpy.types.Context, layout: bpy.types.UILayout, te
 
         for subline in sublines:
             col.label(text=subline)
-
-
-def template_addon_versioning(url_help: str):
-    """Helper decorator for addon user preferences ``draw`` method.
-
-    If current Blender version is less than earliest tested, draw method would
-    not be called, would be displayed only information about versioning with
-    respective documentation link (``url_help``).
-
-    If current Blender version is greater than latest tested, first would be
-    displayed versioning information and only than - actual draw method content.
-
-    Args:
-        url_help (str): Addon documentation versioning information link.
-    """
-    def _template_addon_versioning_outer(draw_func):
-        @functools.wraps(draw_func)
-        def wrapper(self, context):
-            layout = self.layout
-            layout.use_property_split = True
-            layout.use_property_decorate = False
-
-            def _draw_compatibility_link(lay) -> None:
-                lay.label(text="Please, read the documentation about compatibility support:")
-                props = col.operator("wm.url_open", text="Read about compatibility", icon='URL')
-                props.url = url_help
-
-            if bpy.app.version < registration.earliest_tested_version():
-                col = layout.column(align=True)
-                col.label(
-                    text="You Blender version is less than minimal supported!",
-                    icon='ERROR'
-                )
-                _draw_compatibility_link(col)
-                return
-
-            elif bpy.app.version > registration.latest_tested_version():
-                col = layout.column(align=True)
-                col.label(text="Your Blender version may be not tested", icon='INFO')
-                _draw_compatibility_link(col)
-
-            return draw_func(self, context)
-
-        return wrapper
-    return _template_addon_versioning_outer
 
 
 def developer_extras_poll(context: bpy.types.Context) -> bool:
@@ -314,11 +267,7 @@ class progress(metaclass=_progress_meta):
 
         if not cls._is_drawn:
             bpy.utils.register_class(progress.ProgressPropertyItem)
-            cls._attrname = registration.unique_name(
-                collection=bpy.types.WindowManager,
-                prefix="bhq_",
-                suffix="_progress"
-            )
+            cls._attrname = misc.unique_name(collection=bpy.types.WindowManager, prefix="bhq_", suffix="_progress")
 
             setattr(
                 bpy.types.WindowManager,

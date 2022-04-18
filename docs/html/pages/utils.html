@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>bpy.types Utils (properties) &mdash; BlenderHQ Addon Base rc documentation</title>
+  <title>Addon Registration (registration) &mdash; BlenderHQ Addon Base rc documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="About Tests" href="tests.html" />
-    <link rel="prev" title="Shader Utils (shaders)" href="shaders.html" /> 
+    <link rel="next" title="UI Utils (ui)" href="ui.html" />
+    <link rel="prev" title="BlenderHQ Addon Base API" href="../index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -30,9 +30,6 @@
             <a href="../index.html" class="icon icon-home"> BlenderHQ Addon Base
             <img src="../_static/bhq_logo_color_v0.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                3.1.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -43,10 +40,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="registration.html">Addon Registration (registration)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Addon Registration (registration)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ui.html">UI Utils (ui)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shaders.html">Shader Utils (shaders)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">bpy.types Utils (properties)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tests</span></p>
 <ul>
@@ -69,9 +65,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>bpy.types Utils (properties)</li>
+      <li>Addon Registration (registration)</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/pages/properties.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/pages/utils.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -79,11 +75,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-bhq_addon_base.properties">
-<span id="bpy-types-utils-properties"></span><h1>bpy.types Utils (properties)<a class="headerlink" href="#module-bhq_addon_base.properties" title="Permalink to this headline"></a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.properties.unique_name">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.properties.</span></span><span class="sig-name descname"><span class="pre">unique_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bhq_addon_base.properties.unique_name" title="Permalink to this definition"></a></dt>
+  <section id="addon-registration-registration">
+<h1>Addon Registration (registration)<a class="headerlink" href="#addon-registration-registration" title="Permalink to this headline"></a></h1>
+<p>The module was created primarily to simplify addon maintenance. For example, our organization needs to service several released addons. This is not an easy task, as updates to Blender are released relatively often, studios or individual users can use both previous (sometimes not even LTS releases of Blender) and not yet fully ready pre-release (beta) versions of Blender. In any case, much of the testing of addons before releases is done manually, consistently on major versions of the Blender. Of course, it is necessary to repeat from time to time testing the functionality of addons on earlier versions of Blender, as well as on those versions that have not yet been released. But this is all the time that can be spent on developing new functionality and optimization.</p>
+<p>The main purpose of the module is to simplify the procedure for error handling when calling addon registration methods.</p>
+<p>In any case, there may be a situation where the addon for some reason can not be used or testing has not been conducted for the latest version of Blender. For this purpose the basic principles are allocated:</p>
+<ul>
+<li><p>If the user runs the addon on the Blender earlier than the minimum tested and approved for use:</p>
+<blockquote>
+<div><p>In this case, no addon registration methods will be called, and only the user preference class will be registered. In this case, the preferences will not display any addon settings, but will display a message stating that its addon cannot be used in this version of Blender.</p>
+</div></blockquote>
+</li>
+<li><p>If the user runs the addon on the Blender of the newer version than the last tested and approved:</p>
+<blockquote>
+<div><p>In this case, there will be an attempt to register the addon, but even if no errors occurred during registration - in the user preferences of the addon will first display a warning about it</p>
+</div></blockquote>
+</li>
+</ul>
+<p>Basic functions are also provided to simplify the output of log messages through the command line and the drawing of the user interface.</p>
+<ul class="simple">
+<li><p>If the version with which the addon is used is tested and approved, everything will be as usual.</p></li>
+</ul>
+<p>To simplify the understanding of further functions, we give a simple example of use:</p>
+<p>#.. literalinclude :: py_samples/registration_addon.py
+#   :language: python</p>
+<span class="target" id="module-bhq_addon_base.utils"></span><dl class="py function">
+<dt class="sig sig-object py" id="bhq_addon_base.utils.unique_name">
+<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.utils.</span></span><span class="sig-name descname"><span class="pre">unique_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bhq_addon_base.utils.unique_name" title="Permalink to this definition"></a></dt>
 <dd><p>Generates a random name that will be unique in this collection. It can be
 used to create a random unique name with the specified suffix and prefix for
 this collection. It can be used with <code class="docutils literal notranslate"><span class="pre">bpy.data.[...].new</span> <span class="pre">(name)</span></code> or to
@@ -111,8 +129,8 @@ register temporary properties of data blocks, etc.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="shaders.html" class="btn btn-neutral float-left" title="Shader Utils (shaders)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="tests.html" class="btn btn-neutral float-right" title="About Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="BlenderHQ Addon Base API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ui.html" class="btn btn-neutral float-right" title="UI Utils (ui)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
