@@ -1,4 +1,6 @@
-from typing import Iterable
+from typing import (
+    Iterable,
+)
 import random
 import string
 
@@ -17,7 +19,25 @@ _IMAGE_EXTENSIONS = (
 )
 
 
-def supported_image_extensions() -> tuple[str]:
+def supported_image_extensions() -> tuple:
+    """Blender supported image extensions.
+    https://docs.blender.org/manual/en/latest/files/media/image_formats.html
+
+    Returns:
+        tuple: Tuple of lowercase extensions:
+
+            ``.bmp``,
+            ``.sgi``, ``.rgb``, ``.bw``,
+            ``.png``,
+            ``.jpg``, ``.jpeg``,
+            ``.jp2``, ``.j2c``,
+            ``.tga``,
+            ``.cin``, ``.dpx``,
+            ``.exr``,
+            ``.hdr``,
+            ``.tif``, ``.tiff``,
+            ``.psd``,
+    """
     return _IMAGE_EXTENSIONS
 
 
