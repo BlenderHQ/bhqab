@@ -36,7 +36,7 @@ class shader_meta(type):
 
 class shader(metaclass=shader_meta):
     """Shader utility class. After calling the
-    :py:func:`bhq_addon_base.shaders.shader.generate_shaders`
+    :py:func:`bhqab.shaders.shader.generate_shaders`
     method of the class, the shaders will be available as class attributes.
 
     For example, there are shader files ``my_shader_vert.glsl`` and
