@@ -10,7 +10,7 @@ To add a module to the addon, you can use the command:
 
 .. code-block:: console
 
-   git submodule add https://github.com/BlenderHQ/bhq_addon_base
+   git submodule add https://github.com/BlenderHQ/bhqab
 
 
 To clone the addon repository to a local machine, the following command:
@@ -32,8 +32,8 @@ Links
 
    .. figure:: images/qr_bhqab_github.svg
       :align: center
-      :target: https://github.com/BlenderHQ/bhq_addon_base
-      :alt: https://github.com/BlenderHQ/bhq_addon_base
+      :target: https://github.com/BlenderHQ/bhqab
+      :alt: https://github.com/BlenderHQ/bhqab
       :width: 450
       
       GitHub Repository

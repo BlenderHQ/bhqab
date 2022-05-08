@@ -26,12 +26,9 @@ __license__ = "GPLv3"
 if "bpy" in locals():
     from importlib import reload
 
-    if "misc" in locals():
-        reload(misc)
-    if "gpu_extras" in locals():
-        reload(gpu_extras)
-    if "utils_ui" in locals():
-        reload(utils_ui)
+    reload(misc)
+    reload(gpu_extras)
+    reload(utils_ui)
 
     del reload
 

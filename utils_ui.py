@@ -1,5 +1,18 @@
 import bpy
+from bpy.types import (
+    Context,
+    UILayout,
+    PropertyGroup,
+    WindowManager,
+    STATUSBAR_HT_header,
+)
+from bpy.props import (
+    BoolProperty,
+    IntProperty,
+    PointerProperty,
+)
 import blf
+import rna_keymap_ui
 from bl_ui import space_statusbar
 
 from . import misc
@@ -12,7 +25,7 @@ def _string_width(string: str) -> float:
     return blf.dimensions(0, string)[0]
 
 
-def draw_wrapped_text(context: bpy.types.Context, layout: bpy.types.UILayout, text: str) -> None:
+def draw_wrapped_text(context: Context, layout: UILayout, text: str) -> None:
     """Draws a block of text in the given layout, dividing it into lines
     according to the width of the current region of the interface.
 
@@ -74,7 +87,7 @@ def draw_wrapped_text(context: bpy.types.Context, layout: bpy.types.UILayout, te
             col.label(text=subline)
 
 
-def developer_extras_poll(context: bpy.types.Context) -> bool:
+def developer_extras_poll(context: Context) -> bool:
     """A method for determining whether a user interface intended for developers should be displayed.
 
     Args:
@@ -86,7 +99,7 @@ def developer_extras_poll(context: bpy.types.Context) -> bool:
     return context.preferences.view.show_developer_ui
 
 
-def template_developer_extras_warning(context: bpy.types.Context, layout: bpy.types.UILayout) -> None:
+def template_developer_extras_warning(context: Context, layout: UILayout) -> None:
     """Output message in the user interface that this section of the interface
     is visible because the active options in the Blender settings. These
     options are also displayed with the ability to disable them.
@@ -103,6 +116,84 @@ def template_developer_extras_warning(context: bpy.types.Context, layout: bpy.ty
             "user preferences."
         draw_wrapped_text(context, col, text)
         col.prop(context.preferences.view, "show_developer_ui")
+
+
+def template_tool_keymap(context: Context, layout: UILayout, km_name: str):
+    """Template for tool keymap items.
+
+    Args:
+        context (Context): Current context.
+        layout (UILayout): Current UI layout.
+        km_name (str): Tool keymap name. For example, "3D View Tool: Edit Mesh, Path Tool"
+    """
+    is_any_drawn = False
+    kc = context.window_manager.keyconfigs.user
+    km = kc.keymaps.get(km_name)
+    if km:
+        for kmi in km.keymap_items:
+            rna_keymap_ui.draw_kmi([], kc, km, kmi, layout, 0)
+            is_any_drawn = True
+
+    if not is_any_drawn:
+        layout.label(text=f"Not found keymap: \"{km_name}\"", icon='ERROR')
+
+
+_KMI_ICONS: dict[str, str] = dict()
+
+
+def _eval_kmi_icons() -> None:
+    kmi_identifiers = [_.identifier for _ in bpy.types.Event.bl_rna.properties["type"].enum_items]
+    icons = bpy.types.UILayout.bl_rna.functions["prop"].parameters["icon"].enum_items.keys()
+
+    for kmi_type in kmi_identifiers:
+        if f'EVENT_{kmi_type}' in icons:
+            _KMI_ICONS[kmi_type] = f'EVENT_{kmi_type}'
+
+    _KMI_ICONS.update(
+        {
+            'LEFTMOUSE': 'MOUSE_LMB',
+            'RIGHTMOUSE': 'MOUSE_RMB',
+            'MIDDLEMOUSE': 'MOUSE_MMB',
+
+            'LEFT_CTRL': 'EVENT_CTRL',
+            'RIGHT_CTRL': 'EVENT_CTRL',
+
+            'LEFT_SHIFT': 'EVENT_SHIFT',
+            'RIGHT_SHIFT': 'EVENT_SHIFT',
+
+            'LEFT_ALT': 'EVENT_ALT',
+            'RIGHT_ALT': 'EVENT_ALT',
+
+            'SPACE': 'EVENT_SPACEKEY',
+
+            'RET': 'EVENT_RETURN',
+
+            'PAGE_UP': 'EVENT_PAGEUP',
+            'PAGE_DOWN': 'EVENT_PAGEDOWN',
+
+            'OSKEY': 'EVENT_OS',
+        }
+    )
+
+
+def template_input_info_kmi_from_type(layout: UILayout, label: str, event_types: set[str] = set()) -> None:
+    if not _KMI_ICONS:
+        _eval_kmi_icons()
+
+    icons = []
+    for ev_type in event_types:
+        if ev_type in _KMI_ICONS.keys():
+            icons.append(_KMI_ICONS[ev_type])
+
+    if len(icons) == 1:
+        layout.label(text=label, icon=icons[0])
+    elif len(icons) > 1:
+        row = layout.row(align=True)
+        for i, icon in enumerate(icons):
+            if i < len(icons) - 1:
+                row.label(text="", icon=icon)
+            else:
+                row.label(text=label, icon=icon)
 
 
 def _update_statusbar():
@@ -140,7 +231,7 @@ class progress(metaclass=_progress_meta):
     _is_drawn = False
     _attrname = ""
 
-    class ProgressPropertyItem(bpy.types.PropertyGroup):
+    class ProgressPropertyItem(PropertyGroup):
         """Progress bar item that allows you to dynamically change some display parameters.
 
         Attributes:
@@ -229,7 +320,7 @@ class progress(metaclass=_progress_meta):
         layout.separator_spacer()
         layout.template_reports_banner()
 
-        if hasattr(bpy.types.WindowManager, progress._attrname):
+        if hasattr(WindowManager, progress._attrname):
             layout.separator_spacer()
             for item in progress.valid_progress_items():
                 row = layout.row(align=True)
@@ -267,15 +358,15 @@ class progress(metaclass=_progress_meta):
 
         if not cls._is_drawn:
             bpy.utils.register_class(progress.ProgressPropertyItem)
-            cls._attrname = misc.unique_name(collection=bpy.types.WindowManager, prefix="bhq_", suffix="_progress")
+            cls._attrname = misc.unique_name(collection=WindowManager, prefix="bhq_", suffix="_progress")
 
             setattr(
-                bpy.types.WindowManager,
+                WindowManager,
                 cls._attrname,
                 bpy.props.CollectionProperty(type=progress.ProgressPropertyItem)
             )
 
-            bpy.types.STATUSBAR_HT_header.draw = cls._func_draw_progress
+            STATUSBAR_HT_header.draw = cls._func_draw_progress
             _update_statusbar()
 
         cls._is_drawn = True
@@ -307,11 +398,11 @@ class progress(metaclass=_progress_meta):
         from importlib import reload
 
         assert(cls._attrname)
-        delattr(bpy.types.WindowManager, cls._attrname)
+        delattr(WindowManager, cls._attrname)
         bpy.utils.unregister_class(progress.ProgressPropertyItem)
 
         reload(space_statusbar)
-        bpy.types.STATUSBAR_HT_header.draw = space_statusbar.STATUSBAR_HT_header.draw
+        STATUSBAR_HT_header.draw = space_statusbar.STATUSBAR_HT_header.draw
         _update_statusbar()
 
         del reload

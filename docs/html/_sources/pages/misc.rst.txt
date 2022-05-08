@@ -1,5 +1,5 @@
 Miscellaneous (misc)
 =======================================================
 
-.. automodule:: bhq_addon_base.misc
+.. automodule:: bhqab.misc
     :members:

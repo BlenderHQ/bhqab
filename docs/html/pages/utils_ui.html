@@ -69,11 +69,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-bhq_addon_base.utils_ui">
-<span id="ui-utils-utils-ui"></span><h1>UI Utils (utils_ui)<a class="headerlink" href="#module-bhq_addon_base.utils_ui" title="Permalink to this headline"></a></h1>
+  <section id="module-bhqab.utils_ui">
+<span id="ui-utils-utils-ui"></span><h1>UI Utils (utils_ui)<a class="headerlink" href="#module-bhqab.utils_ui" title="Permalink to this headline"></a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.draw_wrapped_text">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.utils_ui.</span></span><span class="sig-name descname"><span class="pre">draw_wrapped_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.draw_wrapped_text" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.draw_wrapped_text">
+<span class="sig-prename descclassname"><span class="pre">bhqab.utils_ui.</span></span><span class="sig-name descname"><span class="pre">draw_wrapped_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhqab.utils_ui.draw_wrapped_text" title="Permalink to this definition"></a></dt>
 <dd><p>Draws a block of text in the given layout, dividing it into lines
 according to the width of the current region of the interface.</p>
 <div class="admonition warning">
@@ -94,8 +94,8 @@ of text as this may slow down the overall user interface.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.developer_extras_poll">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.utils_ui.</span></span><span class="sig-name descname"><span class="pre">developer_extras_poll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.developer_extras_poll" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.developer_extras_poll">
+<span class="sig-prename descclassname"><span class="pre">bhqab.utils_ui.</span></span><span class="sig-name descname"><span class="pre">developer_extras_poll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhqab.utils_ui.developer_extras_poll" title="Permalink to this definition"></a></dt>
 <dd><p>A method for determining whether a user interface intended for developers should be displayed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -111,8 +111,8 @@ of text as this may slow down the overall user interface.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.template_developer_extras_warning">
-<span class="sig-prename descclassname"><span class="pre">bhq_addon_base.utils_ui.</span></span><span class="sig-name descname"><span class="pre">template_developer_extras_warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.template_developer_extras_warning" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.template_developer_extras_warning">
+<span class="sig-prename descclassname"><span class="pre">bhqab.utils_ui.</span></span><span class="sig-name descname"><span class="pre">template_developer_extras_warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bhqab.utils_ui.template_developer_extras_warning" title="Permalink to this definition"></a></dt>
 <dd><p>Output message in the user interface that this section of the interface
 is visible because the active options in the Blender settings. These
 options are also displayed with the ability to disable them.</p>
@@ -126,17 +126,32 @@ options are also displayed with the ability to disable them.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="bhqab.utils_ui.template_tool_keymap">
+<span class="sig-prename descclassname"><span class="pre">bhqab.utils_ui.</span></span><span class="sig-name descname"><span class="pre">template_tool_keymap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy_types.Context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bpy.types.UILayout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">km_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhqab.utils_ui.template_tool_keymap" title="Permalink to this definition"></a></dt>
+<dd><p>Template for tool keymap items.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>Context</em>) – Current context.</p></li>
+<li><p><strong>layout</strong> (<em>UILayout</em>) – Current UI layout.</p></li>
+<li><p><strong>km_name</strong> (<em>str</em>) – Tool keymap name. For example, “3D View Tool: Edit Mesh, Path Tool”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py class">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bhq_addon_base.utils_ui.</span></span><span class="sig-name descname"><span class="pre">progress</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.progress">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bhqab.utils_ui.</span></span><span class="sig-name descname"><span class="pre">progress</span></span><a class="headerlink" href="#bhqab.utils_ui.progress" title="Permalink to this definition"></a></dt>
 <dd><p>A class that implements the initialization and completion of progressbars.
 The module provides the ability to display the progressbar (and even several
 progressbars) in the status bar of the Blender. This technique can be used
 mainly with modal operators that run for a relatively long time and require
 the output of the progress of their work.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.PROGRESS_BAR_UI_UNITS">
-<span class="sig-name descname"><span class="pre">PROGRESS_BAR_UI_UNITS</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.PROGRESS_BAR_UI_UNITS" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.progress.PROGRESS_BAR_UI_UNITS">
+<span class="sig-name descname"><span class="pre">PROGRESS_BAR_UI_UNITS</span></span><a class="headerlink" href="#bhqab.utils_ui.progress.PROGRESS_BAR_UI_UNITS" title="Permalink to this definition"></a></dt>
 <dd><p>Number of UI units in range [4…12] used
 for progressbar without text label and icon.</p>
 <dl class="field-list simple">
@@ -147,12 +162,12 @@ for progressbar without text label and icon.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProgressPropertyItem</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.progress.ProgressPropertyItem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProgressPropertyItem</span></span><a class="headerlink" href="#bhqab.utils_ui.progress.ProgressPropertyItem" title="Permalink to this definition"></a></dt>
 <dd><p>Progress bar item that allows you to dynamically change some display parameters.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem.num_steps">
-<span class="sig-name descname"><span class="pre">num_steps</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem.num_steps" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.progress.ProgressPropertyItem.num_steps">
+<span class="sig-name descname"><span class="pre">num_steps</span></span><a class="headerlink" href="#bhqab.utils_ui.progress.ProgressPropertyItem.num_steps" title="Permalink to this definition"></a></dt>
 <dd><p>Number of progress steps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -162,8 +177,8 @@ for progressbar without text label and icon.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem.step">
-<span class="sig-name descname"><span class="pre">step</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem.step" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.progress.ProgressPropertyItem.step">
+<span class="sig-name descname"><span class="pre">step</span></span><a class="headerlink" href="#bhqab.utils_ui.progress.ProgressPropertyItem.step" title="Permalink to this definition"></a></dt>
 <dd><p>Current progress step.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -173,8 +188,8 @@ for progressbar without text label and icon.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem.value">
-<span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem.value" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.progress.ProgressPropertyItem.value">
+<span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#bhqab.utils_ui.progress.ProgressPropertyItem.value" title="Permalink to this definition"></a></dt>
 <dd><p>Evaluated progress value (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -184,8 +199,8 @@ for progressbar without text label and icon.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem.icon">
-<span class="sig-name descname"><span class="pre">icon</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem.icon" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.progress.ProgressPropertyItem.icon">
+<span class="sig-name descname"><span class="pre">icon</span></span><a class="headerlink" href="#bhqab.utils_ui.progress.ProgressPropertyItem.icon" title="Permalink to this definition"></a></dt>
 <dd><p>Blender icon to be displayed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -195,8 +210,8 @@ for progressbar without text label and icon.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem.icon_value">
-<span class="sig-name descname"><span class="pre">icon_value</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem.icon_value" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.progress.ProgressPropertyItem.icon_value">
+<span class="sig-name descname"><span class="pre">icon_value</span></span><a class="headerlink" href="#bhqab.utils_ui.progress.ProgressPropertyItem.icon_value" title="Permalink to this definition"></a></dt>
 <dd><p>Icon id to be displayed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -206,8 +221,8 @@ for progressbar without text label and icon.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem.label">
-<span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem.label" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.progress.ProgressPropertyItem.label">
+<span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#bhqab.utils_ui.progress.ProgressPropertyItem.label" title="Permalink to this definition"></a></dt>
 <dd><p>Progressbar text label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -217,8 +232,8 @@ for progressbar without text label and icon.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.ProgressPropertyItem.cancellable">
-<span class="sig-name descname"><span class="pre">cancellable</span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem.cancellable" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.progress.ProgressPropertyItem.cancellable">
+<span class="sig-name descname"><span class="pre">cancellable</span></span><a class="headerlink" href="#bhqab.utils_ui.progress.ProgressPropertyItem.cancellable" title="Permalink to this definition"></a></dt>
 <dd><p>Positive value means that progressbar should draw cancel button.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -230,35 +245,35 @@ for progressbar without text label and icon.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.invoke">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">invoke</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem" title="bhq_addon_base.utils_ui.progress.ProgressPropertyItem"><span class="pre">bhq_addon_base.utils_ui.progress.ProgressPropertyItem</span></a></span></span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.invoke" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.progress.invoke">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">invoke</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#bhqab.utils_ui.progress.ProgressPropertyItem" title="bhqab.utils_ui.progress.ProgressPropertyItem"><span class="pre">bhqab.utils_ui.progress.ProgressPropertyItem</span></a></span></span><a class="headerlink" href="#bhqab.utils_ui.progress.invoke" title="Permalink to this definition"></a></dt>
 <dd><p>Invoke new progressbar for each call.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>New initialized progress property item.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem" title="bhq_addon_base.utils_ui.progress.ProgressPropertyItem">ProgressPropertyItem</a></p>
+<dd class="field-even"><p><a class="reference internal" href="#bhqab.utils_ui.progress.ProgressPropertyItem" title="bhqab.utils_ui.progress.ProgressPropertyItem">ProgressPropertyItem</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.complete">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem" title="bhq_addon_base.utils_ui.progress.ProgressPropertyItem"><span class="pre">bhq_addon_base.utils_ui.progress.ProgressPropertyItem</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.complete" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.progress.complete">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bhqab.utils_ui.progress.ProgressPropertyItem" title="bhqab.utils_ui.progress.ProgressPropertyItem"><span class="pre">bhqab.utils_ui.progress.ProgressPropertyItem</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bhqab.utils_ui.progress.complete" title="Permalink to this definition"></a></dt>
 <dd><p>Removes progressbar from UI. If removed progressbar was the last one,
 would be called
-<a class="reference internal" href="#bhq_addon_base.utils_ui.progress.release_all" title="bhq_addon_base.utils_ui.progress.release_all"><code class="xref py py-func docutils literal notranslate"><span class="pre">progress.release_all()</span></code></a> class method.</p>
+<a class="reference internal" href="#bhqab.utils_ui.progress.release_all" title="bhqab.utils_ui.progress.release_all"><code class="xref py py-func docutils literal notranslate"><span class="pre">progress.release_all()</span></code></a> class method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>item</strong> (<a class="reference internal" href="#bhq_addon_base.utils_ui.progress.ProgressPropertyItem" title="bhq_addon_base.utils_ui.progress.ProgressPropertyItem"><em>ProgressPropertyItem</em></a>) – Progress item to be removed.</p>
+<dd class="field-odd"><p><strong>item</strong> (<a class="reference internal" href="#bhqab.utils_ui.progress.ProgressPropertyItem" title="bhqab.utils_ui.progress.ProgressPropertyItem"><em>ProgressPropertyItem</em></a>) – Progress item to be removed.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="bhq_addon_base.utils_ui.progress.release_all">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">release_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bhq_addon_base.utils_ui.progress.release_all" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.utils_ui.progress.release_all">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">release_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bhqab.utils_ui.progress.release_all" title="Permalink to this definition"></a></dt>
 <dd><p>Removes all progressbars.</p>
 </dd></dl>
 

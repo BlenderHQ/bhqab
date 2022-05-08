@@ -1,9 +1,6 @@
 import os
 import sys
 
-import bpy
-import addon_utils
-
 from sphinx.builders.html import StandaloneHTMLBuilder
 StandaloneHTMLBuilder.supported_image_types = [
     'image/svg+xml',
@@ -14,13 +11,10 @@ StandaloneHTMLBuilder.supported_image_types = [
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath('..'))))
 
-import bhq_addon_base as addon
-
 project = 'BlenderHQ Addon Base'
 copyright = '2022, Vlad Kuzmin (ssh4), Ivan Perevala (ivpe)'
 author = 'Vlad Kuzmin (ssh4), Ivan Perevala (ivpe)'
 
-version = '.'.join((str(_) for _ in addon_utils.module_bl_info(addon)["version"]))
 release = 'rc'
 
 extensions = [

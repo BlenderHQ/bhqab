@@ -77,19 +77,19 @@ in a specific folder. All shader files must have the extension <code class="docu
 File names must contain a shader name without spaces (only <code class="docutils literal notranslate"><span class="pre">'_'</span></code> is allowed)
 and a separate type through the <code class="docutils literal notranslate"><span class="pre">'_'</span></code> character of the shader type at the end
 of the file name.</p>
-<span class="target" id="module-bhq_addon_base.gpu_extras"></span><dl class="py class">
-<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bhq_addon_base.gpu_extras.</span></span><span class="sig-name descname"><span class="pre">shader</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader" title="Permalink to this definition"></a></dt>
+<span class="target" id="module-bhqab.gpu_extras"></span><dl class="py class">
+<dt class="sig sig-object py" id="bhqab.gpu_extras.shader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bhqab.gpu_extras.</span></span><span class="sig-name descname"><span class="pre">shader</span></span><a class="headerlink" href="#bhqab.gpu_extras.shader" title="Permalink to this definition"></a></dt>
 <dd><p>Shader utility class. After calling the
-<code class="xref py py-func docutils literal notranslate"><span class="pre">bhq_addon_base.shaders.shader.generate_shaders()</span></code>
+<code class="xref py py-func docutils literal notranslate"><span class="pre">bhqab.shaders.shader.generate_shaders()</span></code>
 method of the class, the shaders will be available as class attributes.</p>
 <p>For example, there are shader files <code class="docutils literal notranslate"><span class="pre">my_shader_vert.glsl</span></code> and
 <code class="docutils literal notranslate"><span class="pre">my_shader_frag.glsl</span></code>. After generating the shaders, the access to the
 shader will be done through the <code class="docutils literal notranslate"><span class="pre">shader.my_shader</span></code>.</p>
 <p>Which would return instance of <a class="reference external" href="https://docs.blender.org/api/current/gpu.types.html#gpu.types.GPUShader">gpu.types.GPUShader</a>.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.SHADER_FILE_EXTENSION">
-<span class="sig-name descname"><span class="pre">SHADER_FILE_EXTENSION</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.SHADER_FILE_EXTENSION" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.gpu_extras.shader.SHADER_FILE_EXTENSION">
+<span class="sig-name descname"><span class="pre">SHADER_FILE_EXTENSION</span></span><a class="headerlink" href="#bhqab.gpu_extras.shader.SHADER_FILE_EXTENSION" title="Permalink to this definition"></a></dt>
 <dd><p>Constant <code class="docutils literal notranslate"><span class="pre">&quot;.glsl&quot;</span></code> (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -99,8 +99,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.SEPARATOR_CHAR">
-<span class="sig-name descname"><span class="pre">SEPARATOR_CHAR</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.SEPARATOR_CHAR" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.gpu_extras.shader.SEPARATOR_CHAR">
+<span class="sig-name descname"><span class="pre">SEPARATOR_CHAR</span></span><a class="headerlink" href="#bhqab.gpu_extras.shader.SEPARATOR_CHAR" title="Permalink to this definition"></a></dt>
 <dd><p>Constant <code class="docutils literal notranslate"><span class="pre">'_'</span></code> (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -110,8 +110,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.SUFFIX_VERTEX">
-<span class="sig-name descname"><span class="pre">SUFFIX_VERTEX</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.SUFFIX_VERTEX" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.gpu_extras.shader.SUFFIX_VERTEX">
+<span class="sig-name descname"><span class="pre">SUFFIX_VERTEX</span></span><a class="headerlink" href="#bhqab.gpu_extras.shader.SUFFIX_VERTEX" title="Permalink to this definition"></a></dt>
 <dd><p>Constant <code class="docutils literal notranslate"><span class="pre">&quot;vert&quot;</span></code> (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -121,8 +121,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.SUFFIX_FRAGMENT">
-<span class="sig-name descname"><span class="pre">SUFFIX_FRAGMENT</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.SUFFIX_FRAGMENT" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.gpu_extras.shader.SUFFIX_FRAGMENT">
+<span class="sig-name descname"><span class="pre">SUFFIX_FRAGMENT</span></span><a class="headerlink" href="#bhqab.gpu_extras.shader.SUFFIX_FRAGMENT" title="Permalink to this definition"></a></dt>
 <dd><p>Constant <code class="docutils literal notranslate"><span class="pre">&quot;frag&quot;</span></code> (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -132,8 +132,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.SUFFIX_GEOMETRY">
-<span class="sig-name descname"><span class="pre">SUFFIX_GEOMETRY</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.SUFFIX_GEOMETRY" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.gpu_extras.shader.SUFFIX_GEOMETRY">
+<span class="sig-name descname"><span class="pre">SUFFIX_GEOMETRY</span></span><a class="headerlink" href="#bhqab.gpu_extras.shader.SUFFIX_GEOMETRY" title="Permalink to this definition"></a></dt>
 <dd><p>Constant <code class="docutils literal notranslate"><span class="pre">&quot;geom&quot;</span></code> (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -143,8 +143,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.SUFFIX_DEFINES">
-<span class="sig-name descname"><span class="pre">SUFFIX_DEFINES</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.SUFFIX_DEFINES" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.gpu_extras.shader.SUFFIX_DEFINES">
+<span class="sig-name descname"><span class="pre">SUFFIX_DEFINES</span></span><a class="headerlink" href="#bhqab.gpu_extras.shader.SUFFIX_DEFINES" title="Permalink to this definition"></a></dt>
 <dd><p>Constant <code class="docutils literal notranslate"><span class="pre">&quot;def&quot;</span></code> (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -154,8 +154,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.SUFFIX_LIBRARY">
-<span class="sig-name descname"><span class="pre">SUFFIX_LIBRARY</span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.SUFFIX_LIBRARY" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.gpu_extras.shader.SUFFIX_LIBRARY">
+<span class="sig-name descname"><span class="pre">SUFFIX_LIBRARY</span></span><a class="headerlink" href="#bhqab.gpu_extras.shader.SUFFIX_LIBRARY" title="Permalink to this definition"></a></dt>
 <dd><p>Constant <code class="docutils literal notranslate"><span class="pre">&quot;lib&quot;</span></code> (readonly).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -165,8 +165,8 @@ shader will be done through the <code class="docutils literal notranslate"><span
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="bhq_addon_base.gpu_extras.shader.generate_shaders">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_shaders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhq_addon_base.gpu_extras.shader.generate_shaders" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="bhqab.gpu_extras.shader.generate_shaders">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_shaders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#bhqab.gpu_extras.shader.generate_shaders" title="Permalink to this definition"></a></dt>
 <dd><p>Generate shaders cache.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
