@@ -112,7 +112,7 @@ class shader(metaclass=shader_meta):
                 shader_type = name_split[-1]
                 shader_name = '_'.join(name_split[:-1])
 
-            if shader_type in shader_endings[0:2]:
+            if shader_type in shader_endings[0:3]:
                 if shader_name not in _shader_dict:
                     _shader_dict[shader_name] = [None for _ in range(5)]
 
