@@ -115,7 +115,8 @@ class shader(metaclass=shader_meta):
             if shader_type in shader_endings[0:3]:
                 if shader_name not in _shader_dict:
                     _shader_dict[shader_name] = [None for _ in range(5)]
-
+                    _shader_dict[shader_name][0] = ""
+                    _shader_dict[shader_name][1] = ""
                 shader_index = shader_endings.index(shader_type)
                 with open(file_path, 'r') as code:
                     data = code.read()
@@ -124,12 +125,12 @@ class shader(metaclass=shader_meta):
             elif shader_type == cls.SUFFIX_LIBRARY:
                 with open(file_path, 'r') as code:
                     data = code.read()
-                    _shader_library += "\n\n%s" % data
+                    _shader_library += f"\n\n{data}\n\n"
 
             elif shader_type == cls.SUFFIX_DEFINES:
                 with open(file_path, 'r') as code:
                     data = code.read()
-                    _defines_library += "\n\n%s" % data
+                    _defines_library += f"\n\n{data}\n\n"
 
         for shader_name in _shader_dict.keys():
             shader_code = _shader_dict[shader_name]
@@ -139,7 +140,7 @@ class shader(metaclass=shader_meta):
             if _defines_library:
                 defines = _defines_library
 
-            kwargs = dict(
+            shader_keywords = dict(
                 vertexcode=vertex_code,
                 fragcode=frag_code,
                 geocode=geo_code,
@@ -147,9 +148,14 @@ class shader(metaclass=shader_meta):
                 defines=defines
             )
 
-            kwargs = dict(filter(lambda item: item[1] is not None, kwargs.items()))
+            shader_keywords = dict(filter(lambda item: item[1] is not None, shader_keywords.items()))
 
-            data = gpu.types.GPUShader(**kwargs)
-            setattr(cls, shader_name, data)
+            try:
+                data = gpu.types.GPUShader(**shader_keywords)
+            except Exception:
+                # "Formatted glsl error by Blender" after compilation fault and than:
+                print(f"caused while compiling shader \"{shader_name}\".")
+            else:
+                setattr(cls, shader_name, data)
 
         return True
